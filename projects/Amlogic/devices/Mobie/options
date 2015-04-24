@@ -6,13 +6,13 @@
   FIRMWARE="$FIRMWARE brcmfmac_sdio-firmware"
 
 # Kernel extra targets to build
-  KERNEL_UBOOT_EXTRA_TARGET="meson8b_mxq.dtd meson8b_mxq.dtb"
+  KERNEL_UBOOT_EXTRA_TARGET="meson8b_Mobie.dtd meson8b_Mobie.dtb"
 
 # Build Android kernel image using mkbootimg
   BUILD_ANDROID_BOOTIMG="yes"
 
 # Path to a file that will be passed as the --second parameter to Android mkbootimg
-  ANDROID_BOOTIMG_SECOND="arch/arm/boot/dts/amlogic/meson8b_mxq.dtb"
+  ANDROID_BOOTIMG_SECOND="arch/arm/boot/dts/amlogic/meson8b_Mobie.dtb"
 
 # OpenGL-ES implementation to use (no / bcm2835-driver / opengl-meson6 / opengl-meson8)
   OPENGLES="opengl-meson8"
