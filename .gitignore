@@ -28,3 +28,6 @@ mkpkg-temp
 
 # crap
 .DS_Store
+
+# Packs
+/projects/Amlogic/devices/GeekyKit-v3a/install/files/data/
