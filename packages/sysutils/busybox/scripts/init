@@ -55,6 +55,8 @@
   INSTALLED_MEMORY=`cat /proc/meminfo | grep 'MemTotal:' | awk '{print $2}'`
   SYSTEM_TORAM_LIMIT=1024000
 
+  LIVE="no"
+
   # hide kernel log messages on console
   echo '1 4 1 7' > /proc/sys/kernel/printk
 
@@ -128,6 +130,9 @@
         ;;
       noram)
         SYSTEM_TORAM=no
+        ;;
+      live)
+        LIVE=yes
         ;;
       overlay)
         OVERLAY=yes
@@ -286,6 +291,10 @@
     mount_common "$NFS_EXPORT" "$2" "$3,nolock,soft,timeo=3,retrans=2,rsize=32768,wsize=32768,$NFS_OPTIONS" "nfs"
   }
 
+  mount_ubifs() {
+    mount_common "$1" "$2" "$3" "ubifs"
+  }
+
   mount_part() {
     # Mount a local or network filesystem
     # $1:[TYPE=]target, $2:mountpoint, $3:mount options, [$4:fs type]
@@ -293,6 +302,11 @@
 
     MOUNT_TARGET="${1#*=}"
     case $1 in
+      /dev/ubi*)
+        MOUNT_CMD="mount_ubifs"
+        MOUNT_TARGET="$1"
+        RUN_FSCK="no"
+        ;;
       LABEL=*|UUID=*|/*)
         MOUNT_CMD="mount_common"
         MOUNT_TARGET="$1"
@@ -512,6 +526,12 @@
   mount_storage() {
     progress "Mounting storage"
 
+    if [ "$LIVE" = "yes" ]; then
+      # mount tmpfs and exit early. disk=xx is not allowed in live mode
+      mount -t tmpfs none /storage
+      return
+    fi
+
     wakeonlan
 
     if [ -n "$disk" ]; then
@@ -532,6 +552,9 @@
         fi
       fi
       mount_part "$disk" "/storage" "rw,noatime"
+    else
+      # /storage should always be writable
+      mount -t tmpfs none /storage
     fi
   }
 
@@ -664,10 +687,7 @@
     fi
 
     mount --move /flash /sysroot/flash
-
-    if [ -n "$disk" ]; then
-      mount --move /storage /sysroot/storage
-    fi
+    mount --move /storage /sysroot/storage
 
     # run prepare_sysroot script if exists
     if [ -f "./prepare_sysroot" ]; then

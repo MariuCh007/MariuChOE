@@ -46,6 +46,9 @@ else
   TARGET_VERSION="$PROJECT.$DEVICE.$TARGET_ARCH-$OPENELEC_VERSION"
 fi
 IMAGE_NAME="$DISTRONAME-$TARGET_VERSION"
+if [ -n "$IMAGE_SUFFIX" ]; then
+  IMAGE_NAME="$IMAGE_NAME-$IMAGE_SUFFIX"
+fi
 
 # setup fakeroot
   rm -rf $FAKEROOT_SCRIPT   # remove $FAKEROOT_SCRIPT if it exist
@@ -214,7 +217,7 @@ IMAGE_NAME="$DISTRONAME-$TARGET_VERSION"
     KERNEL_IMAGE="bzImage"
   fi
 
-  if [ "$TARGET_ARCH" = i386 -o "$TARGET_ARCH" = x86_64 ]; then
+  if [ "$TARGET_ARCH" = x86_64 ]; then
     KERNEL_ARCH="x86"
   elif [ "$TARGET_ARCH" = arm ]; then
     KERNEL_ARCH="arm"
@@ -244,7 +247,7 @@ IMAGE_NAME="$DISTRONAME-$TARGET_VERSION"
 # set permissions
   chmod 0644 $TARGET_IMG/$IMAGE_NAME.system
 
-  if [ "$1" = "release" -o "$1" = "mkimage" ]; then
+  if [ "$1" = "release" -o "$1" = "mkimage" -o "$1" = "amlpkg" ]; then
 
     RELEASE_DIR="target/$IMAGE_NAME"
 
@@ -279,7 +282,6 @@ IMAGE_NAME="$DISTRONAME-$TARGET_VERSION"
 
         cp $ROOT/README* $RELEASE_DIR
         cp $ROOT/CHANGELOG* $RELEASE_DIR
-        cp -R $CONFIG/release/openelec.ico $RELEASE_DIR
         echo "$TARGET_VERSION" > $RELEASE_DIR/RELEASE
 
         if [ -n "$MEDIACENTER" ] ; then
@@ -310,9 +312,6 @@ IMAGE_NAME="$DISTRONAME-$TARGET_VERSION"
 
     # create image files if requested
       if [ "$1" = "mkimage" -a -n "$BOOTLOADER" ]; then
-        if [ "$2" == "efi" ] ; then
-          UEFI=yes
-        fi
         # projects can set KERNEL_NAME (kernel.img)
         if [ -z "$KERNEL_NAME" ] ; then
           KERNEL_NAME="KERNEL"
@@ -331,15 +330,18 @@ IMAGE_NAME="$DISTRONAME-$TARGET_VERSION"
           RELEASE_DIR="$RELEASE_DIR" \
           UUID_SYSTEM="$(uuidgen)" \
           UUID_STORAGE="$(uuidgen)" \
-          UEFI="$UEFI" \
           $SCRIPTS/mkimage
       fi
 
-    # create ZIP update and auto-install packages for Amlogic project
-      INSTALL_SRC_DIR="$PROJECT_DIR/$PROJECT/devices/$DEVICE/install"
-      if [ -f "$INSTALL_SRC_DIR/update-binary" -a -f "$INSTALL_SRC_DIR/updater-script" ]; then
+    # create WeTek Play (Amlogic) ZIP update and auto-install packages if requested
+      if [ "$1" = "amlpkg" ]; then
         echo "Creating Amlogic ZIP update package"
 
+        if [ -n "$DEVICE" ]; then
+          INSTALL_SRC_DIR="$PROJECT_DIR/$PROJECT/devices/$DEVICE/install"
+        else
+          INSTALL_SRC_DIR="$PROJECT_DIR/$PROJECT/install"
+        fi
         AML_PKG_DIR="$RELEASE_DIR/ampl-pkg"
 
         # create package directory
@@ -377,6 +379,9 @@ IMAGE_NAME="$DISTRONAME-$TARGET_VERSION"
           pushd sign > /dev/null
           echo --update_package=/sdcard/$IMAGE_NAME-update.zip > factory_update_param.aml
           cp $INSTALL_SRC_DIR/files/recovery.img .
+          if [ -f $INSTALL_SRC_DIR/files/aml_autoscript ]; then
+            cp $INSTALL_SRC_DIR/files/aml_autoscript .
+          fi
           zip -q $TARGET_IMG/$IMAGE_NAME.zip *
           popd > /dev/null
         fi
@@ -458,7 +463,6 @@ IMAGE_NAME="$DISTRONAME-$TARGET_VERSION"
         )
 
       # copy additional files
-        cp -R $CONFIG/release/openelec.ico $RELEASE_DIR/${DISTRONAME}_${PROJECT}/System
         mkdir -p $RELEASE_DIR/${DISTRONAME}_${PROJECT}/System/licenses
           cp $ROOT/licenses/* $RELEASE_DIR/${DISTRONAME}_${PROJECT}/System/licenses
 

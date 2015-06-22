@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="ffmpeg"
-PKG_VERSION="2.5.4"
+PKG_VERSION="2.6.2"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="LGPL"
@@ -49,6 +49,13 @@ else
   FFMPEG_VDPAU="--disable-vdpau"
 fi
 
+if [ "$DCADEC_SUPPORT" = yes ]; then
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET dcadec"
+  FFMPEG_LIBDCADEC="--enable-libdcadec"
+else
+  FFMPEG_LIBDCADEC="--disable-libdcadec"
+fi
+
 if [ "$DEBUG" = yes ]; then
   FFMPEG_DEBUG="--enable-debug --disable-stripping"
 else
@@ -60,11 +67,6 @@ case "$TARGET_ARCH" in
       FFMPEG_CPU=""
       FFMPEG_TABLES="--enable-hardcoded-tables"
       FFMPEG_PIC="--enable-pic"
-  ;;
-  i?86)
-      FFMPEG_CPU=""
-      FFMPEG_TABLES="--disable-hardcoded-tables"
-      FFMPEG_PIC="--disable-pic"
   ;;
   x86_64)
       FFMPEG_CPU=""
@@ -116,7 +118,7 @@ configure_target() {
               --host-ldflags="$HOST_LDFLAGS" \
               --host-libs="-lm" \
               --extra-cflags="$CFLAGS" \
-              --extra-ldflags="$LDFLAGS" \
+              --extra-ldflags="$LDFLAGS -fPIC" \
               --extra-libs="" \
               --extra-version="" \
               --build-suffix="" \
@@ -189,6 +191,7 @@ configure_target() {
               --disable-libopencore-amrwb \
               --disable-libopencv \
               --disable-libdc1394 \
+              $FFMPEG_LIBDCADEC \
               --disable-libfaac \
               --disable-libfreetype \
               --disable-libgsm \

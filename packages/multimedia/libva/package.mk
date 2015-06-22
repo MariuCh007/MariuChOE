@@ -19,7 +19,7 @@
 PKG_NAME="libva"
 PKG_VERSION="1.5.1"
 PKG_REV="1"
-PKG_ARCH="i386 x86_64"
+PKG_ARCH="x86_64"
 PKG_LICENSE="GPL"
 PKG_SITE="http://freedesktop.org/wiki/Software/vaapi"
 PKG_URL="http://cgit.freedesktop.org/vaapi/libva/snapshot/$PKG_NAME-$PKG_VERSION.tar.gz"
@@ -41,12 +41,6 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-silent-rules \
                            --disable-wayland \
                            --disable-dummy-driver \
                            --with-drivers-path=/usr/lib/va"
-
-pre_configure_target() {
-# todo: libva fails to build in subdirs
-  cd $ROOT/$PKG_BUILD
-  rm -rf .$TARGET_NAME
-}
 
 post_makeinstall_target() {
   rm -rf $INSTALL/usr/bin
