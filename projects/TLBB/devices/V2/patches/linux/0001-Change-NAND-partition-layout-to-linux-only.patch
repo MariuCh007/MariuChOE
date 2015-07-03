@@ -1,43 +1,33 @@
-From 9a458f5aea1494c07baf977e612b7609aa750453 Mon Sep 17 00:00:00 2001
-From: j1nx <p.steenbergen@j1nx.nl>
-Date: Fri, 7 Nov 2014 22:08:39 +0100
-Subject: [PATCH 1/1] Linux only partion
-
----
- arch/arm/boot/dts/amlogic/meson6_g18.dtd | 156 +++++++++++++------------------
- 1 file changed, 63 insertions(+), 93 deletions(-)
-
 diff --git a/arch/arm/boot/dts/amlogic/meson6_g18.dtd b/arch/arm/boot/dts/amlogic/meson6_g18.dtd
-index 8083926..f5cec26 100755
+index 962cec6..36a56ed 100755
 --- a/arch/arm/boot/dts/amlogic/meson6_g18.dtd
 +++ b/arch/arm/boot/dts/amlogic/meson6_g18.dtd
-@@ -756,116 +756,86 @@ void root_func(){
+@@ -756,6 +756,7 @@ void root_func(){
  
  /// ***************************************************************************************
  ///	-	Nand
--//$$ DEVICE="aml_nand"
--//$$ L2 PROP_STR = "status"
--//$$ L3 PROP_U32 2 ="reg"
--//$$ L2 PROP_STR 2 = "pinctrl-names"
--//$$ L2 PROP_CHOICE 7 "Nand_pin_0_match" = "pinctrl-0"
--//$$ L2 PROP_CHOICE 7 "Nand_pin_1_match" = "pinctrl-1"
--//$$ L3 PROP_STR 2 ="plat-names"
--//$$ L2 PROP_U32 = "plat-num"
--//$$ L2 PROP_CHOICE "plat-part-0_match" = "plat-part-0"
++//$$ MODULE="Nand"
+ //$$ DEVICE="aml_nand"
+ //$$ L2 PROP_STR = "status"
+ //$$ L3 PROP_U32 2 ="reg"
+@@ -765,7 +766,7 @@ void root_func(){
+ //$$ L3 PROP_STR 2 ="plat-names"
+ //$$ L2 PROP_U32 = "plat-num"
+ //$$ L2 PROP_CHOICE "plat-part-0_match" = "plat-part-0"
 -//$$ L2 PROP_CHOICE "plat-part-1_match" = "plat-part-1"
--	nand{
--		compatible = "amlogic,aml_nand";
--		dev_name = "nand";
--		status = "okay";
--		reg = <0xc1108600 0x24>;
--		pinctrl-names = "nand_rb_mod","nand_norb_mod";
--		pinctrl-0 = <&nand_input_state &conf_nand_state &nand_base 
--									&nand_ce0 &nand_rb0 
--									&nand_rb1 &nand_ce1>;
--		pinctrl-1 = <&nand_input_state &conf_nand_state &nand_base 
--									&nand_ce0 &nand_ce1 
--									&nand_ce2 &nand_ce3>;							
--		device_id = <0>;			
++// L2 PROP_CHOICE "plat-part-1_match" = "plat-part-1"
+ 	nand{
+ 		compatible = "amlogic,aml_nand";
+ 		dev_name = "nand";
+@@ -775,38 +776,15 @@ void root_func(){
+ 		pinctrl-0 = <&nand_input_state &conf_nand_state &nand_base
+ 									&nand_ce0 &nand_rb0
+ 									&nand_rb1 &nand_ce1>;
+-		pinctrl-1 = <&nand_input_state &conf_nand_state &nand_base
++		pinctrl-1 = <&nand_input_state &conf_nand_state &nand_base 
+ 									&nand_ce0 &nand_ce1
+ 									&nand_ce2 &nand_ce3>;
+ 		device_id = <0>;
 -		plat-names = "bootloader","nandnormal";
 -		plat-num = <2>;
 -		plat-part-0 = <&bootload>;
@@ -64,85 +54,25 @@ index 8083926..f5cec26 100755
 -			part_num = <0>;
 -			rb_detect = <1>;
 -		};
--
--//$$ MATCH "plat-part-1_match" = <&normal>
--//$$ L2 PROP_STR 2 = "enable_pad"
--//$$ L2 PROP_STR 2 = "busy_pad"
--//$$ L2 PROP_STR = "timming_mode"
--//$$ L2 PROP_STR = "bch_mode"
--//$$ L2 PROP_STR = "plane_mode"
--//$$ L2 PROP_U32 = "t_rea"
--//$$ L2 PROP_U32 = "t_rhoh"
--//$$ L2 PROP_U32 = "chip_num"
--//$$ L2 PROP_U32 = "part_num"
--//$$ L2 PROP_U32 = "rb_detect"
--		normal: normal{
--			enable_pad ="ce0","ce1";
--			busy_pad = "rb0","rb1";
--			timming_mode = "mode5";
--			bch_mode = "bch60_1k";
--			plane_mode = "twoplane";
--			t_rea = <20>;
--			t_rhoh = <15>;
--			chip_num = <2>;
--			part_num = <7>;
--			partition = <&nand_partitions>;
--			rb_detect = <1>;
--		};
--				
-+//$$ MODULE="Nand"
-+//$$ DEVICE="aml_nand"
-+//$$ L2 PROP_STR = "status"
-+//$$ L3 PROP_U32 2 ="reg"
-+//$$ L2 PROP_STR 2 = "pinctrl-names"
-+//$$ L2 PROP_CHOICE 7 "Nand_pin_0_match" = "pinctrl-0"
-+//$$ L2 PROP_CHOICE 7 "Nand_pin_1_match" = "pinctrl-1"
-+//$$ L3 PROP_STR 2 ="plat-names"
-+//$$ L2 PROP_U32 = "plat-num"
-+//$$ L2 PROP_CHOICE "plat-part-0_match" = "plat-part-0"
-+// L2 PROP_CHOICE "plat-part-1_match" = "plat-part-1"
-+	nand{
-+		compatible = "amlogic,aml_nand";
-+		dev_name = "nand";
-+		status = "okay";
-+		reg = <0xc1108600 0x24>;
-+		pinctrl-names = "nand_rb_mod","nand_norb_mod";
-+		pinctrl-0 = <&nand_input_state &conf_nand_state &nand_base 
-+									&nand_ce0 &nand_rb0 
-+									&nand_rb1 &nand_ce1>;
-+		pinctrl-1 = <&nand_input_state &conf_nand_state &nand_base 
-+									&nand_ce0 &nand_ce1 
-+									&nand_ce2 &nand_ce3>;							
-+		device_id = <0>;			
 +		plat-names = "nandnormal";
 +		plat-num = <1>;
 +		plat-part-0 = <&normal>;
-+
+ 
+-//$$ MATCH "plat-part-1_match" = <&normal>
 +//$$ MATCH "plat-part-0_match" = <&normal>
-+//$$ L2 PROP_STR 2 = "enable_pad"
-+//$$ L2 PROP_STR 2 = "busy_pad"
-+//$$ L2 PROP_STR = "timming_mode"
-+//$$ L2 PROP_STR = "bch_mode"
-+//$$ L2 PROP_STR = "plane_mode"
-+//$$ L2 PROP_U32 = "t_rea"
-+//$$ L2 PROP_U32 = "t_rhoh"
-+//$$ L2 PROP_U32 = "chip_num"
-+//$$ L2 PROP_U32 = "part_num"
-+//$$ L2 PROP_U32 = "rb_detect"
-+		normal: normal{
-+			enable_pad ="ce0","ce1";
-+			busy_pad = "rb0","rb1";
-+			timming_mode = "mode5";
-+			bch_mode = "bch60_1k";
-+			plane_mode = "twoplane";
-+			t_rea = <20>;
-+			t_rhoh = <15>;
-+			chip_num = <2>;
+ //$$ L2 PROP_STR 2 = "enable_pad"
+ //$$ L2 PROP_STR 2 = "busy_pad"
+ //$$ L2 PROP_STR = "timming_mode"
+@@ -826,41 +804,33 @@ void root_func(){
+ 			t_rea = <20>;
+ 			t_rhoh = <15>;
+ 			chip_num = <2>;
+-			part_num = <7>;
 +			part_num = <8>;
-+			partition = <&nand_partitions>;
-+			rb_detect = <1>;
-+		};
-+				
+ 			partition = <&nand_partitions>;
+ 			rb_detect = <1>;
+ 		};
+ 
  		nand_partitions:nand_partition{
  			logo{
 -				offset=<0x0 0x4800000>;
@@ -173,24 +103,14 @@ index 8083926..f5cec26 100755
  			cache{
 -				offset=<0x0 0x4a800000>;
 -				size=<0x0 0x20000000>;
-+				offset=<0x0 0x11400000>;
-+				size=<0x0 0x10000000>;
- 			};
+-			};
 -			backup{
 -				offset=<0x0 0x6a800000>;
--				size=<0x0 0x10000000>;
--			};
++				offset=<0x0 0x11400000>;
+ 				size=<0x0 0x10000000>;
+ 			};
 -			userdata{
 +			data{
  				offset=<0xffffffff 0xffffffff>;
  				size=<0x0 0x0>;
  			};
- 		};
--	};	
-+	};	
- 
- /// ***************************************************************************************
- ///	-	Efuse
--- 
-1.9.1
-
