@@ -1,15 +1,15 @@
-From c5a16bedd5439c7efe31afaa793a07419fe59f9e Mon Sep 17 00:00:00 2001
+From cefe7f9c9768c7419d60af1602d58a6d0ec48c62 Mon Sep 17 00:00:00 2001
 From: j1nx <p.steenbergen@j1nx.nl>
 Date: Sat, 10 May 2014 21:49:46 +0200
 Subject: [PATCH] Fix nynxboard related hardware based remote key bounche
 
 Signed-off-by: j1nx <p.steenbergen@j1nx.nl>
 ---
- xbmc/input/linux/LinuxInputDevices.cpp | 43 ++++++++++++++++++++++++++++++----
- 1 file changed, 38 insertions(+), 5 deletions(-)
+ xbmc/input/linux/LinuxInputDevices.cpp | 44 ++++++++++++++++++++++++++++++----
+ 1 file changed, 39 insertions(+), 5 deletions(-)
 
 diff --git a/xbmc/input/linux/LinuxInputDevices.cpp b/xbmc/input/linux/LinuxInputDevices.cpp
-index ee21474..4cff785 100644
+index 32a3b46..6f5d642 100644
 --- a/xbmc/input/linux/LinuxInputDevices.cpp
 +++ b/xbmc/input/linux/LinuxInputDevices.cpp
 @@ -96,6 +96,7 @@ typedef unsigned long kernel_ulong_t;
@@ -20,15 +20,15 @@ index ee21474..4cff785 100644
  
  #ifndef BITS_PER_LONG
  #define BITS_PER_LONG        (sizeof(long) * 8)
-@@ -250,10 +251,19 @@ KeyMap keyMap[] = {
-   { KEY_PRINT         , XBMCK_PRINT       },
+@@ -253,10 +254,19 @@ KeyMap keyMap[] = {
    { KEY_QUESTION      , XBMCK_HELP        },
+   { KEY_BACK          , XBMCK_BACKSPACE   },
    // The Little Black Box Remote Additions
 -  { 384               , XBMCK_LEFT        }, // Red
 -  { 378               , XBMCK_RIGHT       }, // Green
 -  { 381               , XBMCK_UP          }, // Yellow
 -  { 366               , XBMCK_DOWN        }, // Blue
-+  { 384		      , XBMCK_RED	  },
++  { 384               , XBMCK_RED         },
 +  { 378               , XBMCK_GREEN       },
 +  { 381               , XBMCK_YELLOW      },
 +  { 366               , XBMCK_BLUE        },
@@ -38,13 +38,13 @@ index ee21474..4cff785 100644
 +  { 442               , XBMCK_MOVIES      },
 +  { 376               , XBMCK_SERIES      },
 +  { 159               , XBMCK_MEDIA_PLAY_PAUSE},
-+  { 362               , XBMCK_SETTINGS	  },
-+  { 142		      , XBMCK_POWER       }, 
++  { 362               , XBMCK_SETTINGS    },
++  { 142	              , XBMCK_POWER       }, 
 +  { 364               , XBMCK_FAVORITES   }, 
+   // Rii i7 Home button / wetek openelec remote (code 172)
+   { KEY_HOMEPAGE      , XBMCK_HOME        },
  };
- 
- typedef enum
-@@ -681,11 +690,22 @@ void CLinuxInputDevice::SetLed(int led, int state)
+@@ -686,11 +696,22 @@ void CLinuxInputDevice::SetLed(int led, int state)
   * Input thread reading from device.
   * Generates events on incoming data.
   */
@@ -67,7 +67,7 @@ index ee21474..4cff785 100644
    XBMC_Event devt;
  
    while (1)
-@@ -719,7 +739,20 @@ XBMC_Event CLinuxInputDevice::ReadEvent()
+@@ -724,7 +745,20 @@ XBMC_Event CLinuxInputDevice::ReadEvent()
        printf("CLinuxInputDevice: read error : %s\n", strerror(errno));
        break;
      }
