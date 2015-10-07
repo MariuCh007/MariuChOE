@@ -34,7 +34,7 @@ if [ -n "$PKG_URL" ]; then
     PACKAGE_MIRROR="$DISTRO_MIRROR/$PKG_NAME/$SOURCE_NAME"
     PACKAGE_DEVEL="http://sources.openelec.tv/devel/$SOURCE_NAME"
     [ "$VERBOSE" != "yes" ] && WGET_OPT=-q
-    WGET_CMD="wget --passive-ftp --no-check-certificate -c $WGET_OPT -P $SOURCES/$1"
+    WGET_CMD="wget --timeout=30 --passive-ftp --no-check-certificate -c $WGET_OPT -P $SOURCES/$1"
 
     NBWGET="1"
 
@@ -47,8 +47,6 @@ if [ -n "$PKG_URL" ]; then
       [ "`cat $STAMP`" = "$i" ] && continue
     fi
     DL="yes"
-
-    $SCRIPTS/checkdeps get
 
     rm -f $STAMP
 
