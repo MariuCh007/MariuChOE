@@ -1,18 +1,6 @@
-# Name of the Distro to build (full name, without special charcters)
-  DISTRONAME="TLBB-OE"
-
-# short project description
-  DESCRIPTION="TLBB-OE is based on OpenELEC which is a fast and userfriendly Kodi Mediacenter distribution."
-
-# Welcome Message for e.g. SSH Server (up to 5 Lines)
-  GREETING0="##############################################"
-  GREETING1="# TLBB-OE - The living room PC for everyone  #"
-  GREETING2="# visit http://www.thelittleblackbox.com     #"
-  GREETING3="##############################################"
-  GREETING4=""
-
-# Root password to integrate in the target system
-  ROOT_PASSWORD="letmein"
+################################################################################
+# setup system defaults
+################################################################################
 
 # The TARGET_CPU variable controls which processor should be targeted for
 # generated code.
@@ -120,7 +108,7 @@
   SKINS="Confluence"
 
 # Default Skin (Confluence)
-  SKIN_DEFAULT="tlbb"
+  SKIN_DEFAULT="Confluence"
 
 # install extra subtitle Fonts for Kodi (yes / no)
   KODI_EXTRA_FONTS="yes"
