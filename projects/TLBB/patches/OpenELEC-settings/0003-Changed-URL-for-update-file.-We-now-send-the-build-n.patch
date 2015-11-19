@@ -1,0 +1,33 @@
+From 202a432f792dd4d70d2d6259a4fa67b50f6203a8 Mon Sep 17 00:00:00 2001
+From: totalrevolution <info@totalrevolution.tv>
+Date: Fri, 9 Oct 2015 21:14:49 +0100
+Subject: [PATCH 3/3] Changed URL for update file. We now send the build name
+ to a php file which will then redirect to the relevant update files. This
+ allows for geo-specific and also branding/device specific updates.
+
+---
+ src/oe.py | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/src/oe.py b/src/oe.py
+index 3da931d..4122225 100644
+--- a/src/oe.py
++++ b/src/oe.py
+@@ -503,8 +503,13 @@ def AfterWizard():
+     global winOeMain, __cwd__, __oe__
+     if not os.path.exists(firstrun):
+         try:
++# read the contents of /etc/release and send them to the php code, this will send back the relevant update files for download.
++            localfile = open(release, mode='r')
++            content   = localfile.read()
++            localfile.close()
++            updateURL = 'http://www.thelittleblackbox.com/frun/updatefiles.php?id=%s'% (content)
+ # following function now downloads updates AND also does a speedtest - saves having to download extra files later just for speedtesting.
+-            runtest('http://thelittleblackbox.com/frun/frun_cube.zip')
++            runtest(updateURL)
+             if os.path.exists(success):
+                 dp.create('Installing Updates','Please wait...','')
+                 extract.all(firstrunzip,'/storage',dp)
+-- 
+1.9.1
+
