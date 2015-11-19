@@ -1,8 +1,0 @@
-v1.0.1:
-  - Added Timezone settings
-  - Added Subtitle charset
-  - Added icons to several dialogs
-  - Various fixes
-
-v1.0.0:
-  - Initial release
