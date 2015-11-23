@@ -1,0 +1,74 @@
+From ff0e0e58bab2b89808a2944a7ca9e21b6d3ff576 Mon Sep 17 00:00:00 2001
+From: j1nx <p.steenbergen@j1nx.nl>
+Date: Sat, 10 May 2014 21:49:46 +0200
+Subject: [PATCH 19/20] Fix nynxboard related hardware based remote key bounche
+
+Signed-off-by: j1nx <p.steenbergen@j1nx.nl>
+---
+ xbmc/input/linux/LinuxInputDevices.cpp | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
+
+diff --git a/xbmc/input/linux/LinuxInputDevices.cpp b/xbmc/input/linux/LinuxInputDevices.cpp
+index 5dbb7e2..80a7a57 100644
+--- a/xbmc/input/linux/LinuxInputDevices.cpp
++++ b/xbmc/input/linux/LinuxInputDevices.cpp
+@@ -98,6 +98,7 @@ typedef unsigned long kernel_ulong_t;
+ #include "utils/log.h"
+ #include "input/touch/generic/GenericTouchActionHandler.h"
+ #include "input/touch/generic/GenericTouchInputHandler.h"
++#include "settings/AdvancedSettings.h"
+ 
+ #ifndef BITS_PER_LONG
+ #define BITS_PER_LONG        (sizeof(long) * 8)
+@@ -847,6 +848,14 @@ void CLinuxInputDevice::SetLed(int led, int state)
+   write(m_fd, &levt, sizeof(levt));
+ }
+ 
++long long int deltatime_usec(struct timeval ctime, struct timeval otime)
++{
++  long long delta = 0;
++  delta = (ctime.tv_sec - otime.tv_sec) * 1000000;
++  delta += (ctime.tv_usec - otime.tv_usec);
++  return delta;
++}
++
+ /*
+  * Input thread reading from device.
+  * Generates events on incoming data.
+@@ -856,6 +865,8 @@ XBMC_Event CLinuxInputDevice::ReadEvent()
+   int readlen;
+   struct input_event levt;
+ 
++  static struct input_event levt_old;
++
+   XBMC_Event devt;
+ 
+   if (m_equeue.empty())
+@@ -892,6 +903,24 @@ XBMC_Event CLinuxInputDevice::ReadEvent()
+         break;
+       }
+ 
++      if ((levt.type == EV_KEY) && (levt.value == 1))
++      {
++        // Check same key is pressed.
++        if (levt.code == levt_old.code)
++        {
++          // Check the time difference of the events.
++          if (deltatime_usec(levt.time, levt_old.time) < ((long long)g_advancedSettings.m_usbhidrepeatdelay * 1000))
++          {
++            // store the latest key event.
++            levt_old = levt;
++            // Jump back to the top of the while loop.
++            continue;
++          }
++        }
++        // store the latest key event.
++        levt_old = levt;
++      }
++
+       if (!TranslateEvent(levt, devt))
+         continue;
+ 
+-- 
+1.9.1
+
