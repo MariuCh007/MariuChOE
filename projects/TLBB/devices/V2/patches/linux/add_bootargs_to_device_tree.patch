@@ -7,7 +7,7 @@ index 962cec6..14bd85e 100755
  	#address-cells = <1>;
  	#size-cells = <1>;
 +	chosen {
-+	    bootargs = "root=/dev/ram0 rdinit=/init boot=/dev/system disk=/dev/data BOOT_IMAGE=/dev/mtd2 console=tty0 consoleblank=0 scaling_governor=hotplug scaling_min_freq=200000 scaling_max_freq=1200000 systemd.show_status=auto";
++	    bootargs = "root=/dev/ram0 rdinit=/init boot=/dev/system disk=/dev/data BOOT_IMAGE=/dev/mtd2 console=tty0 consoleblank=0 scaling_governor=hotplug scaling_min_freq=200000 scaling_max_freq=1512000 systemd.show_status=auto";
 +	};
  
  /// ***************************************************************************************
