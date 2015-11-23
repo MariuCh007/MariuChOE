@@ -1,7 +1,7 @@
-From b2e024600ca612a7d432fe09a247d13626a4a32a Mon Sep 17 00:00:00 2001
+From 56980c251ddd4a725ce9f5a1c0f6b5f72bd14a8d Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
-Date: Tue, 14 Jul 2015 15:51:25 +0300
-Subject: [PATCH 10/15] [aml] Ugly workaround to show DTS / AC3 caps but don't
+Date: Tue, 30 Jun 2015 11:19:57 +0200
+Subject: [PATCH 04/17] [aml] Ugly workaround to show DTS/AC3 caps but don't
  run into multi channel issues as we can only open 2 pcm channels
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH 10/15] [aml] Ugly workaround to show DTS / AC3 caps but don't
  1 file changed, 6 insertions(+)
 
 diff --git a/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp b/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
-index aad119d..46e50ba 100644
+index e22db7a..dcdaf2e 100644
 --- a/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
 +++ b/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
-@@ -1332,6 +1332,12 @@ void CAESinkALSA::EnumerateDevicesEx(AEDeviceInfoList &list, bool force)
+@@ -1291,6 +1291,12 @@ void CAESinkALSA::EnumerateDevicesEx(AEDeviceInfoList &list, bool force)
  
  AEDeviceType CAESinkALSA::AEDeviceTypeFromName(const std::string &name)
  {

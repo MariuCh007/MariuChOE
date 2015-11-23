@@ -1,14 +1,14 @@
-From a65280d850da621066f5112ebb4c9e7eaaae8312 Mon Sep 17 00:00:00 2001
+From 3debb12bcf48f79e7cf683d645cea1b957d5ee97 Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Tue, 14 Jul 2015 15:55:20 +0300
-Subject: [PATCH 11/15] Add mapping for Browser Home key on Linux
+Subject: [PATCH 12/17] Add mapping for Browser Home key on Linux
 
 ---
  xbmc/input/linux/LinuxInputDevices.cpp | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git a/xbmc/input/linux/LinuxInputDevices.cpp b/xbmc/input/linux/LinuxInputDevices.cpp
-index 37d9c63..86f35d3 100644
+index 32a3b46..b51941e 100644
 --- a/xbmc/input/linux/LinuxInputDevices.cpp
 +++ b/xbmc/input/linux/LinuxInputDevices.cpp
 @@ -243,6 +243,7 @@ KeyMap keyMap[] = {

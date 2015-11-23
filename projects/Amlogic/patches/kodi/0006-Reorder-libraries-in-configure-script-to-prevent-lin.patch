@@ -1,7 +1,7 @@
-From 1fade9f704078c5234e50604a43833526a183853 Mon Sep 17 00:00:00 2001
+From 49fde6b4644ef16cf74c27778021bc305b8f509c Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Mon, 8 Sep 2014 23:29:40 +0300
-Subject: [PATCH 03/15] Reorder libraries in configure script to prevent linker
+Subject: [PATCH 06/17] Reorder libraries in configure script to prevent linker
  errors when linking with libsmbclient
 
 Place libsmbclient before all other libraries to prevent linker errors when linking
@@ -13,7 +13,7 @@ libresolv.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/configure.ac b/configure.ac
-index 71883d2..d36ad21 100644
+index 686f4a2..c767357 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -1525,7 +1525,7 @@ fi

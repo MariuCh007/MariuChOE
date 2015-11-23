@@ -1,14 +1,14 @@
-From e70a271f05736289da24aa6788d995dfde686927 Mon Sep 17 00:00:00 2001
+From 7b1f1410ad8017d28ce75ce9a0b2ad919a8afc6b Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Wed, 16 Apr 2014 22:02:01 +0300
-Subject: [PATCH 01/15] [aml] Fix ALSA sound output for Amlogic-based devices.
+Subject: [PATCH 10/17] [aml] Fix ALSA sound output for Amlogic-based devices.
 
 ---
  xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp | 19 +++++++++++++++++++
  1 file changed, 19 insertions(+)
 
 diff --git a/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp b/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
-index e22db7a..43a1494 100644
+index dcdaf2e..0503432 100644
 --- a/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
 +++ b/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
 @@ -84,6 +84,17 @@ static unsigned int ALSASampleRateList[] =

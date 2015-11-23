@@ -1,7 +1,7 @@
-From 8183863743618cb92429a832b3dd8e040bf3f9c6 Mon Sep 17 00:00:00 2001
+From 0c354b5b15afdb7ec038209631006253a1b073b1 Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Thu, 6 Nov 2014 08:14:39 +0200
-Subject: [PATCH 07/15] [aml] Remove dependency on libamplayer and amffmpeg
+Subject: [PATCH 03/17] [aml] Remove dependency on libamplayer and amffmpeg
 
 ---
  xbmc/cores/dvdplayer/DVDCodecs/Video/AMLCodec.cpp  | 79 +---------------------

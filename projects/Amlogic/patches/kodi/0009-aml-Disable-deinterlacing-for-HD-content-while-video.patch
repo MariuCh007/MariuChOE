@@ -1,7 +1,7 @@
-From e8dada5a8abc4ebe1e972b3100c0728abc07cded Mon Sep 17 00:00:00 2001
+From 187f7cfded32e937aeb4f2f9a3242bdc5a080418 Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Tue, 3 Feb 2015 17:58:19 +0100
-Subject: [PATCH 09/15] [aml] Disable deinterlacing for HD content while video
+Subject: [PATCH 09/17] [aml] Disable deinterlacing for HD content while video
  is being played in a window to prevent screen blinking in 1080p50/60hz
  display modes
 

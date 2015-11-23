@@ -1,7 +1,7 @@
-From 37de258c6a6cb7f4d3b28ac9dfa582662835492c Mon Sep 17 00:00:00 2001
+From 55653ec5c3fb45b9a7971f70d6d5a121405526c6 Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Sat, 20 Sep 2014 04:43:52 +0300
-Subject: [PATCH 05/15] [aml] Fill audio packets completely when resampling to
+Subject: [PATCH 02/17] [aml] Fill audio packets completely when resampling to
  prevent 'audio data unaligned' kernel warnings
 
 ---
