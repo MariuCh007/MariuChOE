@@ -1,0 +1,30 @@
+From 6115021e5304b041d91b3299bf73de7c033c1ec2 Mon Sep 17 00:00:00 2001
+From: Quihico <Quihico@gmail.com>
+Date: Fri, 27 Nov 2015 01:29:14 +0100
+Subject: [PATCH 1/5] Added white overlay & Branding-string condition
+
+---
+ 720p/Home.xml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/720p/Home.xml b/addons/skin.confluence/720p/Home.xml
+index ffa16de..09a0bef 100644
+--- a/720p/Home.xml
++++ b/720p/Home.xml
+@@ -1252,5 +1252,13 @@
+ 				<animation effect="slide" start="0,0" end="-40,0" time="75" condition="Window.IsVisible(Mutebug)">conditional</animation>
+ 			</control>
+ 		</control>
++		<control type="image">
++			<visible>StringCompare(Skin.String(Branding),)</visible>
++			<left>0</left>
++			<top>0</top>
++			<width>1280</width>
++			<height>720</height>
++			<texture>white.png</texture>
++		</control>
+ 	</controls>
+ </window>
+-- 
+1.9.1
+

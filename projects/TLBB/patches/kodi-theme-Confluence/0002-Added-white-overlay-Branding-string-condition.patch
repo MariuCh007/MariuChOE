@@ -1,0 +1,30 @@
+From d7d244ec444cd2d1cebc219181ad1e0ef7ac4c46 Mon Sep 17 00:00:00 2001
+From: Quihico <Quihico@gmail.com>
+Date: Fri, 27 Nov 2015 01:30:48 +0100
+Subject: [PATCH 2/5] Added white overlay & Branding-string condition
+
+---
+ 720p/Startup.xml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/720p/Startup.xml b/720p/Startup.xml
+index c8b8185..daf8f8e 100644
+--- a/720p/Startup.xml
++++ b/720p/Startup.xml
+@@ -18,5 +18,13 @@
+ 			<visible>Skin.HasSetting(Use_Startup_Playlist)</visible>
+ 		</control>
+ 		<include>CommonBackground</include>
++		<control type="image">
++			<visible>StringCompare(Skin.String(Branding),)</visible>
++			<left>0</left>
++			<top>0</top>
++			<width>1280</width>
++			<height>720</height>
++			<texture>white.png</texture>
++		</control>
+ 	</controls>
+ </window>
+-- 
+1.9.1
+

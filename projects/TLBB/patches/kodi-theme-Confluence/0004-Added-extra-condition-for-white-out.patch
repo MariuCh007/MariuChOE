@@ -1,0 +1,25 @@
+From d15ce343d542c59391fdbf02d68558f94a3a4b1c Mon Sep 17 00:00:00 2001
+From: Quihico <Quihico@gmail.com>
+Date: Fri, 27 Nov 2015 09:33:40 +0100
+Subject: [PATCH 4/5] Added extra condition for white-out
+
+---
+ 720p/Home.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/720p/Home.xml b/720p/Home.xml
+index 09a0bef..fa36ccf 100644
+--- a/720p/Home.xml
++++ b/720p/Home.xml
+@@ -1253,7 +1253,7 @@
+ 			</control>
+ 		</control>
+ 		<control type="image">
+-			<visible>StringCompare(Skin.String(Branding),)</visible>
++			<visible>StringCompare(Skin.String(Branding),) + !System.IsLoggedOn</visible>
+ 			<left>0</left>
+ 			<top>0</top>
+ 			<width>1280</width>
+-- 
+1.9.1
+
