@@ -1,7 +1,7 @@
-From dd4405510162aaa046dcacec70b4bf7b976c804b Mon Sep 17 00:00:00 2001
+From 7f2bf39c0d3079ae34edb94a52004dc6e86043c8 Mon Sep 17 00:00:00 2001
 From: Chris Browet <koying@semperpax.com>
 Date: Mon, 18 May 2015 14:28:02 +0200
-Subject: [PATCH 17/20] FIX: [aml] avoid decoder being deadlocked
+Subject: [PATCH 16/20] FIX: [aml] avoid decoder being deadlocked
 
 ---
  xbmc/cores/dvdplayer/DVDCodecs/Video/AMLCodec.cpp | 9 ++++++++-

@@ -1,7 +1,7 @@
-From 6ff568ec88bd79591d1d10693360a3a8de04a10a Mon Sep 17 00:00:00 2001
+From a9e68e7ce7ee261c4adb34224933c2ecb76c6496 Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Mon, 2 Mar 2015 09:48:14 +0100
-Subject: [PATCH 16/20] [aml] Fix stuttering during a playback of a video with
+Subject: [PATCH 15/20] [aml] Fix stuttering during a playback of a video with
  23.976 FPS
 
 ---

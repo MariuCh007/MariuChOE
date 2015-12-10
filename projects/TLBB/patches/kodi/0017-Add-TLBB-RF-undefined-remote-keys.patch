@@ -1,7 +1,7 @@
-From 2b89116a94e164f9ae7f39a8a3a319f4ee85d550 Mon Sep 17 00:00:00 2001
+From 3a94a5b4acc96dc4eaf784b78e8bd11a99dafd61 Mon Sep 17 00:00:00 2001
 From: j1nx <p.steenbergen@j1nx.nl>
 Date: Sat, 10 May 2014 21:26:31 +0200
-Subject: [PATCH 18/20] Add TLBB RF undefined remote keys
+Subject: [PATCH 17/20] Add TLBB RF undefined remote keys
 
 Signed-off-by: j1nx <p.steenbergen@j1nx.nl>
 ---

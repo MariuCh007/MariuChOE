@@ -1,7 +1,7 @@
-From e82944691e8e9f54b6469c1838ca3b4a8211f282 Mon Sep 17 00:00:00 2001
+From 29701b83b6ab2f8f31e73835b223d9e462645851 Mon Sep 17 00:00:00 2001
 From: j1nx <p.steenbergen@j1nx.nl>
 Date: Sat, 10 May 2014 21:56:52 +0200
-Subject: [PATCH 20/20] Add the new usbhidrepeatdelay to the advanced settings
+Subject: [PATCH 19/20] Add the new usbhidrepeatdelay to the advanced settings
 
 Signed-off-by: j1nx <p.steenbergen@j1nx.nl>
 ---

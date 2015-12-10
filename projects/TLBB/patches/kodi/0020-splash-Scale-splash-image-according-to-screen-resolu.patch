@@ -1,0 +1,26 @@
+From 8b0a0d37a9b54e5e7bd764ede063b46a48753f90 Mon Sep 17 00:00:00 2001
+From: Alex Deryskyba <alex@codesnake.com>
+Date: Sat, 5 Dec 2015 00:29:44 +0200
+Subject: [PATCH 20/20] [splash] Scale splash image according to screen
+ resolution
+
+---
+ xbmc/utils/Splash.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xbmc/utils/Splash.cpp b/xbmc/utils/Splash.cpp
+index 5d66391..688fb62 100644
+--- a/xbmc/utils/Splash.cpp
++++ b/xbmc/utils/Splash.cpp
+@@ -53,7 +53,7 @@ void CSplash::Show()
+       splashImage = "special://xbmc/media/Splash.png";
+ 
+     m_image = new CGUIImage(0, 0, 0, 0, g_graphicsContext.GetWidth(), g_graphicsContext.GetHeight(), CTextureInfo(splashImage));
+-    m_image->SetAspectRatio(CAspectRatio::AR_CENTER);
++    m_image->SetAspectRatio(CAspectRatio::AR_SCALE);
+   }
+ 
+   g_graphicsContext.Lock();
+-- 
+1.9.1
+
