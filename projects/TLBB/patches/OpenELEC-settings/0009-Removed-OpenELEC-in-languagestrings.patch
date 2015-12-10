@@ -1,0 +1,185 @@
+From bc70b10eaf6324e625caddb78994f57d5e17db6f Mon Sep 17 00:00:00 2001
+From: Quihico <Quihico@gmail.com>
+Date: Fri, 27 Nov 2015 08:48:15 +0100
+Subject: [PATCH 09/16] Removed "OpenELEC" in languagestrings
+
+---
+ language/English/strings.po | 42 +++++++++++++++++++++---------------------
+ 1 file changed, 21 insertions(+), 21 deletions(-)
+
+diff --git a/language/English/strings.po b/language/English/strings.po
+index 27e4a4e..fdefd27 100644
+--- a/language/English/strings.po
++++ b/language/English/strings.po
+@@ -1,7 +1,7 @@
+ # Kodi Media Center language file
+-# Addon Name: @DISTRONAME@ Configuration
++# Addon Name: System Configuration
+ # Addon id: service.openelec.settings
+-# Addon Provider: OpenELEC
++# Addon Provider: System
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: XBMC Addons\n"
+@@ -17,7 +17,7 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ 
+ msgctxt "#600"
+-msgid "@DISTRONAME@ Settings"
++msgid "System Settings"
+ msgstr ""
+ 
+ msgctxt "#601"
+@@ -93,7 +93,7 @@ msgstr ""
+ #empty strings from id 706 to 709
+ 
+ msgctxt "#710"
+-msgid "Configure the Hostname of your @DISTRONAME@ system. This will be used for the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
++msgid "Configure the Hostname of your System system. This will be used for the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
+ msgstr ""
+ 
+ msgctxt "#711"
+@@ -109,7 +109,7 @@ msgid "Configure the physical keyboard type"
+ msgstr ""
+ 
+ msgctxt "#714"
+-msgid "@DISTRONAME@ can be configured for automatic or manual updates. Automatic updates are available on stable releases and stable release candidates. Automatic update self-disables on beta and development builds"
++msgid "System can be configured for automatic or manual updates. Automatic updates are available on stable releases and stable release candidates. Automatic update self-disables on beta and development builds"
+ msgstr ""
+ 
+ msgctxt "#715"
+@@ -117,11 +117,11 @@ msgid "Set to ON and an on-screen notification will be displayed when a new upda
+ msgstr ""
+ 
+ msgctxt "#716"
+-msgid "Click to manually check the @DISTRONAME@ servers for an updated release"
++msgid "Click to manually check the System servers for an updated release"
+ msgstr ""
+ 
+ msgctxt "#717"
+-msgid "If you have an small LCD or VFD attached to your @DISTRONAME@ system you must configure the correct display driver"
++msgid "If you have an small LCD or VFD attached to your System system you must configure the correct display driver"
+ msgstr ""
+ 
+ #empty strings from id 718 to 719
+@@ -133,7 +133,7 @@ msgstr ""
+ #empty string with id 721
+ 
+ msgctxt "#722"
+-msgid "Create a tar archive containing all @DISTRONAME@ and Kodi configuration settings, databases and thumbnail content. Backup files will be stored in /storage/backups"
++msgid "Create a tar archive containing all System and Kodi configuration settings, databases and thumbnail content. Backup files will be stored in /storage/backups"
+ msgstr ""
+ 
+ msgctxt "#723"
+@@ -141,11 +141,11 @@ msgid "Restore a tar archive backup previously created using the backup option a
+ msgstr ""
+ 
+ msgctxt "#724"
+-msgid "[COLOR FF00FF00]SOFT RESET[/COLOR]\nPermanently reset @DISTRONAME@ configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
++msgid "[COLOR FF00FF00]SOFT RESET[/COLOR]\nPermanently reset System configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
+ msgstr ""
+ 
+ msgctxt "#725"
+-msgid "[COLOR FFFF0000]HARD RESET[/COLOR]\nPermanently reset @DISTRONAME@ and Kodi configuration to defaults (everything in your storage partition will be deleted)"
++msgid "[COLOR FFFF0000]HARD RESET[/COLOR]\nPermanently reset System and Kodi configuration to defaults (everything in your storage partition will be deleted)"
+ msgstr ""
+ 
+ msgctxt "#726"
+@@ -231,7 +231,7 @@ msgid "750"
+ msgstr ""
+ 
+ msgctxt "#751"
+-msgid "With OBEX filetransfer you can send files, for example movies or pictures over bluetooth to @DISTRONAME@."
++msgid "With OBEX filetransfer you can send files, for example movies or pictures over bluetooth to System."
+ msgstr ""
+ 
+ msgctxt "#752"
+@@ -465,7 +465,7 @@ msgstr ""
+ #empty strings from id 32151 to 32179
+ 
+ msgctxt "#32180"
+-msgid "Would you like to update @DISTRONAME@ now?"
++msgid "Would you like to update System now?"
+ msgstr ""
+ 
+ msgctxt "#32181"
+@@ -573,7 +573,7 @@ msgstr ""
+ #empty strings from id 32217 to 32299
+ 
+ msgctxt "#32300"
+-msgid "Welcome to @DISTRONAME@"
++msgid "Welcome to System"
+ msgstr ""
+ 
+ msgctxt "#32301"
+@@ -581,7 +581,7 @@ msgid "Welcome"
+ msgstr ""
+ 
+ msgctxt "#32302"
+-msgid "This wizard will guide you through the process of setting up your new @DISTRONAME@ installation - setting your location, timezone and connecting you to the internet.[CR][CR]These settings can be changed later by navigating to Programs > @DISTRONAME@ Settings."
++msgid "You will now be guided through any settings that need adjusting.[CR][CR]During this process your device may install important updates, please do not power down the unit at this time.[CR][CR][CR]Press Next to continue."
+ msgstr ""
+ 
+ msgctxt "#32303"
+@@ -589,7 +589,7 @@ msgid "Next"
+ msgstr ""
+ 
+ msgctxt "#32304"
+-msgid "To be identified easily on the network, your new @DISTRONAME@ machine needs a name.[CR][CR]Try to choose something meaningful - like the room it's in - so you'll know what it is when you see it on the network.[CR][CR]This name is used when configuring network services, like file sharing using samba."
++msgid "To be identified easily on the network, your new System machine needs a name.[CR][CR]Try to choose something meaningful - like the room it's in - so you'll know what it is when you see it on the network.[CR][CR]This name is used when configuring network services, like file sharing using samba."
+ msgstr ""
+ 
+ msgctxt "#32305"
+@@ -597,7 +597,7 @@ msgid "Networking"
+ msgstr ""
+ 
+ msgctxt "#32306"
+-msgid "In order to download backdrops, banners and thumbnails for your movies and TV shows and to stream online content from sites like YouTube, @DISTRONAME@ needs to be connected the Internet.[CR][CR]An Internet connection is also required for @DISTRONAME@ to automatically update itself."
++msgid "Choose your internet connection.[CR][CR]Network settings can be changed later by navigating to:[CR]        Programs > System Configuration > Network.[CR]Changing your Wifi connection can be done by navigating to:[CR]        Programs > System Configuration > Connections."
+ msgstr ""
+ 
+ #empty string with id 32307
+@@ -617,11 +617,11 @@ msgid "Sharing and Remote Access"
+ msgstr ""
+ 
+ msgctxt "#32312"
+-msgid "@DISTRONAME@ also supports SSH for remote access. This is for advanced users who wish to interact with @DISTRONAME@'s underlying operating system. The default user is [COLOR blue]root[/COLOR] and the default password is [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
++msgid "System also supports SSH for remote access. This is for advanced users who wish to interact with System's underlying operating system. The default user is [COLOR blue]root[/COLOR] and the default password is [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
+ msgstr ""
+ 
+ msgctxt "#32313"
+-msgid "In order to share your files between your computers @DISTRONAME@ has incorporated a samba server. This samba server can be integrated into your local network by accessing it in a familiar way with Finder or Windows Explorer."
++msgid "In order to share your files between your computers System has incorporated a samba server. This samba server can be integrated into your local network by accessing it in a familiar way with Finder or Windows Explorer."
+ msgstr ""
+ 
+ #empty strings from id 32314 to 32315
+@@ -635,7 +635,7 @@ msgid "Thank you"
+ msgstr ""
+ 
+ msgctxt "#32318"
+-msgid "Your @DISTRONAME@ installation is now complete and you'll now enter Kodi when you can set up your media libraries. For help with this, there is a guide available at wiki.kodi.tv[CR][CR]@DISTRONAME@ is developed by a dedicated team of developers who work purely in their spare time. Even as a volunteer project, we still have to pay for our internet bandwidth and development resources so if you find @DISTRONAME@ useful, we will always appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using @DISTRONAME@ as much as we've enjoying building it. If you need any more help, you can find links to get help along with latest news at our website"
++msgid "Your System installation is now complete and you'll now enter Kodi when you can set up your media libraries. For help with this, there is a guide available at wiki.kodi.tv[CR][CR]System is developed by a dedicated team of developers who work purely in their spare time. Even as a volunteer project, we still have to pay for our internet bandwidth and development resources so if you find System useful, we will always appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using System as much as we've enjoying building it. If you need any more help, you can find links to get help along with latest news at our website"
+ msgstr ""
+ 
+ msgctxt "#32319"
+@@ -657,7 +657,7 @@ msgid "Reset System Settings to defaults"
+ msgstr ""
+ 
+ msgctxt "#32325"
+-msgid "Reset @DISTRONAME@ to defaults"
++msgid "Reset System to defaults"
+ msgstr ""
+ 
+ msgctxt "#32326"
+@@ -735,7 +735,7 @@ msgid "Check for updates now:"
+ msgstr ""
+ 
+ msgctxt "#32363"
+-msgid "@DISTRONAME@"
++msgid "System"
+ msgstr ""
+ 
+ msgctxt "#32364"
+-- 
+1.9.1
+

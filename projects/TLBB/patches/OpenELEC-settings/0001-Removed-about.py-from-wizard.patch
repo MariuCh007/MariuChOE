@@ -1,0 +1,38 @@
+From 2db77a3fd9473fb201dad16baa26e8ce0ad95f78 Mon Sep 17 00:00:00 2001
+From: Quihico <Quihico@gmail.com>
+Date: Wed, 25 Nov 2015 16:53:56 +0100
+Subject: [PATCH 01/16] Removed "about.py" from wizard
+
+---
+ src/resources/lib/modules/about.py | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/src/resources/lib/modules/about.py b/src/resources/lib/modules/about.py
+index 9cefe8d..1e1a8bb 100644
+--- a/src/resources/lib/modules/about.py
++++ b/src/resources/lib/modules/about.py
+@@ -82,13 +82,13 @@ class about:
+         except Exception, e:
+             self.oe.dbg_log('about::exit', 'ERROR: (' + repr(e) + ')')
+ 
+-    def do_wizard(self):
+-        try:
+-            self.oe.dbg_log('about::do_wizard', 'enter_function', 0)
+-            self.oe.winOeMain.set_wizard_title(self.oe._(32317))
+-            self.oe.winOeMain.set_wizard_text(self.oe._(32318))
+-            self.oe.dbg_log('about::do_wizard', 'exit_function', 0)
+-        except Exception, e:
+-            self.oe.dbg_log('about::do_wizard', 'ERROR: (' + repr(e) + ')')
++#    def do_wizard(self):
++#        try:
++#            self.oe.dbg_log('about::do_wizard', 'enter_function', 0)
++#            self.oe.winOeMain.set_wizard_title(self.oe._(32317))
++#            self.oe.winOeMain.set_wizard_text(self.oe._(32318))
++#            self.oe.dbg_log('about::do_wizard', 'exit_function', 0)
++#        except Exception, e:
++#            self.oe.dbg_log('about::do_wizard', 'ERROR: (' + repr(e) + ')')
+ 
+ 
+-- 
+1.9.1
+
