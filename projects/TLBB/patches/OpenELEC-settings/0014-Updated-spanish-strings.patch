@@ -1,0 +1,196 @@
+From 2ad8950a3fa7e975b0afc60a40a9cf8b8fbd148c Mon Sep 17 00:00:00 2001
+From: Quihico <Quihico@gmail.com>
+Date: Fri, 27 Nov 2015 10:51:15 +0100
+Subject: [PATCH 14/16] Updated spanish strings
+
+---
+ language/Spanish/strings.po | 72 ++++++++++++++++++++++++---------------------
+ 1 file changed, 38 insertions(+), 34 deletions(-)
+
+diff --git a/language/Spanish/strings.po b/language/Spanish/strings.po
+index c4be895..d03fc34 100644
+--- a/language/Spanish/strings.po
++++ b/language/Spanish/strings.po
+@@ -1,7 +1,7 @@
+ # Kodi Media Center language file
+-# Addon Name: @DISTRONAME@ Configuration
++# Addon Name: System Configuration
+ # Addon id: service.openelec.settings
+-# Addon Provider: OpenELEC
++# Addon Provider: System
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: XBMC Addons\n"
+@@ -17,8 +17,8 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ 
+ msgctxt "#600"
+-msgid "@DISTRONAME@ Settings"
+-msgstr "Ajustes de @DISTRONAME@"
++msgid "System Settings"
++msgstr "Ajustes de Sistema"
+ 
+ msgctxt "#601"
+ msgid "Interface"
+@@ -89,8 +89,8 @@ msgid "Useful information like version and architecture details, support and soc
+ msgstr "Información útil como detalles de la versión y arquitectura del sistema, enlaces de soporte y redes sociales, y como hacer donaciones al proyecto"
+ 
+ msgctxt "#710"
+-msgid "Configure the Hostname of your @DISTRONAME@ system. This will be used for the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
+-msgstr "Configurar el nombre de tu sistema @DISTRONAME. Esto será usado para el HTPC\n\\\\hostname en Windows y el nombre de servidor SMB en el buscador Mac OS  "
++msgid "Configure the Hostname of your System system. This will be used for the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
++msgstr "Configurar el nombre de tu sistema Sistema. Esto será usado para el HTPC\n\\\\hostname en Windows y el nombre de servidor SMB en el buscador Mac OS  "
+ 
+ msgctxt "#711"
+ msgid "Configure the 1st keyboard software layout"
+@@ -105,28 +105,28 @@ msgid "Configure the physical keyboard type"
+ msgstr "Configuración del tipo de teclado físico"
+ 
+ msgctxt "#714"
+-msgid "@DISTRONAME@ can be configured for automatic or manual updates. Automatic updates are available on stable releases and stable release candidates. Automatic update self-disables on beta and development builds"
+-msgstr "@DISTRONAME@ puede ser configurado para actualizaciones automáticas o manuales. Actualizaciones automáticas están disponibles en versiones estables y candidatos a versiones estables. Actualizaciones automáticas se auto-desactivan en versiones beta y de desarrollo. "
++msgid "System can be configured for automatic or manual updates. Automatic updates are available on stable releases and stable release candidates. Automatic update self-disables on beta and development builds"
++msgstr "Sistema puede ser configurado para actualizaciones automáticas o manuales. Actualizaciones automáticas están disponibles en versiones estables y candidatos a versiones estables. Actualizaciones automáticas se auto-desactivan en versiones beta y de desarrollo. "
+ 
+ msgctxt "#715"
+ msgid "Set to ON and an on-screen notification will be displayed when a new update is available"
+ msgstr "Notificación de actualizaciones"
+ 
+ msgctxt "#716"
+-msgid "Click to manually check the @DISTRONAME@ servers for an updated release"
+-msgstr "Pulsar para comprobar manualmente los servidores de @DISTRONAME@ en busca una versión actualizada"
++msgid "Click to manually check the System servers for an updated release"
++msgstr "Pulsar para comprobar manualmente los servidores de Sistema en busca una versión actualizada"
+ 
+ msgctxt "#717"
+-msgid "If you have an small LCD or VFD attached to your @DISTRONAME@ system you must configure the correct display driver"
+-msgstr "Si tiene un pequeño LCD o VFD conectado a su sistema de @DISTRONAME@ deberás configurar el driver del display adecuado"
++msgid "If you have an small LCD or VFD attached to your System system you must configure the correct display driver"
++msgstr "Si tiene un pequeño LCD o VFD conectado a su sistema de Sistema deberás configurar el driver del display adecuado"
+ 
+ msgctxt "#720"
+ msgid "Set to ON and Bluetooth devices will be disabled during power-saving modes"
+ msgstr "Desactivar dispositivos Bluetooth durante el modo ahorro de energía"
+ 
+ msgctxt "#722"
+-msgid "Create a tar archive containing all @DISTRONAME@ and Kodi configuration settings, databases and thumbnail content. Backup files will be stored in /storage/backups"
+-msgstr "Crear un archivo tar conteniendo todos los ajustes de configuración de @DISTRONAME@ y Kodi con sus bases de datos y miniaturas. Los archivos respaldados se guardarán en /storage/backups"
++msgid "Create a tar archive containing all System and Kodi configuration settings, databases and thumbnail content. Backup files will be stored in /storage/backups"
++msgstr "Crear un archivo tar conteniendo todos los ajustes de configuración de @Sistema y Kodi con sus bases de datos y miniaturas. Los archivos respaldados se guardarán en /storage/backups"
+ 
+ msgctxt "#723"
+ msgid "Restore a tar archive backup previously created using the backup option above"
+@@ -209,8 +209,8 @@ msgid "750"
+ msgstr "750"
+ 
+ msgctxt "#751"
+-msgid "With OBEX filetransfer you can send files, for example movies or pictures over bluetooth to @DISTRONAME@."
+-msgstr "Con \"OBEX filetransfer\" se pueden enviar archivos, por ej. fotos o películas, a @DISTRONAME@ mediante bluetooth"
++msgid "With OBEX filetransfer you can send files, for example movies or pictures over bluetooth to System."
++msgstr "Con \"OBEX filetransfer\" se pueden enviar archivos, por ej. fotos o películas, a Sistema mediante bluetooth"
+ 
+ msgctxt "#752"
+ msgid "Here you can set the folder location where OBEX file transfer should store incoming files"
+@@ -425,8 +425,8 @@ msgid "Edit"
+ msgstr "- Editar"
+ 
+ msgctxt "#32180"
+-msgid "Would you like to update @DISTRONAME@ now?"
+-msgstr "¿Desea actualizar @DISTRONAME@ ahora?"
++msgid "Would you like to update System now?"
++msgstr "¿Desea actualizar Sistema ahora?"
+ 
+ msgctxt "#32181"
+ msgid "Filename"
+@@ -521,28 +521,32 @@ msgid "Auto-Share External Drives"
+ msgstr "Auto compartir unidades externas"
+ 
+ msgctxt "#32300"
+-msgid "Welcome to @DISTRONAME@"
+-msgstr "Bienvenido a @DISTRONAME@"
++msgid "Welcome to System"
++msgstr "Bienvenido a Sistema"
+ 
+ msgctxt "#32301"
+ msgid "Welcome"
+ msgstr "Bienvenido"
+ 
++msgctxt "#32302"
++msgid "You will now be guided through any settings that need adjusting.[CR][CR]During this process your device may install important updates, please do not power down the unit at this time.[CR][CR][CR]Press Next to continue."
++msgstr "Ahora será guiado a través de los ajustes que requieren ajustes.[CR][CR]Durante este proceso, el dispositivo será capaz de recibir actualizaciones importantes, por favor, no apague el dispositivo en esta etapa.[CR][CR][CR]Pulse Siguiente para continuar."
++
+ msgctxt "#32303"
+ msgid "Next"
+ msgstr "Siguiente"
+ 
+ msgctxt "#32304"
+-msgid "To be identified easily on the network, your new @DISTRONAME@ machine needs a name.[CR][CR]Try to choose something meaningful - like the room it's in - so you'll know what it is when you see it on the network.[CR][CR]This name is used when configuring network services, like file sharing using samba."
+-msgstr "Para ser facilmente identificable en la red doméstica, su nuevo equipo @DISTRONAME@ necesita un nombre.[CR][CR]\nElija algo significativo - como la habitación donde se encuentre - con el fin de saber de que se trata cuando aparezca en la red.[CR][CR]\nEste nombre se usa cuando se configuran los servicios de red, como la compartición de archivos con samba."
++msgid "To be identified easily on the network, your new System machine needs a name.[CR][CR]Try to choose something meaningful - like the room it's in - so you'll know what it is when you see it on the network.[CR][CR]This name is used when configuring network services, like file sharing using samba."
++msgstr "Para ser facilmente identificable en la red doméstica, su nuevo equipo Sistema necesita un nombre.[CR][CR]\nElija algo significativo - como la habitación donde se encuentre - con el fin de saber de que se trata cuando aparezca en la red.[CR][CR]\nEste nombre se usa cuando se configuran los servicios de red, como la compartición de archivos con samba."
+ 
+ msgctxt "#32305"
+ msgid "Networking"
+ msgstr "Redes"
+ 
+ msgctxt "#32306"
+-msgid "In order to download backdrops, banners and thumbnails for your movies and TV shows and to stream online content from sites like YouTube, @DISTRONAME@ needs to be connected the Internet.[CR][CR]An Internet connection is also required for @DISTRONAME@ to automatically update itself."
+-msgstr "Para descargar contextos, rótulos y vistas en miniatura para tus películas y  programas de TV y para el contenido en linea de sitios como YouTube, @DISTRONAME@ necesita estar conectado a Internet.[CR][CR]Una conexión a Internet también es requerida para que @DISTRONAME@ se actualice automáticamente por si mismo.  "
++msgid "Choose your internet connection.[CR][CR]Network settings can be changed later by navigating to:[CR]        Programs > System Configuration > Network.[CR]Changing your Wifi connection can be done by navigating to:[CR]        Programs > System Configuration > Connections."
++msgstr "Elija el tipo de Internet.[CR][CR]"La configuración de red se pueden cambiar después de:[CR]        Programas> Configuración Sytem> Red.[CR]La configuración de la red inalámbrica se pueden hacer a través de:[CR]        Programas> Configuración del sistema> Conexiones."
+ 
+ msgctxt "#32308"
+ msgid "Hostname:"
+@@ -557,12 +561,12 @@ msgid "Sharing and Remote Access"
+ msgstr "Conpartir y acceso remoto"
+ 
+ msgctxt "#32312"
+-msgid "@DISTRONAME@ also supports SSH for remote access. This is for advanced users who wish to interact with @DISTRONAME@'s underlying operating system. The default user is [COLOR blue]root[/COLOR] and the default password is [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
+-msgstr "@DISTRONAME@ también soporta el acceso remoto mediante SSH. Esto es para usuarios avanzados que desean interactuar con el sistema operativo que está debajo. El usuario por defecto es [COLOR blue]root[/COLOR] con contraseña [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
++msgid "System also supports SSH for remote access. This is for advanced users who wish to interact with System's underlying operating system. The default user is [COLOR blue]root[/COLOR] and the default password is [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
++msgstr "Sistema también soporta el acceso remoto mediante SSH. Esto es para usuarios avanzados que desean interactuar con el sistema operativo que está debajo. El usuario por defecto es [COLOR blue]root[/COLOR] con contraseña [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
+ 
+ msgctxt "#32313"
+-msgid "In order to share your files between your computers @DISTRONAME@ has incorporated a samba server. This samba server can be integrated into your local network by accessing it in a familiar way with Finder or Windows Explorer."
+-msgstr "Con el fin de compartir sus archivos entre equipos @DISTRONAME@ ha incorporado un servidor samba. Este servidor se puede integrar en la red local accediendo a el de un modo familiar con \"Finder o Windows Explorer\""
++msgid "In order to share your files between your computers System has incorporated a samba server. This samba server can be integrated into your local network by accessing it in a familiar way with Finder or Windows Explorer."
++msgstr "Con el fin de compartir sus archivos entre equipos Sistema ha incorporado un servidor samba. Este servidor se puede integrar en la red local accediendo a el de un modo familiar con \"Finder o Windows Explorer\""
+ 
+ msgctxt "#32316"
+ msgid "Configure Services:"
+@@ -573,8 +577,8 @@ msgid "Thank you"
+ msgstr "Gracias"
+ 
+ msgctxt "#32318"
+-msgid "Your @DISTRONAME@ installation is now complete and you'll now enter Kodi when you can set up your media libraries. For help with this, there is a guide available at wiki.kodi.tv[CR][CR]@DISTRONAME@ is developed by a dedicated team of developers who work purely in their spare time. Even as a volunteer project, we still have to pay for our internet bandwidth and development resources so if you find @DISTRONAME@ useful, we will always appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using @DISTRONAME@ as much as we've enjoying building it. If you need any more help, you can find links to get help along with latest news at our website"
+-msgstr "Su instalación @DISTRONAME@ esta completa ahora y entrarás a Kodi cuando usted configure sus bibliotecas de medios. Para asistencia con esto, Hay una guía disponible en wiki.kodi.tv[CR][CR]@DISTRONAME@ está desarrollado por un equipo dedicado de desarrolladores quienes meramente trabajan en sus tiempos libres. Como voluntarios del  proyecto, Tenemos que pagar por nuestros servicios de Internet y recursos de desarrollo por lo que si tú lo encuentras útil @DISTRONAME@, Nosotros siempre apreciaremos una donación de cualquier cantidad.[CR][CR]Finalmente, Esperamos que disfrutes usando @DISTRONAME@ tanto como nosotros hemos disfrutado creándolo. Si  necesitas más ayuda, Puedes encontrar enlaces para obtener ayuda con las noticias más recientes en nuestro sitio web."
++msgid "Your System installation is now complete and you'll now enter Kodi when you can set up your media libraries. For help with this, there is a guide available at wiki.kodi.tv[CR][CR]System is developed by a dedicated team of developers who work purely in their spare time. Even as a volunteer project, we still have to pay for our internet bandwidth and development resources so if you find System useful, we will always appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using System as much as we've enjoying building it. If you need any more help, you can find links to get help along with latest news at our website"
++msgstr "Su instalación Sistema esta completa ahora y entrarás a Kodi cuando usted configure sus bibliotecas de medios. Para asistencia con esto, Hay una guía disponible en wiki.kodi.tv[CR][CR]Sistema está desarrollado por un equipo dedicado de desarrolladores quienes meramente trabajan en sus tiempos libres. Como voluntarios del  proyecto, Tenemos que pagar por nuestros servicios de Internet y recursos de desarrollo por lo que si tú lo encuentras útil Sistema, Nosotros siempre apreciaremos una donación de cualquier cantidad.[CR][CR]Finalmente, Esperamos que disfrutes usando Sistema tanto como nosotros hemos disfrutado creándolo. Si  necesitas más ayuda, Puedes encontrar enlaces para obtener ayuda con las noticias más recientes en nuestro sitio web."
+ 
+ msgctxt "#32319"
+ msgid "Cron"
+@@ -593,8 +597,8 @@ msgid "Reset System Settings to defaults"
+ msgstr "Restaurar los ajustes de sistema por defecto"
+ 
+ msgctxt "#32325"
+-msgid "Reset @DISTRONAME@ to defaults"
+-msgstr "Restaurar @DISTRONAME@ a valores por defecto"
++msgid "Reset System to defaults"
++msgstr "Restaurar Sistema a valores por defecto"
+ 
+ msgctxt "#32326"
+ msgid "Are you sure?"
+@@ -657,8 +661,8 @@ msgid "Check for updates now:"
+ msgstr "Comprobar actualizaciones"
+ 
+ msgctxt "#32363"
+-msgid "@DISTRONAME@"
+-msgstr "@DISTRONAME@"
++msgid "System"
++msgstr "Sistema"
+ 
+ msgctxt "#32364"
+ msgid "Update available"
+-- 
+1.9.1
+
