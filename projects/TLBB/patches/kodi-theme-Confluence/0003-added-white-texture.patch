@@ -1,0 +1,24 @@
+From 899ddb38b75fe3f4d7cf6ec9d38ac9554168c98c Mon Sep 17 00:00:00 2001
+From: Quihico <Quihico@gmail.com>
+Date: Fri, 27 Nov 2015 02:35:49 +0100
+Subject: [PATCH 3/5] added white texture
+
+---
+ media/white.png | Bin 0 -> 74 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 media/white.png
+
+diff --git a/media/white.png b/media/white.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..1c4debcbc089fbdd3786b88d4237a95216057911
+GIT binary patch
+literal 74
+zcmeAS@N?(olHy`uVBq!ia0vp^AT}2V8<6ZZI=>f433|FXhE&{2{^75ZAQ9>j-^!r;
+WyRRX2s_7G;B!j1`pUXO@geCwtbrQ$`
+
+literal 0
+HcmV?d00001
+
+-- 
+1.9.1
+

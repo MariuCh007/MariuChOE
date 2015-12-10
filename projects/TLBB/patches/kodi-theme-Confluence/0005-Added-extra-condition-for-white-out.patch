@@ -1,0 +1,25 @@
+From 423d926ce0cb7fbd99a73dafb5f3678f8a0fd60d Mon Sep 17 00:00:00 2001
+From: Quihico <Quihico@gmail.com>
+Date: Fri, 27 Nov 2015 09:34:18 +0100
+Subject: [PATCH 5/5] Added extra condition for white-out
+
+---
+ 720p/Startup.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/720p/Startup.xml b/720p/Startup.xml
+index daf8f8e..e196e4c 100644
+--- a/720p/Startup.xml
++++ b/720p/Startup.xml
+@@ -19,7 +19,7 @@
+ 		</control>
+ 		<include>CommonBackground</include>
+ 		<control type="image">
+-			<visible>StringCompare(Skin.String(Branding),)</visible>
++			<visible>StringCompare(Skin.String(Branding),) + !System.IsLoggedOn</visible>
+ 			<left>0</left>
+ 			<top>0</top>
+ 			<width>1280</width>
+-- 
+1.9.1
+
