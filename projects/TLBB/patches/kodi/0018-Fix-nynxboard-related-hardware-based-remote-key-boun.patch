@@ -1,7 +1,7 @@
-From ff0e0e58bab2b89808a2944a7ca9e21b6d3ff576 Mon Sep 17 00:00:00 2001
+From e06dd94c8e1783dc28e559de1e4d7c1aef937bf0 Mon Sep 17 00:00:00 2001
 From: j1nx <p.steenbergen@j1nx.nl>
 Date: Sat, 10 May 2014 21:49:46 +0200
-Subject: [PATCH 19/20] Fix nynxboard related hardware based remote key bounche
+Subject: [PATCH 18/20] Fix nynxboard related hardware based remote key bounche
 
 Signed-off-by: j1nx <p.steenbergen@j1nx.nl>
 ---
