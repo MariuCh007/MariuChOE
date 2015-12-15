@@ -1,0 +1,41 @@
+diff --git a/arch/arm/boot/dts/amlogic/meson8m2_n200C_2G.dtd b/arch/arm/boot/dts/amlogic/meson8m2_n200C_2G.dtd
+old mode 100644
+new mode 100755
+index d159852..73ae6e5
+--- a/arch/arm/boot/dts/amlogic/meson8m2_n200C_2G.dtd
++++ b/arch/arm/boot/dts/amlogic/meson8m2_n200C_2G.dtd
+@@ -406,7 +406,7 @@ void root_func(){
+ 		irq_trigger_type = "GPIO_IRQ_HIGH";
+ 		power_on_pin = "GPIOAO_6";
+ 		power_on_pin2 = "GPIOX_11";
+-//		clock_32k_pin = "GPIOX_10";
++		clock_32k_pin = "GPIOX_10";
+ 	};
+ 
+ //$$ DEVICE="wifi_power"
+@@ -1038,6 +1038,25 @@ sdio{
+ 	};
+ 
+ /// ***************************************************************************************
++///    -       Led
++//$$ MODULE="Led"
++//$$ DEVICE="led"
++//$$ L2 PROP_STR = "status"
++//$$ L2 PROP_U32 = "board_type"
++//$$ L2 PROP_STR = "red_led_gpio"
++//$$ L2 PROP_STR = "blue_led_gpio"
++//$$ L2 PROP_U32 = "led_mode"
++	led{
++		compatible = "amlogic-led";
++		dev_name = "aml-setio";
++		status = "okay";
++		red_led_gpio = "GPIO_TEST_N";/** if your board just need one gpio,please config red_led_gpio and blue_led_gpio the same */
++		blue_led_gpio = "GPIO_TEST_N";/**  */
++		red_led_mode = <1>; /** 1:H on L off , 0:H off L on */
++		blue_led_mode= <1>; /** 1:H on L off , 0:H off L on */
++	};
++
++/// ***************************************************************************************
+ /// -   Audio
+ //$$ MODULE="Audio"
+ //$$ DEVICE="audio_i2s"

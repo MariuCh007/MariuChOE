@@ -1,0 +1,50 @@
+From 2eaa43c60fbc386bec24a612036cc9796ca9e441 Mon Sep 17 00:00:00 2001
+From: Alex Deryskyba <alex@codesnake.com>
+Date: Sun, 13 Dec 2015 23:52:57 +0200
+Subject: [PATCH] Show current time on VFD display
+
+---
+ xbmc/Application.cpp | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/xbmc/Application.cpp b/xbmc/Application.cpp
+index bc6f4a2..c678b1c 100644
+--- a/xbmc/Application.cpp
++++ b/xbmc/Application.cpp
+@@ -249,6 +249,13 @@ using namespace XbmcThreads;
+ 
+ #define MAX_FFWD_SPEED 5
+ 
++struct ZEKO_TIME
++{
++  char hour;
++  char minute;
++  char second;
++};
++
+ //extern IDirectSoundRenderer* m_pAudioDecoder;
+ CApplication::CApplication(void)
+   : m_pPlayer(new CApplicationPlayer)
+@@ -4344,6 +4351,19 @@ void CApplication::ProcessSlow()
+   // after the screensaver start time.
+   if(!m_renderGUI)
+     ResetScreenSaverTimer();
++
++  // Set current time on the VFD display
++  int vfd = open("/dev/pf_Dzeko", O_RDWR);
++  if (vfd >= 0)
++  {
++    CDateTime time = CDateTime::GetCurrentDateTime();
++    ZEKO_TIME zekoTime;
++    zekoTime.hour = (char)time.GetHour();
++    zekoTime.minute = (char)time.GetMinute();
++    zekoTime.second = (char)time.GetSecond();
++    write(vfd, &zekoTime, sizeof(zekoTime));
++    close(vfd);
++  }
+ }
+ 
+ // Global Idle Time in Seconds
+-- 
+1.9.1
+
