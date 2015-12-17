@@ -21,8 +21,11 @@
 # Force 720p display mode at startup
 echo 720p > /sys/class/display/mode
 
-# Enable framebuffer device
+# Enable first framebuffer
 echo 0 > /sys/class/graphics/fb0/blank
+
+# Disable second framebuffer
+echo 1 > /sys/class/graphics/fb1/blank
 
 # Disable framebuffer scaling
 echo 0 > /sys/class/graphics/fb0/free_scale

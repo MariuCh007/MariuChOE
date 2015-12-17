@@ -6,11 +6,14 @@ After=network.target ssh-defaults.service
 Requires=ssh-defaults.service
 
 [Service]
+Restart=on-failure
 EnvironmentFile=-/storage/.cache/services/sshd.conf
 ExecStartPre=/usr/bin/ssh-keygen -A
 ExecStart=/usr/sbin/sshd -D $SSH_ARGS
 ExecReload=/bin/kill -HUP $MAINPID
 TimeoutStopSec=1s
+RestartSec=2
+StartLimitInterval=0
 
 [Install]
 WantedBy=multi-user.target

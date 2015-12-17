@@ -345,12 +345,8 @@
   DISTRO_MIRROR="http://sources.openelec.tv/mirror"
   DISTRO_SRC="http://sources.openelec.tv/$OPENELEC_VERSION"
 
-# Addon Server Url
-  ADDON_SERVER_URL="https://raw.github.com"
-
 # set the addon dirs
-  ADDON_PATH="codesnake/openelec-addons/$ADDON_VERSION/Amlogic/$TARGET_ARCH"
-  ADDON_URL="$ADDON_SERVER_URL/$ADDON_PATH"
+  ADDON_PATH="$ADDON_VERSION/WeTek_Play/$TARGET_ARCH"
 
   AMREMOTE_SUPPORT="yes"
 
