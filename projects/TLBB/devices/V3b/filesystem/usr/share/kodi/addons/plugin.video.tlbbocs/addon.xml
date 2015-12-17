@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.tlbbocs" name="TLBB One Click Setup" version="1.1.1" provider-name="J1nx,whufclee">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">TLBB One Click Setup</summary>
+    <description lang="en">Allows for a complete fresh setup with pre-installed content. These builds are provided by members of the community and will completely wipe any existing setup you have, the TLBB take no responsibility for the content provided. Please read the description of each build before installing, some may contain adult or unsuitable content.</description>
+    <platform>all</platform>
+  </extension>
+</addon>

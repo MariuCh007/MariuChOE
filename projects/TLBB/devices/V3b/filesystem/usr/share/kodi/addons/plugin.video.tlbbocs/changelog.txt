@@ -1,0 +1,8 @@
+v.1.1.1
+Added Adult check
+Added Login (uses forum login)
+Added Kodi/Helix check so only compatible builds show
+Added Incremental download count for most popular
+
+v.0.9
+Initial Release based on TLBB Wizard
