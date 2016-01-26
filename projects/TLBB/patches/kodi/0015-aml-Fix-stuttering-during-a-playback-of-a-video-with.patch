@@ -1,4 +1,4 @@
-From a9e68e7ce7ee261c4adb34224933c2ecb76c6496 Mon Sep 17 00:00:00 2001
+From b4a27e0d3f33735613f462c6b764ed25b14a53fd Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Mon, 2 Mar 2015 09:48:14 +0100
 Subject: [PATCH 15/20] [aml] Fix stuttering during a playback of a video with
@@ -22,5 +22,5 @@ index 1f14340..0703b1f 100644
            //CLog::Log(LOGDEBUG, "CAMLCodec::Process pts diff = %f", error);
            if (abs_error > 0.150)
 -- 
-1.9.1
+2.5.0
 

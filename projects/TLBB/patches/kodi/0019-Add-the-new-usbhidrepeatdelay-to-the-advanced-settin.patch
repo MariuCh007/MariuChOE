@@ -1,4 +1,4 @@
-From 29701b83b6ab2f8f31e73835b223d9e462645851 Mon Sep 17 00:00:00 2001
+From 100005f2cdf8aef9376eedfb7bc768cdceb054ee Mon Sep 17 00:00:00 2001
 From: j1nx <p.steenbergen@j1nx.nl>
 Date: Sat, 10 May 2014 21:56:52 +0200
 Subject: [PATCH 19/20] Add the new usbhidrepeatdelay to the advanced settings
@@ -42,5 +42,5 @@ index 7df1bf7..82bb847 100644
      bool m_playlistAsFolders;
      bool m_detectAsUdf;
 -- 
-1.9.1
+2.5.0
 

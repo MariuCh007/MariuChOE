@@ -1,4 +1,4 @@
-From b0458586cba782cf85cc8264a0360e64dd010e63 Mon Sep 17 00:00:00 2001
+From 90af54f09d1bb710c71eb6fdfa2ab119d68b9a10 Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Wed, 1 Jul 2015 23:37:11 +0200
 Subject: [PATCH 05/20] [aml] Add support for 4k resolutions
@@ -219,5 +219,5 @@ index 687ab1c..d0b0ff1 100644
 +  RESOLUTION_INFO m_maxResolution;
  };
 -- 
-1.9.1
+2.5.0
 

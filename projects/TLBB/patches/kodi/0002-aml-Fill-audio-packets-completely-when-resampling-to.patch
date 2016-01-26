@@ -1,4 +1,4 @@
-From 033ceb378e006e82135b640efe07cb9a6e55dc2d Mon Sep 17 00:00:00 2001
+From 35215e06000b6f85fac3e871c568f6ddc5e7a6be Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Sat, 20 Sep 2014 04:43:52 +0300
 Subject: [PATCH 02/20] [aml] Fill audio packets completely when resampling to
@@ -25,5 +25,5 @@ index a659c92..891aa58 100644
    m_empty = true;
    m_procSample = NULL;
 -- 
-1.9.1
+2.5.0
 

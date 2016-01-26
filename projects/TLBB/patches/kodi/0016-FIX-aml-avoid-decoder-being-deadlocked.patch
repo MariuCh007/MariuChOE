@@ -1,4 +1,4 @@
-From 7f2bf39c0d3079ae34edb94a52004dc6e86043c8 Mon Sep 17 00:00:00 2001
+From 20e65041cb2eb2bb272e46fdfa6f3b7509e66d74 Mon Sep 17 00:00:00 2001
 From: Chris Browet <koying@semperpax.com>
 Date: Mon, 18 May 2015 14:28:02 +0200
 Subject: [PATCH 16/20] FIX: [aml] avoid decoder being deadlocked
@@ -35,5 +35,5 @@ index 0703b1f..6d27daf 100644
  
      // if we seek, then GetTimeSize is wrong as
 -- 
-1.9.1
+2.5.0
 

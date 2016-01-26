@@ -1,4 +1,4 @@
-From 59d9ba3d3c4f695fcc27016ccdd8188165a4a4e1 Mon Sep 17 00:00:00 2001
+From 1b41f10dd1facd3d97c33681a6e3b927c9aaf2a3 Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Tue, 30 Jun 2015 11:19:57 +0200
 Subject: [PATCH 04/20] [aml] Ugly workaround to show DTS/AC3 caps but don't
@@ -26,5 +26,5 @@ index e22db7a..dcdaf2e 100644
      return AE_DEVTYPE_HDMI;
    else if (name.substr(0, 6) == "iec958" || name.substr(0, 5) == "spdif")
 -- 
-1.9.1
+2.5.0
 

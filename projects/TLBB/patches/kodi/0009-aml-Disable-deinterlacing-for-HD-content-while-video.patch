@@ -1,4 +1,4 @@
-From cc07ddfa6138f87c2efcca00847ac1d102a2bc68 Mon Sep 17 00:00:00 2001
+From c07bc7af035465dcc137d6fa421eee783fc38f71 Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Tue, 3 Feb 2015 17:58:19 +0100
 Subject: [PATCH 09/20] [aml] Disable deinterlacing for HD content while video
@@ -26,5 +26,5 @@ index 98f9816..1f14340 100644
    // fix them.
    dst_rect.x2--;
 -- 
-1.9.1
+2.5.0
 

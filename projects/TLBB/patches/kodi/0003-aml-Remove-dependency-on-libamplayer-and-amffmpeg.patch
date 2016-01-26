@@ -1,4 +1,4 @@
-From 6ad99059dd31d9a30f37cafe8c216c0ab02b8aad Mon Sep 17 00:00:00 2001
+From 4137ed92fb70a3b131cfce008babe1a0c2330b7e Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Thu, 6 Nov 2014 08:14:39 +0200
 Subject: [PATCH 03/20] [aml] Remove dependency on libamplayer and amffmpeg
@@ -175,5 +175,5 @@ index 44cf963..6f6ab4e 100644
      case AV_CODEC_ID_RV20:
      case AV_CODEC_ID_RV30:
 -- 
-1.9.1
+2.5.0
 

@@ -1,4 +1,4 @@
-From f797f866ed24ad3d5f634e52446e3c8e497726c3 Mon Sep 17 00:00:00 2001
+From dc5068cce67ebb75900a3a1cef07ed897ddd0408 Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Fri, 19 Sep 2014 01:55:12 +0300
 Subject: [PATCH 11/20] [aml] Change the sample rates that are supported by
@@ -45,5 +45,5 @@ index 0503432..46e50ba 100644
  
    unsigned int channelCount = inconfig.channels;
 -- 
-1.9.1
+2.5.0
 

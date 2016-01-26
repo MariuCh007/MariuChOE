@@ -1,4 +1,4 @@
-From 3a94a5b4acc96dc4eaf784b78e8bd11a99dafd61 Mon Sep 17 00:00:00 2001
+From 92be9c7fcff3655810b64ea2e3cfc642b86a14f3 Mon Sep 17 00:00:00 2001
 From: j1nx <p.steenbergen@j1nx.nl>
 Date: Sat, 10 May 2014 21:26:31 +0200
 Subject: [PATCH 17/20] Add TLBB RF undefined remote keys
@@ -12,27 +12,27 @@ Signed-off-by: j1nx <p.steenbergen@j1nx.nl>
  4 files changed, 24 insertions(+), 4 deletions(-)
 
 diff --git a/xbmc/input/XBMC_keysym.h b/xbmc/input/XBMC_keysym.h
-index 89c21f5..a75b799 100644
+index e7410ec..02f9afe 100644
 --- a/xbmc/input/XBMC_keysym.h
 +++ b/xbmc/input/XBMC_keysym.h
-@@ -229,6 +229,9 @@ typedef enum {
-   XBMCK_FAVORITES   = 0x14d,
+@@ -230,6 +230,9 @@ typedef enum {
    XBMCK_HOMEPAGE    = 0x14e,
    XBMCK_CONFIG      = 0x14f,
-+  XBMCK_MUSIC       = 0x150,
-+  XBMCK_MOVIES      = 0x151,
-+  XBMCK_SERIES      = 0x152,
+   XBMCK_EPG         = 0x150,
++  XBMCK_MUSIC       = 0x151,
++  XBMCK_MOVIES      = 0x152,
++  XBMCK_SERIES      = 0x153,
  
    // Add any other keys here
  
 diff --git a/xbmc/input/XBMC_keytable.cpp b/xbmc/input/XBMC_keytable.cpp
-index 4d05464..d8a7f1d 100644
+index 14fd384..cb75469 100644
 --- a/xbmc/input/XBMC_keytable.cpp
 +++ b/xbmc/input/XBMC_keytable.cpp
-@@ -243,6 +243,10 @@ static const XBMCKEYTABLE XBMCKeyTable[] =
- , { XBMCK_FAVORITES,              0,    0, XBMCVK_FAVORITES,     "favorites" }
+@@ -244,6 +244,10 @@ static const XBMCKEYTABLE XBMCKeyTable[] =
  , { XBMCK_HOMEPAGE ,              0,    0, XBMCVK_HOMEPAGE,      "homepage" }
  , { XBMCK_CONFIG,                 0,    0, XBMCVK_CONFIG,        "config" }
+ , { XBMCK_EPG   ,                 0,    0, XBMCVK_EPG,           "epg" }
 +, { XBMCK_MUSIC,                  0,    0, XBMCVK_MUSIC,         "music" }
 +, { XBMCK_MOVIES,                 0,    0, XBMCVK_MOVIES,        "movies" }
 +, { XBMCK_SERIES,                 0,    0, XBMCVK_SERIES,        "series" }
@@ -41,27 +41,27 @@ index 4d05464..d8a7f1d 100644
  
  static int XBMCKeyTableSize = sizeof(XBMCKeyTable)/sizeof(XBMCKEYTABLE);
 diff --git a/xbmc/input/XBMC_vkeys.h b/xbmc/input/XBMC_vkeys.h
-index af114c9..046a667 100644
+index 4e3787c..6e84fcf 100644
 --- a/xbmc/input/XBMC_vkeys.h
 +++ b/xbmc/input/XBMC_vkeys.h
-@@ -221,6 +221,10 @@ typedef enum {
-   XBMCVK_FAVORITES      = 0xE9,
+@@ -222,6 +222,10 @@ typedef enum {
    XBMCVK_HOMEPAGE       = 0xEA,
    XBMCVK_CONFIG         = 0xEB,
-+  XBMCVK_HELP           = 0xEC,
-+  XBMCVK_MUSIC          = 0xED,
-+  XBMCVK_MOVIES         = 0xEE,
-+  XBMCVK_SERIES         = 0xEF,
+   XBMCVK_EPG            = 0xEC,
++  XBMCVK_HELP           = 0xED,
++  XBMCVK_MUSIC          = 0xEE,
++  XBMCVK_MOVIES         = 0xEF,
++  XBMCVK_SERIES         = 0xF0,
  
    XBMCVK_LAST           = 0xFF
  } XBMCVKey;
 diff --git a/xbmc/input/linux/LinuxInputDevices.cpp b/xbmc/input/linux/LinuxInputDevices.cpp
-index b7e8e5a..5dbb7e2 100644
+index 119bb08..43d3224 100644
 --- a/xbmc/input/linux/LinuxInputDevices.cpp
 +++ b/xbmc/input/linux/LinuxInputDevices.cpp
-@@ -270,10 +270,19 @@ KeyMap keyMap[] = {
-   { KEY_SELECT        , XBMCK_RETURN      },
+@@ -271,10 +271,19 @@ KeyMap keyMap[] = {
    { KEY_CONFIG        , XBMCK_CONFIG      },
+   { KEY_EPG           , XBMCK_EPG         },
    // The Little Black Box Remote Additions
 -  { 384               , XBMCK_LEFT        }, // Red
 -  { 378               , XBMCK_RIGHT       }, // Green
@@ -84,5 +84,5 @@ index b7e8e5a..5dbb7e2 100644
  
  typedef enum
 -- 
-1.9.1
+2.5.0
 

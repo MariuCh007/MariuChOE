@@ -1,4 +1,4 @@
-From 087a38360d1697fb583425333eb5e04b347c258d Mon Sep 17 00:00:00 2001
+From f389419075ff408fbf3cb56960120f859a8796ba Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Wed, 16 Apr 2014 23:08:58 +0300
 Subject: [PATCH 01/20] [aml] Enable true 1920x1080 output without upscaling on
@@ -160,5 +160,5 @@ index cc34ff7..687ab1c 100644
    std::string m_framebuffer_name;
  };
 -- 
-1.9.1
+2.5.0
 

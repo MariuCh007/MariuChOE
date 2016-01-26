@@ -1,4 +1,4 @@
-From b077c86898e65b6c1e1ba41d5a87963ef6123123 Mon Sep 17 00:00:00 2001
+From 1ff47923f54b1e019f4825c2c8f6473ff01505c6 Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Wed, 16 Apr 2014 22:02:01 +0300
 Subject: [PATCH 10/20] [aml] Fix ALSA sound output for Amlogic-based devices.
@@ -51,5 +51,5 @@ index dcdaf2e..0503432 100644
    CLog::Log(LOGDEBUG, "CAESinkALSA::InitializeHW - Request: periodSize %lu, bufferSize %lu", periodSize, bufferSize);
  
 -- 
-1.9.1
+2.5.0
 

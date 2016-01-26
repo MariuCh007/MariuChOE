@@ -1,4 +1,4 @@
-From e06dd94c8e1783dc28e559de1e4d7c1aef937bf0 Mon Sep 17 00:00:00 2001
+From 9f1c9660994e7a2abd8c63235e4bb79bf969d895 Mon Sep 17 00:00:00 2001
 From: j1nx <p.steenbergen@j1nx.nl>
 Date: Sat, 10 May 2014 21:49:46 +0200
 Subject: [PATCH 18/20] Fix nynxboard related hardware based remote key bounche
@@ -9,7 +9,7 @@ Signed-off-by: j1nx <p.steenbergen@j1nx.nl>
  1 file changed, 29 insertions(+)
 
 diff --git a/xbmc/input/linux/LinuxInputDevices.cpp b/xbmc/input/linux/LinuxInputDevices.cpp
-index 5dbb7e2..80a7a57 100644
+index 43d3224..a72c7ab 100644
 --- a/xbmc/input/linux/LinuxInputDevices.cpp
 +++ b/xbmc/input/linux/LinuxInputDevices.cpp
 @@ -98,6 +98,7 @@ typedef unsigned long kernel_ulong_t;
@@ -20,7 +20,7 @@ index 5dbb7e2..80a7a57 100644
  
  #ifndef BITS_PER_LONG
  #define BITS_PER_LONG        (sizeof(long) * 8)
-@@ -847,6 +848,14 @@ void CLinuxInputDevice::SetLed(int led, int state)
+@@ -848,6 +849,14 @@ void CLinuxInputDevice::SetLed(int led, int state)
    write(m_fd, &levt, sizeof(levt));
  }
  
@@ -35,7 +35,7 @@ index 5dbb7e2..80a7a57 100644
  /*
   * Input thread reading from device.
   * Generates events on incoming data.
-@@ -856,6 +865,8 @@ XBMC_Event CLinuxInputDevice::ReadEvent()
+@@ -857,6 +866,8 @@ XBMC_Event CLinuxInputDevice::ReadEvent()
    int readlen;
    struct input_event levt;
  
@@ -44,7 +44,7 @@ index 5dbb7e2..80a7a57 100644
    XBMC_Event devt;
  
    if (m_equeue.empty())
-@@ -892,6 +903,24 @@ XBMC_Event CLinuxInputDevice::ReadEvent()
+@@ -893,6 +904,24 @@ XBMC_Event CLinuxInputDevice::ReadEvent()
          break;
        }
  
@@ -70,5 +70,5 @@ index 5dbb7e2..80a7a57 100644
          continue;
  
 -- 
-1.9.1
+2.5.0
 
