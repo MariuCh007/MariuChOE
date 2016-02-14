@@ -1,13 +1,50 @@
-From 50ad88da6dac72faeb23b9ac0eed9facb5ea4cad Mon Sep 17 00:00:00 2001
+From f098edb1e99138279771e939383b197df2849865 Mon Sep 17 00:00:00 2001
 From: Quihico <Quihico@gmail.com>
-Date: Fri, 27 Nov 2015 09:41:31 +0100
-Subject: [PATCH 11/16] Removed about.py from main window. Unbranded artwork.
+Date: Wed, 25 Nov 2015 16:53:56 +0100
+Subject: [PATCH] TLBB settings updates
 
+Removed "about.py" from wizard
+
+Removed "services.py" from wizard
+
+Removed "system.py" from wizard
+
+Added OPEN_URL-function
+
+Added Connectivity_Check-function
+
+Debranding
+
+Added registration script start
+
+Removed Connectivity() and Open_URL() as it is no longer needed.
+Start registration-script straigth after wizard.
+
+Removed "OpenELEC" in languagestrings
+
+Added branding plan b
+
+Removed about.py from main window.
+Unbranded artwork.
+
+Updated German strings
+
+Updated spanish strings
+
+Updated dutch strings
 ---
+ addon.xml                              | 149 ++++++++++++++++-----------------
  icons/icon.png                         | Bin 12731 -> 28071 bytes
+ language/Dutch/strings.po              |  80 +++++++++---------
+ language/English/strings.po            |  42 +++++-----
+ language/German/strings.po             |  79 ++++++++---------
+ language/Spanish/strings.po            |  72 ++++++++--------
  src/icon.png                           | Bin 12731 -> 28071 bytes
- src/resources/lib/modules/about.py     |  94 ---------------------------------
- src/resources/lib/modules/about.py.bak |  94 +++++++++++++++++++++++++++++++++
+ src/oe.py                              |   8 ++
+ src/resources/lib/modules/about.py     |  94 ---------------------
+ src/resources/lib/modules/about.py.bak |  94 +++++++++++++++++++++
+ src/resources/lib/modules/services.py  |  26 +++---
+ src/resources/lib/modules/system.py    |  20 ++---
  textures/KodiOS/Logo.png               | Bin 9713 -> 221 bytes
  textures/KodiOS/about.png              | Bin 28112 -> 1490 bytes
  textures/KodiOS/logo_big.png           | Bin 60558 -> 1048 bytes
@@ -18,10 +55,175 @@ Subject: [PATCH 11/16] Removed about.py from main window. Unbranded artwork.
  textures/OpenELEC/logo_big.png         | Bin 60558 -> 1048 bytes
  textures/OpenELEC/text_logo.png        | Bin 31569 -> 409 bytes
  textures/OpenELEC/wizard.png           | Bin 86481 -> 982 bytes
- 14 files changed, 94 insertions(+), 94 deletions(-)
+ 22 files changed, 337 insertions(+), 327 deletions(-)
  delete mode 100644 src/resources/lib/modules/about.py
  create mode 100644 src/resources/lib/modules/about.py.bak
 
+diff --git a/addon.xml b/addon.xml
+index 5d57f2a..5595431 100644
+--- a/addon.xml
++++ b/addon.xml
+@@ -1,87 +1,84 @@
+ <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+ <addon id="service.openelec.settings"
+-       name="@DISTRONAME@ Configuration"
+-       version="@ADDONVERSION@"
+-       provider-name="OpenELEC">
++       name="System Configuration"
++       version="1.0.0"
++       provider-name="System">
+    <requires>
+    	<import addon="xbmc.python" version="2.1.0"/>
+   </requires>
+   <extension point="xbmc.python.script" library="default.py"></extension>
+   <extension point="xbmc.service"       library="service.py" start="startup"></extension>
+   <extension point="xbmc.addon.metadata">
+-    <summary lang="af">@DISTRONAME@ Konfigurasie</summary>
+-    <summary lang="bg">Настройки на @DISTRONAME@</summary>
+-    <summary lang="ca">Configuració de @DISTRONAME@</summary>
+-    <summary lang="cs">@DISTRONAME@ Nastavení</summary>
+-    <summary lang="da">@DISTRONAME@ konfiguration</summary>
+-    <summary lang="de">@DISTRONAME@-Konfiguration</summary>
+-    <summary lang="el">Διαμόρφωση του @DISTRONAME@</summary>
+-    <summary lang="en">@DISTRONAME@ Configuration</summary>
+-    <summary lang="en_AU">@DISTRONAME@ Configuration</summary>
+-    <summary lang="en_NZ">@DISTRONAME@ Configuration</summary>
+-    <summary lang="en_US">@DISTRONAME@ Configuration</summary>
+-    <summary lang="es">Configuración de @DISTRONAME@</summary>
+-    <summary lang="es_MX">Configuración de @DISTRONAME@</summary>
+-    <summary lang="et">@DISTRONAME@ Seadistus</summary>
+-    <summary lang="fi">@DISTRONAME@-asetukset</summary>
+-    <summary lang="fr">Configuration @DISTRONAME@</summary>
+-    <summary lang="fr_CA">Configuration d'@DISTRONAME@</summary>
+-    <summary lang="gl">Configuración do @DISTRONAME@</summary>
+-    <summary lang="he">הגדרות @DISTRONAME@</summary>
+-    <summary lang="hr">@DISTRONAME@ podešavanje</summary>
+-    <summary lang="hu">@DISTRONAME@ konfiguráció</summary>
+-    <summary lang="it">Impostazioni @DISTRONAME@</summary>
+-    <summary lang="ja">@DISTRONAME@設定</summary>
+-    <summary lang="ko">@DISTRONAME@ 설정</summary>
+-    <summary lang="lt">@DISTRONAME@ konfigūravimas</summary>
+-    <summary lang="nl">@DISTRONAME@ Configuratie</summary>
+-    <summary lang="no">@DISTRONAME@-konfigurasjon</summary>
+-    <summary lang="pl">Konfiguracja @DISTRONAME@</summary>
+-    <summary lang="pt">Configuração @DISTRONAME@</summary>
+-    <summary lang="pt_BR">Configuração do @DISTRONAME@</summary>
+-    <summary lang="ro">Configurare @DISTRONAME@ </summary>
+-    <summary lang="ru">Конфигурация @DISTRONAME@</summary>
+-    <summary lang="sk">Konfigurácia @DISTRONAME@</summary>
+-    <summary lang="sl">Prilagoditev @DISTRONAME@</summary>
+-    <summary lang="sv">@DISTRONAME@-konfiguration</summary>
+-    <summary lang="tr">@DISTRONAME@ Yapılandırması</summary>
+-    <summary lang="vi">@DISTRONAME@ Cấu hình</summary>
+-    <summary lang="zh">@DISTRONAME@ 设置</summary>
+-    <description lang="bg">Ползвайте добавката за да управлявате операционната система, в основата на @DISTRONAME@. Чрез добавката можете да настроите всичко и така не се налага да се притеснявате какво работи под Kodi.[CR][CR]От добавката можете да променяте настройките на мрежовите връзки, клавиатурната подредба и да включвате/изключвате отдалечения достъп посредством Samba или SSH.</description>
+-    <description lang="ca">Utilitza aquest complement per configurar el sistema operatiu subjacent del sistema @DISTRONAME@. Des d'aquí es pot gestionar tot el sistema, de manera que no s'ha de preocupar sobre el que s'executa sota el Kodi.[CR][CR]Des d'aquí es pot canviar la connectivitat de la xarxa, la distribució del teclat i idioma i activar / desactivar l'accés remot inclòs samba i SSH.</description>
+-    <description lang="cs">Použijte toto rozšíření pro správu vašeho @DISTRONAME@ systému. Odtud můžete spravovat celý systém, takže nemusíte mít strach o to, co běží pod kapotou. [CR] [CR] Odtud můžete změnit připojení k síti, rozložení klávesnice, jazyk a povolit nebo zakázat vzdálený přístup, včetně Samby a SSH.</description>
+-    <description lang="da">Brug denne addon til at styre dit @DISTRONAME@ systems underliggende operativsystem. Herfra kan du styre hele systemet, så du ikke behøver at bekymre dig om, hvad der kører under motorhjelmen. [CR] [CR] Herfra kan du ændre din netværksforbindelse, dit tastaturlayout og sprog og aktivere/deaktivere fjernadgang, herunder Samba og SSH.</description>
+-    <description lang="de">Verwenden Sie dieses Addon, um das Betriebssystem, auf dem @DISTRONAME@ läuft, zu administrieren. Von hier aus können Sie das gesamte System verwalten ohne sich Gedanken machen zu müssen, was genau im System abläuft.[CR][CR]Hier haben Sie die Möglichkeit Netzwerkeinstellungen, Tastaturlayouts oder Systemdienste, wie SSH oder Samba, zu konfigurieren.</description>
+-    <description lang="el">Χρησιμοποιήστε αυτό το πρόσθετο για να διαχειριστείτε το λειτουργικό σύστημα @DISTRONAME@. Από εδώ μπορείτε να διαχειριστείτε ολόκληρο το σύστημα ούτως ώστε να μη χρειάζεται να ανησυχείτε σχετικά με το τι τρέχει στο υπόβαθρο.[CR][CR]Μπορείτε, επίσης, να αλλάξετε τη συνδεσιμότητα του δικτύου σας, τη διάταξη του πληκτρολογίου σας και τη γλώσσα, καθώς και να ενεργοποιήσετε/απενεργοποιήσετε την απομακρυσμένη πρόσβαση μέσω Samba και SSH.</description>
+-    <description lang="en">Use this addon to manage your @DISTRONAME@ system's underlying operating system. From here you can manage the entire system so you don't have to worry about what runs under the hood.[CR][CR]From here you can change your network connectivity, your keyboard layout and language and enable/disable remote access including Samba and SSH.</description>
+-    <description lang="en_AU">Use this addon to manage your @DISTRONAME@ system's underlying operating system. From here you can manage the entire system so you don't have to worry about what runs under the hood.[CR][CR]From here you can change your network connectivity, your keyboard layout and language and enable/disable remote access including Samba and SSH.</description>
+-    <description lang="en_NZ">Use this addon to manage your @DISTRONAME@ system's underlying operating system. From here you can manage the entire system so you don't have to worry about what runs under the hood.[CR][CR]From here you can change your network connectivity, your keyboard layout and language and enable/disable remote access including Samba and SSH.</description>
+-    <description lang="en_US">Use this addon to manage your @DISTRONAME@ system's underlying operating system. From here you can manage the entire system so you don't have to worry about what runs under the hood.[CR][CR]From here you can change your network connectivity, your keyboard layout and language and enable/disable remote access including Samba and SSH.</description>
+-    <description lang="es">Usa este add-on para administrar el sistema @DISTRONAME@. Desde aquí podrás controlar el sistema al completo (Conexiones de red, teclado, acceso remoto, samba y SSH)</description>
+-    <description lang="es_AR">Usá esta extensión para administrar el sistema operativo subyacente a tu sistema @DISTRONAME@. Desde acá podés administrar el sistema en su totalidad sin tener que preocuparte por lo que pasa debajo del capó.[CR][CR]Desde acá podés cambiar la conexión de red, la distribución del teclado y el lenguaje y habilitar/deshabilitar el acceso remoto, incluyendo Samba y SSH.</description>
+-    <description lang="es_MX">Usa este complemento para configurar el sistema operativo de tu @DISTRONAME@. Desde aquí puedes administrar todo el sistema fácilmente.[CR][CR]Desde aquí puedes cambiar la configuración de red, distribución del teclado, lenguaje del sistema y configurar Samba y SSH para controlar el acceso remoto al sistema.</description>
+-    <description lang="et">See  lisa on @DISTRONAME@ operatsioonisüsteemi häälestamiseks. Siit saad hallata kogu süsteemi, ilma et oleks vaja kaane alla piiluda.[CR][CR] Siit saab seada võrguühenduse parameetreid, klaviatuuripaigutust, keelt ning lubada/keelata kaugligipääsu, sealhulgas Samba ja SSH.</description>
+-    <description lang="fi">Käytä tätä lisäosaa muokataksesi @DISTRONAME@in alla olevaa käyttöjärjestelmää. Täältä voit muokata koko järjestelmää välittämättä siitä, mitä konepellin alta löytyy.[CR][CR]Voit muokata verkkoasetuksia, näppäimistön tyyppiä, kieliasetuksia sekä yhteysasetuksia, mukaanlukien Samba ja SSH.</description>
+-    <description lang="fr">Utiliser cette extension pour configurer le système d'exploitation @DISTRONAME@. Il est possible de gérer l'intégralité du système simplement sans se soucier des détails techniques.[CR][CR]Il est possible de modifier la connexion au réseau, la disposition du clavier ou la langue du système. Il est aussi possible d'activer les accès distants comme Samba ou SSH.</description>
+-    <description lang="fr_CA">Utilisez cet addiciel pour gérer le système d'exploitation sous-jacent de votre système @DISTRONAME@. D'ici vous pouvez gérer votre système au complet sans vous soucier de ce qui tourne sous la capot.[CR][CR]D'ici vous pouvez changer vos paramètres de connexion réseau, l'agencement et la langue de votre clavier et activer/désactiver l'accès distant incluant Samba et SSH.</description>
+-    <description lang="he">בעזרת הרחבה זו ניתן לנהל את מערכת ההפעלה של @DISTRONAME@. מכאן ניתן לנהל כל אחד ממאפייני המערכת כך שאין צורך לדאוג מה קורה מתחת לממשק המשתמש.[CR][CR]ניתן לשנות הגדרות רשת, מערך מקלדת ושפה וגם להפעיל/לנטרל שירותי גישה מרחוק כולל Samba ו-SSH.</description>
+-    <description lang="hr">Koristite ovaj dodatak za upravljanje @DISTRONAME@ operativnim sustavom. Odavdje možete upravljati cijelim sustavom stoga se ne morate brinuti što je pokrenuto u pozadini.[CR][CR]Odavdje možete promijeniti mrežno povezivenje, vaš raspored tipkovnice i jezik, omogućiti/onemogućiti udaljeni pristup uključujući Sambu i SSH.</description>
+-    <description lang="hu">Ez a kiegészítő vezérli az @DISTRONAME@ rendszer alatti operációs rendszer beállításait. Innen kezelheti a teljes rendszert, tehát nem szükséges aggódnia mi van a motorháztető alatt. [CR][CR] Innen állíthatóak be a hálózati kapcsolatok, billentyűzet kiosztás és nyelvezet valamint a távoli hozzáférések engedélyezése/letiltása beleértve a Samba-t és SSH-t is.</description>
+-    <description lang="it">Usa questo addon per gestire le impostazioni del sistema operativo di @DISTRONAME@. Da qui puoi gestire l'intero sistema senza necessità di una conoscenza avanzata del software sottostante.[CR][CR]Puoi modificare le connessioni di rete, il layout e la lingua della tastiera così come abilitare/disabilitare l'accesso remoto tramite Samba e SSH</description>
+-    <description lang="ja">このアドオンで@DISTRONAME@システムのオペレーティング・システムを管理します。ここからシステム全体を管理できますので、バックグラウンドで何が動作しているかなどを気にしなくてかまいません。[CR][CR]ネットワーク接続、キーボードのレイアウトや言語、SambaとSSHを含むリモートアクセスの有効・無効などの設定を行います。</description>
+-    <description lang="lt">Naudokite šį priedą operacines sistemos, kuris pagrįsta jūsų @DISTRONAME@ sistema, tvarkymui. Čia jūs galite valdyta visą sistemą, kad jums netektų rūpintis kas vyksta po gaubtu..[CR][CR]Čia galite pakeisti tinklo nustatymus, klaviatūros išdėstymą ir kalbą bei įjungti/išjungti nuotolinę prieigą, įskaitant Samba ir SSH.</description>
+-    <description lang="nl">Gebruik deze addon om het onderliggende @DISTRONAME@ systeem in te stellen. Vanaf hier kunt u het gehele systeem aanpassen, zodat u zich geen zorgen hoeft te maken over wat er onderhuids gebeurt.[CR][CR]Vanaf hier kunt u de netwerkverbindingen aanpassen, uw toetsenbord indeling en -taal, alsook een externe verbinding inclusief Samba en SSH in- of uitschakelen.</description>
+-    <description lang="no">Bruk dette tillegget for å konfigurere @DISTRONAME@s underliggende operativsystem. Herfra kan du konfigurere hele systemet slik at du ikke trenger å bekymre deg om hva som skjer under panseret.[CR][CR]Du kan endre nettverksinnstillinger, tastatur, språk og aktivere eller deaktivere nettverkstilgang slik som Samba og SSH.</description>
+-    <description lang="pl">Za pomocą tej wtyczki możesz zarządzać systemem @DISTRONAME@. Z tego miejsca masz kontrolę nad całym systemem.[CR][CR] Zarządzasz połączeniem sieciowym, układem klawiatury i językiem systemu oraz możesz włączyć lub wyłączyć dostęp zdalny, w tym Sambę i SSH.</description>
+-    <description lang="pt">Utilize este addon para gerir o sistema operativo que está na base do @DISTRONAME@. Aqui pode gerir todo o sistema, para não ter de se preocupar com aquilo que se passa nos bastidores.[CR][CR] Daqui, pode alterar as suas ligações de rede, disposição do teclado e idiomas. Também pode activar/desactivar acesso remoto, incluindo Samba e SSH.</description>
+-    <description lang="pt_BR">Utilize este addon para gerenciar o sistema operacional do @DISTRONAME@. Aqui você pode gerenciar todo o sistema, para não ter de se preocupar com aquilo que se passa nos bastidores.[CR][CR] Daqui, você pode alterar as suas conexões de rede, configurações do teclado e idiomas. Também pode ativar/desativar acesso remoto, incluindo compartilhamento de rede do Windows e SSH.</description>
+-    <description lang="ru">Данное дополнение предназначено для управления системными настройками @DISTRONAME@. С помощью удобного интерфейса Вы можете управлять настройками системы (включая низкоуровневые настройки ОС) через удобный интерфейс.[CR][CR]Здесь Вы также сможете изменить способ соединения с сетью, настроить раскладку клавиатуры, выбрать язык интерфейса, а также включить удаленный доступ по SSH и/или Samba.</description>
+-    <description lang="sk">Tento doplnok slúži na správu operačného systému, na ktorom beží @DISTRONAME@. Odtiaľto je možné spravovať celý systém bez nutnosti znalostí o tom, čo beží pod kapotou.[CR][CR]Je tu možné meniť sieťové nastavenia, rozloženie a jazyk klávesnice alebo povoliť/zakázať vzdialený prístup prostredníctvom Samby a SSH.</description>
+-    <description lang="sl">S tem dodatkom upravljate operacijski sistem, ki deluje pod pokrovom sistema @DISTRONAME@. Odtod lahko upravljate s celotnim sistemom, tako da je skrb o tem, kar teče pod pokrovom, odveč.[CR][CR]Odtod lahko spremenite svojo omrežno povezljivost, postavitev tipkovnice in jezik ter omogočite/onemogočite oddaljeni dostop, vključno s Sambo in SSH.</description>
+-    <description lang="sv">Använd detta tillägg för att hantera ditt @DISTRONAME@-systems underliggande operativ. Härifrån kan du hantera hela systemet så du inte behöver oroa dig för vad som körs under skalet.[CR][CR]Härifrån kan du ändra din nätverksanslutning, tangentbordslayout och språk, samt aktivera/inaktivera fjärråtkomst inklusive Samba och SSH.</description>
+-    <description lang="tr">Bu eklentiyi kullanarak @DISTRONAME@ sisteminizin temelindeki işletim sistemini yönetin. Buradan tüm sistemi yönetebilirsiniz ve bu yüzden sistemin altında neler olduğu hakkında endişelenmenize gerek yok.[CR][CR]Buradan ağ bağlantısı, klavye düzeni ve dilini değiştirip, Samba ve SSH gibi uzaktan erişimi etkinleştirip/devre dışı bırakabilirsiniz.</description>
+-    <description lang="vi">Sử dụng addon này để quản lý  hệ thống điều hành @DISTRONAME@ cơ bản của bạn.&#10;Từ đây bạn có thể quản lý toàn bộ hệ thống, do đó bạn không cần phải lo lắng về những gì đang chạy . [CR][CR] Từ đây bạn có thể thay đổi kết nối mạng của bạn, bố trí bàn phím của bạn và ngôn ngữ và cho phép / vô hiệu hóa truy cập từ xa bao gồm Samba và SSH.</description>
+-    <description lang="zh">使用此插件管理你的 @DISTRONAME@ 系统的底层操作系统。它使你可以在无需深入了解的情况下管理整个系统。[CR][CR]在这里，你可以修改网络设置、键盘布局、语言以及启用/禁用 Samba 和 SSH 等远程访问功能。</description>
++    <summary lang="af">Konfigurasie</summary>
++    <summary lang="bg">Настройки на</summary>
++    <summary lang="ca">Configuració de</summary>
++    <summary lang="cs">Nastavení</summary>
++    <summary lang="da">konfiguration</summary>
++    <summary lang="de">Konfiguration</summary>
++    <summary lang="el">Διαμόρφωση του</summary>
++    <summary lang="en">Configuration</summary>
++    <summary lang="en_AU">Configuration</summary>
++    <summary lang="en_NZ">Configuration</summary>
++    <summary lang="en_US">Configuration</summary>
++    <summary lang="es">Configuración de</summary>
++    <summary lang="es_MX">Configuración de</summary>
++    <summary lang="et">Seadistus</summary>
++    <summary lang="fi">asetukset</summary>
++    <summary lang="fr">Configuration</summary>
++    <summary lang="fr_CA">Configuration d'</summary>
++    <summary lang="gl">Configuración do</summary>
++    <summary lang="he">הגדרות</summary>
++    <summary lang="hr">podešavanje</summary>
++    <summary lang="hu">konfiguráció</summary>
++    <summary lang="it">Impostazioni</summary>
++    <summary lang="ja">設定</summary>
++    <summary lang="ko">설정</summary>
++    <summary lang="lt">konfigūravimas</summary>
++    <summary lang="nl">Configuratie</summary>
++    <summary lang="no">konfigurasjon</summary>
++    <summary lang="pl">Konfiguracja</summary>
++    <summary lang="pt">Configuração</summary>
++    <summary lang="pt_BR">Configuração</summary>
++    <summary lang="ru">Конфигурация</summary>
++    <summary lang="sk">Konfigurácia</summary>
++    <summary lang="sl">Prilagoditev </summary>
++    <summary lang="sv">konfiguration</summary>
++    <summary lang="tr">Yapılandırması</summary>
++    <summary lang="zh">设置</summary>
++    <description lang="bg">Ползвайте добавката за да управлявате операционната система, в основата на. Чрез добавката можете да настроите всичко и така не се налага да се притеснявате какво работи под Kodi.[CR][CR]От добавката можете да променяте настройките на мрежовите връзки, клавиатурната подредба и да включвате/изключвате отдалечения достъп посредством Samba или SSH.</description>
++    <description lang="ca">Utilitza aquest complement per configurar el sistema operatiu subjacent del sistema. Des d'aquí es pot gestionar tot el sistema, de manera que no s'ha de preocupar sobre el que s'executa sota el Kodi.[CR][CR]Des d'aquí es pot canviar la connectivitat de la xarxa, la distribució del teclat i idioma i activar / desactivar l'accés remot inclòs samba i SSH.</description>
++    <description lang="cs">Použijte toto rozšíření pro správu vašeho systému. Odtud můžete spravovat celý systém, takže nemusíte mít strach o to, co běží pod kapotou. [CR] [CR] Odtud můžete změnit připojení k síti, rozložení klávesnice, jazyk a povolit nebo zakázat vzdálený přístup, včetně Samby a SSH.</description>
++    <description lang="da">Brug denne addon til at styre dit systems underliggende operativsystem. Herfra kan du styre hele systemet, så du ikke behøver at bekymre dig om, hvad der kører under motorhjelmen. [CR] [CR] Herfra kan du ændre din netværksforbindelse, dit tastaturlayout og sprog og aktivere/deaktivere fjernadgang, herunder Samba og SSH.</description>
++    <description lang="de">Verwenden Sie dieses Addon, um das Betriebssystem, auf dem läuft, zu administrieren. Von hier aus können Sie das gesamte System verwalten ohne sich Gedanken machen zu müssen, was genau im System abläuft.[CR][CR]Hier haben Sie die Möglichkeit Netzwerkeinstellungen, Tastaturlayouts oder Systemdienste, wie SSH oder Samba, zu konfigurieren.</description>
++    <description lang="el">Χρησιμοποιήστε αυτό το πρόσθετο για να διαχειριστείτε το λειτουργικό σύστημα. Από εδώ μπορείτε να διαχειριστείτε ολόκληρο το σύστημα ούτως ώστε να μη χρειάζεται να ανησυχείτε σχετικά με το τι τρέχει στο υπόβαθρο.[CR][CR]Μπορείτε, επίσης, να αλλάξετε τη συνδεσιμότητα του δικτύου σας, τη διάταξη του πληκτρολογίου σας και τη γλώσσα, καθώς και να ενεργοποιήσετε/απενεργοποιήσετε την απομακρυσμένη πρόσβαση μέσω Samba και SSH.</description>
++    <description lang="en">Use this addon to manage your system's underlying operating system. From here you can manage the entire system so you don't have to worry about what runs under the hood.[CR][CR]From here you can change your network connectivity, your keyboard layout and language and enable/disable remote access including Samba and SSH.</description>
++    <description lang="en_AU">Use this addon to manage your system's underlying operating system. From here you can manage the entire system so you don't have to worry about what runs under the hood.[CR][CR]From here you can change your network connectivity, your keyboard layout and language and enable/disable remote access including Samba and SSH.</description>
++    <description lang="en_NZ">Use this addon to manage your system's underlying operating system. From here you can manage the entire system so you don't have to worry about what runs under the hood.[CR][CR]From here you can change your network connectivity, your keyboard layout and language and enable/disable remote access including Samba and SSH.</description>
++    <description lang="en_US">Use this addon to manage your system's underlying operating system. From here you can manage the entire system so you don't have to worry about what runs under the hood.[CR][CR]From here you can change your network connectivity, your keyboard layout and language and enable/disable remote access including Samba and SSH.</description>
++    <description lang="es">Usa este add-on para administrar el sistema. Desde aquí podrás controlar el sistema al completo (Conexiones de red, teclado, acceso remoto, samba y SSH)</description>
++    <description lang="es_AR">Usá esta extensión para administrar el sistema operativo subyacente a tu sistema. Desde acá podés administrar el sistema en su totalidad sin tener que preocuparte por lo que pasa debajo del capó.[CR][CR]Desde acá podés cambiar la conexión de red, la distribución del teclado y el lenguaje y habilitar/deshabilitar el acceso remoto, incluyendo Samba y SSH.</description>
++    <description lang="es_MX">Usa este complemento para configurar el sistema operativo de tu. Desde aquí puedes administrar todo el sistema fácilmente.[CR][CR]Desde aquí puedes cambiar la configuración de red, distribución del teclado, lenguaje del sistema y configurar Samba y SSH para controlar el acceso remoto al sistema.</description>
++    <description lang="et">See  lisa on operatsioonisüsteemi häälestamiseks. Siit saad hallata kogu süsteemi, ilma et oleks vaja kaane alla piiluda.[CR][CR] Siit saab seada võrguühenduse parameetreid, klaviatuuripaigutust, keelt ning lubada/keelata kaugligipääsu, sealhulgas Samba ja SSH.</description>
++    <description lang="fi">Käytä tätä lisäosaa muokataksesiin alla olevaa käyttöjärjestelmää. Täältä voit muokata koko järjestelmää välittämättä siitä, mitä konepellin alta löytyy.[CR][CR]Voit muokata verkkoasetuksia, näppäimistön tyyppiä, kieliasetuksia sekä yhteysasetuksia, mukaanlukien Samba ja SSH.</description>
++    <description lang="fr">Utilisez cette extension pour configurer votre système d'exploitation. Vous pouvez gérer l'intégralité du système simplement sans vous soucier des détails techniques.[CR][CR]Vous pouvez modifier la connexion au réseau, la disposition du clavier ou la langue du système. Vous pouvez aussi activer les accès distants comme Samba ou SSH.</description>
++    <description lang="fr_CA">Utilisez cet addiciel pour gérer le système d'exploitation sous-jacent de votre système. D'ici vous pouvez gérer votre système au complet sans vous soucier de ce qui tourne sous la capot.[CR][CR]D'ici vous pouvez changer vos paramètres de connexion réseau, l'agencement et la langue de votre clavier et activer/désactiver l'accès distant incluant Samba et SSH.</description>
++    <description lang="he">בעזרת הרחבה זו ניתן לנהל את מערכת ההפעלה של. מכאן ניתן לנהל כל אחד ממאפייני המערכת כך שאין צורך לדאוג מה קורה מתחת לממשק המשתמש.[CR][CR]ניתן לשנות הגדרות רשת, מערך מקלדת ושפה וגם להפעיל/לנטרל שירותי גישה מרחוק כולל Samba ו-SSH.</description>
++    <description lang="hr">Koristite ovaj dodatak za upravljanje operativnim sustavom. Odavdje možete upravljati cijelim sustavom stoga se ne morate brinuti što je pokrenuto u pozadini.[CR][CR]Odavdje možete promijeniti mrežno povezivenje, vaš raspored tipkovnice i jezik, omogućiti/onemogućiti udaljeni pristup uključujući Sambu i SSH.</description>
++    <description lang="hu">Ez a kiegészítő vezérli az rendszer alatti operációs rendszer beállításait. Innen kezelheti a teljes rendszert, tehát nem szükséges aggódnia mi van a motorháztető alatt. [CR][CR] Innen állíthatóak be a hálózati kapcsolatok, billentyűzet kiosztás és nyelvezet valamint a távoli hozzáférések engedélyezése/letiltása beleértve a Samba-t és SSH-t is.</description>
++    <description lang="it">Usa questo addon per gestire le impostazioni del sistema operativo di. Da qui puoi gestire l'intero sistema senza necessità di una conoscenza avanzata del software sottostante.[CR][CR]Puoi modificare le connessioni di rete, il layout e la lingua della tastiera così come abilitare/disabilitare l'accesso remoto tramite Samba e SSH</description>
++    <description lang="ja">このアドオンを使用してシステムのオペレーティング·システムを管理してください。ここからでシステム全体を管理することができます。「CR][CR]ここから、ネットワーク接続とキーボードのレイアウト/言語を変更、またはリモートアクセス（SambaとSSHも含む）を有効/無効することもできます。</description>
++    <description lang="lt">Naudokite šį priedą operacines sistemos, kuris pagrįsta jūsų sistema, tvarkymui. Čia jūs galite valdyta visą sistemą, kad jums netektų rūpintis kas vyksta po gaubtu..[CR][CR]Čia galite pakeisti tinklo nustatymus, klaviatūros išdėstymą ir kalbą bei įjungti/išjungti nuotolinę prieigą, įskaitant Samba ir SSH.</description>
++    <description lang="nl">Gebruik deze addon om het onderliggende systeem in te stellen. Vanaf hier kunt u het gehele systeem aanpassen, zodat u zich geen zorgen hoeft te maken over wat er onderhuids gebeurt.[CR][CR]Vanaf hier kunt u de netwerkverbindingen aanpassen, uw toetsenbordlayout en -taal, alsook een externe verbinding inclusief Samba en SSH in- of uitschakelen.</description>
++    <description lang="no">Bruk dette tillegget for å konfigureres underliggende operativsystem. Herfra kan du konfigurere hele systemet slik at du ikke trenger å bekymre deg om hva som skjer under panseret.[CR][CR]Du kan endre nettverksinnstillinger, tastatur, språk og aktivere eller deaktivere nettverkstilgang slik som Samba og SSH.</description>
++    <description lang="pl">Za pomocą tej wtyczki możesz zarządzać systemem. Z tego miejsca masz kontrolę nad całym systemem.[CR][CR] Zarządzasz połączeniem sieciowym, układem klawiatury i językiem systemu oraz możesz włączyć lub wyłączyć dostęp zdalny, w tym Sambę i SSH.</description>
++    <description lang="pt">Utilize este addon para gerir o sistema operativo que está na base do. Aqui pode gerir todo o sistema, para não ter de se preocupar com aquilo que se passa nos bastidores.[CR][CR] Daqui, pode alterar as suas ligações de rede, disposição do teclado e idiomas. Também pode activar/desactivar acesso remoto, incluindo Samba e SSH.</description>
++    <description lang="pt_BR">Utilize este addon para gerir o sistema operativo que está na base do. Aqui pode gerir todo o sistema, para não ter de se preocupar com aquilo que se passa nos bastidores.[CR][CR] Daqui, pode alterar as suas ligações de rede, disposição do teclado e idiomas. Também pode activar/desactivar acesso remoto, incluindo Samba e SSH.</description>
++    <description lang="ru">Данное дополнение предназначено для управления системными настройками. С помощью удобного интерфейса Вы можете управлять настройками системы (включая низкоуровневые настройки ОС) через удобный интерфейс.[CR][CR]Здесь Вы также сможете изменить способ соединения с сетью, настроить раскладку клавиатуры, выбрать язык интерфейса, а также включить удаленный доступ по SSH и/или Samba.</description>
++    <description lang="sk">Tento doplnok slúži na správu operačného systému, na ktorom beží. Odtiaľto je možné spravovať celý systém bez nutnosti znalostí o tom, čo beží pod kapotou.[CR][CR]Je tu možné meniť sieťové nastavenia, rozloženie a jazyk klávesnice alebo povoliť/zakázať vzdialený prístup prostredníctvom Samby a SSH.</description>
++    <description lang="sl">S tem dodatkom upravljate operacijski sistem, ki deluje pod pokrovom sistema. Odtod lahko upravljate s celotnim sistemom, tako da je skrb o tem, kar teče pod pokrovom, odveč.[CR][CR]Odtod lahko spremenite svojo omrežno povezljivost, postavitev tipkovnice in jezik ter omogočite/onemogočite oddaljeni dostop, vključno s Sambo in SSH.</description>
++    <description lang="sv">Använd detta tillägg för att hantera ditt-systems underliggande operativ. Härifrån kan du hantera hela systemet så du inte behöver oroa dig för vad som körs under skalet.[CR][CR]Härifrån kan du ändra din nätverksanslutning, tangentbordslayout och språk, samt aktivera/inaktivera fjärråtkomst inklusive Samba och SSH.</description>
++    <description lang="tr">Bu eklentiyi kullanarak sisteminizin temelindeki işletim sistemini yönetin. Buradan tüm sistemi yönetebilirsiniz bu yüzden sistemin altında neler olduğu hakkında endişelenmenize gerek yok.[CR][CR]Buradan ağ bağlantısı, klavye düzeni ve dilini değiştirip, Samba ve SSH gibi uzaktan erişimi etkinleştirip/devre dışı bırakabilirsiniz.</description>
++    <description lang="zh">使用此插件管理你的 系统的底层操作系统。它使你可以在无需深入了解的情况下管理整个系统。[CR][CR]在这里，你可以修改网络设置、键盘布局、语言以及启用/禁用 Samba 和 SSH 等远程访问功能。</description>
+     <platform>all</platform>
+   </extension>
+ </addon>
 diff --git a/icons/icon.png b/icons/icon.png
 index 072ab561d55f8b11f86fbc5443dec0692afc3124..b2c879f7bdd46c36c2e39147f64a8b1a5fa41369 100644
 GIT binary patch
@@ -765,6 +967,766 @@ z-bl&#{c$`=_AhdIALFCK1Y=v9Mh=?dS4<1Yl1)Fd)ge#kF*>Z=@o2AZ7<@Dx*Rm~6
 zuA?K@%2g|~H9@Fl_4rkjOAF13i*CT9@Tp^tWR`5)pQ)W)SMIw3CQmE==XVa*NfFsi
 Vs*+ENH~yW%&St-Lg{61O{{qa>_(%W%
 
+diff --git a/language/Dutch/strings.po b/language/Dutch/strings.po
+index 2ef976d..db4c7d5 100644
+--- a/language/Dutch/strings.po
++++ b/language/Dutch/strings.po
+@@ -1,7 +1,7 @@
+ # Kodi Media Center language file
+-# Addon Name: @DISTRONAME@ Configuration
++# Addon Name: System Configuration
+ # Addon id: service.openelec.settings
+-# Addon Provider: OpenELEC
++# Addon Provider: System
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: XBMC Addons\n"
+@@ -17,8 +17,8 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ 
+ msgctxt "#600"
+-msgid "@DISTRONAME@ Settings"
+-msgstr "@DISTRONAME@ Configuratie"
++msgid "System Settings"
++msgstr "System Configuratie"
+ 
+ msgctxt "#601"
+ msgid "Interface"
+@@ -89,8 +89,8 @@ msgid "Useful information like version and architecture details, support and soc
+ msgstr "Nuttige informatie zoals versie- en architectuurdetails, ondersteuning en sociale medialinks, en hoe u een donatie aan het project kunt maken"
+ 
+ msgctxt "#710"
+-msgid "Configure the Hostname of your @DISTRONAME@ system. This will be used for the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
+-msgstr "Configureer de hostnaam van uw @DISTRONAME@ systeem. Dit zal gebruikt worden voor de HTPC \\\\hostnaam binnen Windows en SMB servernaam in de Mac OS Finder"
++msgid "Configure the Hostname of your System system. This will be used for the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
++msgstr "Configureer de hostnaam van uw System systeem. Dit zal gebruikt worden voor de HTPC \\\\hostnaam binnen Windows en SMB servernaam in de Mac OS Finder"
+ 
+ msgctxt "#711"
+ msgid "Configure the 1st keyboard software layout"
+@@ -105,40 +105,40 @@ msgid "Configure the physical keyboard type"
+ msgstr "Configureer het fysieke toetsenbordtype"
+ 
+ msgctxt "#714"
+-msgid "@DISTRONAME@ can be configured for automatic or manual updates. Automatic updates are available on stable releases and stable release candidates. Automatic update self-disables on beta and development builds"
+-msgstr "@DISTRONAME@ kan geconfigureerd worden voor automatische of handmatige updates. Automatische updates zijn beschikbaar voor stabiele uitgaves en stabiele release candidates. Op betaversies en ontwikkelbuilds zijn automatische updates vanzelf uitgeschakeld"
++msgid "System can be configured for automatic or manual updates. Automatic updates are available on stable releases and stable release candidates. Automatic update self-disables on beta and development builds"
++msgstr "System kan geconfigureerd worden voor automatische of handmatige updates. Automatische updates zijn beschikbaar voor stabiele uitgaves en stabiele release candidates. Op betaversies en ontwikkelbuilds zijn automatische updates vanzelf uitgeschakeld"
+ 
+ msgctxt "#715"
+ msgid "Set to ON and an on-screen notification will be displayed when a new update is available"
+ msgstr "Zet op AAN en een melding zal verschijnen wanneer een nieuwe update beschikbaar is"
+ 
+ msgctxt "#716"
+-msgid "Click to manually check the @DISTRONAME@ servers for an updated release"
+-msgstr "Klik om handmatig op de @DISTRONAME@ servers te controleren voor een bijgewerkte uitgave."
++msgid "Click to manually check the System servers for an updated release"
++msgstr "Klik om handmatig op de System servers te controleren voor een bijgewerkte uitgave."
+ 
+ msgctxt "#717"
+-msgid "If you have an small LCD or VFD attached to your @DISTRONAME@ system you must configure the correct display driver"
+-msgstr "Indien u een smalle LCD of VFD op uw @DISTRONAME@ systeem heeft aangesloten, dan moet u de juiste display driver configureren"
++msgid "If you have an small LCD or VFD attached to your System system you must configure the correct display driver"
++msgstr "Indien u een smalle LCD of VFD op uw System systeem heeft aangesloten, dan moet u de juiste display driver configureren"
+ 
+ msgctxt "#720"
+ msgid "Set to ON and Bluetooth devices will be disabled during power-saving modes"
+ msgstr "Zet op AAN en Bluetooth-apparaten zullen uitgeschakeld worden tijdens stroombesparingsmodi."
+ 
+ msgctxt "#722"
+-msgid "Create a tar archive containing all @DISTRONAME@ and Kodi configuration settings, databases and thumbnail content. Backup files will be stored in /storage/backups"
+-msgstr "Maak een backup van @DISTRONAME@ en Kodi configuratie, waaronder databases en instellingen. Backupbestanden worden opgeslagen in /storage/backups"
++msgid "Create a tar archive containing all System and Kodi configuration settings, databases and thumbnail content. Backup files will be stored in /storage/backups"
++msgstr "Maak een backup van System en Kodi configuratie, waaronder databases en instellingen. Backupbestanden worden opgeslagen in /storage/backups"
+ 
+ msgctxt "#723"
+ msgid "Restore a tar archive backup previously created using the backup option above"
+ msgstr "Herstel een eerder gecreerde backup, gemaakt met de backup-optie hierboven"
+ 
+ msgctxt "#724"
+-msgid "[COLOR FF00FF00]SOFT RESET[/COLOR]\nPermanently reset @DISTRONAME@ configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
+-msgstr "[COLOR FF00FF00]ZACHTE RESET[/COLOR]\nReset @DISTRONAME@ naar standaardwaarden (Herstelt ook Kodi naar het begin inclusief bibliotheek. Media - muziek/video`s/etc. worden niet verwijderd)"
++msgid "[COLOR FF00FF00]SOFT RESET[/COLOR]\nPermanently reset System configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
++msgstr "[COLOR FF00FF00]ZACHTE RESET[/COLOR]\nReset System naar standaardwaarden (Herstelt ook Kodi naar het begin inclusief bibliotheek. Media - muziek/video`s/etc. worden niet verwijderd)"
+ 
+ msgctxt "#725"
+-msgid "[COLOR FFFF0000]HARD RESET[/COLOR]\nPermanently reset @DISTRONAME@ and Kodi configuration to defaults (everything in your storage partition will be deleted)"
+-msgstr "[COLOR FFFF0000]HARDE RESET[/COLOR]\nReset  @DISTRONAME@ en Kodi configuratie naar standaardwaarden (verwijdert alle aanwezige bestanden op de storage partitie)"
++msgid "[COLOR FFFF0000]HARD RESET[/COLOR]\nPermanently reset System and Kodi configuration to defaults (everything in your storage partition will be deleted)"
++msgstr "[COLOR FFFF0000]HARDE RESET[/COLOR]\nReset  System en Kodi configuratie naar standaardwaarden (verwijdert alle aanwezige bestanden op de storage partitie)"
+ 
+ msgctxt "#726"
+ msgid "Enable or disable support for Wireless (WLAN) networks"
+@@ -217,8 +217,8 @@ msgid "750"
+ msgstr "750"
+ 
+ msgctxt "#751"
+-msgid "With OBEX filetransfer you can send files, for example movies or pictures over bluetooth to @DISTRONAME@."
+-msgstr "Met OBEX bestandsoverdracht kun je bestanden oversturen, bijvoorbeeld films of foto's over bluetooth naar @DISTRONAME@."
++msgid "With OBEX filetransfer you can send files, for example movies or pictures over bluetooth to System."
++msgstr "Met OBEX bestandsoverdracht kun je bestanden oversturen, bijvoorbeeld films of foto's over bluetooth naar System."
+ 
+ msgctxt "#752"
+ msgid "Here you can set the folder location where OBEX file transfer should store incoming files"
+@@ -433,8 +433,8 @@ msgid "Edit"
+ msgstr "Wijzigen"
+ 
+ msgctxt "#32180"
+-msgid "Would you like to update @DISTRONAME@ now?"
+-msgstr "@DISTRONAME@ nu updaten?"
++msgid "Would you like to update System now?"
++msgstr "System nu updaten?"
+ 
+ msgctxt "#32181"
+ msgid "Filename"
+@@ -529,32 +529,32 @@ msgid "Auto-Share External Drives"
+ msgstr "Automatisch-delen externe schijven"
+ 
+ msgctxt "#32300"
+-msgid "Welcome to @DISTRONAME@"
+-msgstr "Welkom bij @DISTRONAME@!"
++msgid "Welcome to System"
++msgstr "Welkom bij System!"
+ 
+ msgctxt "#32301"
+ msgid "Welcome"
+ msgstr "Welkom"
+ 
+ msgctxt "#32302"
+-msgid "This wizard will guide you through the process of setting up your new @DISTRONAME@ installation - setting your location, timezone and connecting you to the internet.[CR][CR]These settings can be changed later by navigating to Programs > @DISTRONAME@ Settings."
+-msgstr "Deze wizard helpt u tijdens het opzetten van uw nieuwe @DISTRONAAM@ installatie - instellen van uw locatie, tijdzone en het verbinden met het internet.[CR][CR]Deze instellingen kunnen later gewijzigd worden door te navigeren naar Programma's > @DISTRONAAM@ Instellingen."
++msgid "This wizard will guide you through the process of setting up your new System installation - setting your location, timezone and connecting you to the internet.[CR][CR]These settings can be changed later by navigating to Programs > System Settings."
++msgstr "Deze wizard helpt u tijdens het opzetten van uw nieuwe Systeem installatie - instellen van uw locatie, tijdzone en het verbinden met het internet.[CR][CR]Deze instellingen kunnen later gewijzigd worden door te navigeren naar Programma's > Systeem Instellingen."
+ 
+ msgctxt "#32303"
+ msgid "Next"
+ msgstr "Volgende"
+ 
+ msgctxt "#32304"
+-msgid "To be identified easily on the network, your new @DISTRONAME@ machine needs a name.[CR][CR]Try to choose something meaningful - like the room it's in - so you'll know what it is when you see it on the network.[CR][CR]This name is used when configuring network services, like file sharing using samba."
+-msgstr "Om makkelijk op het netwerk herkend te worden, heeft uw nieuwe @DISTRONAME@ machine een naam nodig.[CR][CR]Probeer iets herkenbaars te kiezen - zoals de kamer waar het in staat - zodat u weet wat het is als u op uw netwerk kijkt.[CR][CR]Deze naam wordt gebruikt bij het configureren van netwerkservices, zoals het delen van bestanden met gebruik van Samba."
++msgid "To be identified easily on the network, your new System machine needs a name.[CR][CR]Try to choose something meaningful - like the room it's in - so you'll know what it is when you see it on the network.[CR][CR]This name is used when configuring network services, like file sharing using samba."
++msgstr "Om makkelijk op het netwerk herkend te worden, heeft uw nieuwe System machine een naam nodig.[CR][CR]Probeer iets herkenbaars te kiezen - zoals de kamer waar het in staat - zodat u weet wat het is als u op uw netwerk kijkt.[CR][CR]Deze naam wordt gebruikt bij het configureren van netwerkservices, zoals het delen van bestanden met gebruik van Samba."
+ 
+ msgctxt "#32305"
+ msgid "Networking"
+ msgstr "Netwerken"
+ 
+ msgctxt "#32306"
+-msgid "In order to download backdrops, banners and thumbnails for your movies and TV shows and to stream online content from sites like YouTube, @DISTRONAME@ needs to be connected the Internet.[CR][CR]An Internet connection is also required for @DISTRONAME@ to automatically update itself."
+-msgstr "Om achtergronden en banners en thumbnails voor uw films en tvshows, alsook het streamen van online content van websites zoals YouTube te downloaden, is een @DISTRONAME@ verbinding met het Internet vereist.[CR][CR]Een internetverbinding is ook nodig voor@DISTRONAME@ om zichzelf automatisch te updaten."
++msgid "Choose your internet connection.[CR][CR]Network settings can be changed later by navigating to:[CR]        Programs > System Configuration > Network.[CR]Changing your Wifi connection can be done by navigating to:[CR]        Programs > System Configuration > Connections."
++msgstr "Kies uw internet verbinding.[CR][CR]Netwerk instellingen kunnen later gewijzigd worden door te navigeren naar:[CR]        Programma's > Systeem Configuratie > Netwerk.[CR]Wifi instellingen kunnen gewijzigd worden door te navigeren naar:[CR]        Programma's > Systeem Configuration > Verbindingen."
+ 
+ msgctxt "#32308"
+ msgid "Hostname:"
+@@ -569,12 +569,12 @@ msgid "Sharing and Remote Access"
+ msgstr "Bestandsdeling en externe toegang "
+ 
+ msgctxt "#32312"
+-msgid "@DISTRONAME@ also supports SSH for remote access. This is for advanced users who wish to interact with @DISTRONAME@'s underlying operating system. The default user is [COLOR blue]root[/COLOR] and the default password is [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
+-msgstr "@DISTRONAME@ ondersteunt ook SSH voor externe toegang. Dit is voor gevorderde gebruikers die met het onderliggende systeem van @DISTRONAME@ willen werken. De standaardgebruiker is [COLOR blue]root[/COLOR] en het standaardwachtwoord is [COLOR blue]@ROOT_PASSWORD@[/COLOR]"
++msgid "System also supports SSH for remote access. This is for advanced users who wish to interact with System's underlying operating system. The default user is [COLOR blue]root[/COLOR] and the default password is [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
++msgstr "System ondersteunt ook SSH voor externe toegang. Dit is voor gevorderde gebruikers die met het onderliggende systeem van System willen werken. De standaardgebruiker is [COLOR blue]root[/COLOR] en het standaardwachtwoord is [COLOR blue]@ROOT_PASSWORD@[/COLOR]"
+ 
+ msgctxt "#32313"
+-msgid "In order to share your files between your computers @DISTRONAME@ has incorporated a samba server. This samba server can be integrated into your local network by accessing it in a familiar way with Finder or Windows Explorer."
+-msgstr "@DISTRONAME@ beschikt over Samba voor het delen van bestanden via het netwerk. Deze Samba service kan in uw lokale netwerk gevonden  worden op de gebruikelijke manier met Mac Finder of Windows Explorer."
++msgid "In order to share your files between your computers System has incorporated a samba server. This samba server can be integrated into your local network by accessing it in a familiar way with Finder or Windows Explorer."
++msgstr "System beschikt over Samba voor het delen van bestanden via het netwerk. Deze Samba service kan in uw lokale netwerk gevonden  worden op de gebruikelijke manier met Mac Finder of Windows Explorer."
+ 
+ msgctxt "#32316"
+ msgid "Configure Services:"
+@@ -585,8 +585,8 @@ msgid "Thank you"
+ msgstr "Dankuwel"
+ 
+ msgctxt "#32318"
+-msgid "Your @DISTRONAME@ installation is now complete and you'll now enter Kodi when you can set up your media libraries. For help with this, there is a guide available at wiki.kodi.tv[CR][CR]@DISTRONAME@ is developed by a dedicated team of developers who work purely in their spare time. Even as a volunteer project, we still have to pay for our internet bandwidth and development resources so if you find @DISTRONAME@ useful, we will always appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using @DISTRONAME@ as much as we've enjoying building it. If you need any more help, you can find links to get help along with latest news at our website"
+-msgstr "De @DISTRONAME@ installatie is voltooid, Kodi wordt nu automatisch gestart. Documentatie voor het gebruik van Kodi is te vinden op wiki.kodi.tv[CR][CR]@DISTRONAME@ is ontwikkeld door een toegewijd team van ontwikkelaars, in hun vrije tijd. Een donatie aan het  @DISTRONAME@ project wordt op prijs gesteld.[CR][CR]We hopen dat u van @DISTRONAME@ net zo zult genieten als dat wij het fijn vonden het te ontwikkelen. Indien u nog meer hulp nodig heeft, dan kunt u links daarvoor vinden alsook het laatste nieuws op onze website."
++msgid "Your System installation is now complete and you'll now enter Kodi when you can set up your media libraries. For help with this, there is a guide available at wiki.kodi.tv[CR][CR]System is developed by a dedicated team of developers who work purely in their spare time. Even as a volunteer project, we still have to pay for our internet bandwidth and development resources so if you find System useful, we will always appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using System as much as we've enjoying building it. If you need any more help, you can find links to get help along with latest news at our website"
++msgstr "De System installatie is voltooid, Kodi wordt nu automatisch gestart. Documentatie voor het gebruik van Kodi is te vinden op wiki.kodi.tv[CR][CR]System is ontwikkeld door een toegewijd team van ontwikkelaars, in hun vrije tijd. Een donatie aan het  System project wordt op prijs gesteld.[CR][CR]We hopen dat u van System net zo zult genieten als dat wij het fijn vonden het te ontwikkelen. Indien u nog meer hulp nodig heeft, dan kunt u links daarvoor vinden alsook het laatste nieuws op onze website."
+ 
+ msgctxt "#32319"
+ msgid "Cron"
+@@ -605,8 +605,8 @@ msgid "Reset System Settings to defaults"
+ msgstr "Terugzetten systeeminstellingen naar standaardwaarden"
+ 
+ msgctxt "#32325"
+-msgid "Reset @DISTRONAME@ to defaults"
+-msgstr "Herstel @DISTRONAME@ naar standaardwaarden"
++msgid "Reset System to defaults"
++msgstr "Herstel System naar standaardwaarden"
+ 
+ msgctxt "#32326"
+ msgid "Are you sure?"
+@@ -669,8 +669,8 @@ msgid "Check for updates now:"
+ msgstr "Controleer nu op updates:"
+ 
+ msgctxt "#32363"
+-msgid "@DISTRONAME@"
+-msgstr "@DISTRONAME@"
++msgid "System"
++msgstr "System"
+ 
+ msgctxt "#32364"
+ msgid "Update available"
+diff --git a/language/English/strings.po b/language/English/strings.po
+index 27e4a4e..fdefd27 100644
+--- a/language/English/strings.po
++++ b/language/English/strings.po
+@@ -1,7 +1,7 @@
+ # Kodi Media Center language file
+-# Addon Name: @DISTRONAME@ Configuration
++# Addon Name: System Configuration
+ # Addon id: service.openelec.settings
+-# Addon Provider: OpenELEC
++# Addon Provider: System
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: XBMC Addons\n"
+@@ -17,7 +17,7 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ 
+ msgctxt "#600"
+-msgid "@DISTRONAME@ Settings"
++msgid "System Settings"
+ msgstr ""
+ 
+ msgctxt "#601"
+@@ -93,7 +93,7 @@ msgstr ""
+ #empty strings from id 706 to 709
+ 
+ msgctxt "#710"
+-msgid "Configure the Hostname of your @DISTRONAME@ system. This will be used for the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
++msgid "Configure the Hostname of your System system. This will be used for the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
+ msgstr ""
+ 
+ msgctxt "#711"
+@@ -109,7 +109,7 @@ msgid "Configure the physical keyboard type"
+ msgstr ""
+ 
+ msgctxt "#714"
+-msgid "@DISTRONAME@ can be configured for automatic or manual updates. Automatic updates are available on stable releases and stable release candidates. Automatic update self-disables on beta and development builds"
++msgid "System can be configured for automatic or manual updates. Automatic updates are available on stable releases and stable release candidates. Automatic update self-disables on beta and development builds"
+ msgstr ""
+ 
+ msgctxt "#715"
+@@ -117,11 +117,11 @@ msgid "Set to ON and an on-screen notification will be displayed when a new upda
+ msgstr ""
+ 
+ msgctxt "#716"
+-msgid "Click to manually check the @DISTRONAME@ servers for an updated release"
++msgid "Click to manually check the System servers for an updated release"
+ msgstr ""
+ 
+ msgctxt "#717"
+-msgid "If you have an small LCD or VFD attached to your @DISTRONAME@ system you must configure the correct display driver"
++msgid "If you have an small LCD or VFD attached to your System system you must configure the correct display driver"
+ msgstr ""
+ 
+ #empty strings from id 718 to 719
+@@ -133,7 +133,7 @@ msgstr ""
+ #empty string with id 721
+ 
+ msgctxt "#722"
+-msgid "Create a tar archive containing all @DISTRONAME@ and Kodi configuration settings, databases and thumbnail content. Backup files will be stored in /storage/backups"
++msgid "Create a tar archive containing all System and Kodi configuration settings, databases and thumbnail content. Backup files will be stored in /storage/backups"
+ msgstr ""
+ 
+ msgctxt "#723"
+@@ -141,11 +141,11 @@ msgid "Restore a tar archive backup previously created using the backup option a
+ msgstr ""
+ 
+ msgctxt "#724"
+-msgid "[COLOR FF00FF00]SOFT RESET[/COLOR]\nPermanently reset @DISTRONAME@ configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
++msgid "[COLOR FF00FF00]SOFT RESET[/COLOR]\nPermanently reset System configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
+ msgstr ""
+ 
+ msgctxt "#725"
+-msgid "[COLOR FFFF0000]HARD RESET[/COLOR]\nPermanently reset @DISTRONAME@ and Kodi configuration to defaults (everything in your storage partition will be deleted)"
++msgid "[COLOR FFFF0000]HARD RESET[/COLOR]\nPermanently reset System and Kodi configuration to defaults (everything in your storage partition will be deleted)"
+ msgstr ""
+ 
+ msgctxt "#726"
+@@ -231,7 +231,7 @@ msgid "750"
+ msgstr ""
+ 
+ msgctxt "#751"
+-msgid "With OBEX filetransfer you can send files, for example movies or pictures over bluetooth to @DISTRONAME@."
++msgid "With OBEX filetransfer you can send files, for example movies or pictures over bluetooth to System."
+ msgstr ""
+ 
+ msgctxt "#752"
+@@ -465,7 +465,7 @@ msgstr ""
+ #empty strings from id 32151 to 32179
+ 
+ msgctxt "#32180"
+-msgid "Would you like to update @DISTRONAME@ now?"
++msgid "Would you like to update System now?"
+ msgstr ""
+ 
+ msgctxt "#32181"
+@@ -573,7 +573,7 @@ msgstr ""
+ #empty strings from id 32217 to 32299
+ 
+ msgctxt "#32300"
+-msgid "Welcome to @DISTRONAME@"
++msgid "Welcome to System"
+ msgstr ""
+ 
+ msgctxt "#32301"
+@@ -581,7 +581,7 @@ msgid "Welcome"
+ msgstr ""
+ 
+ msgctxt "#32302"
+-msgid "This wizard will guide you through the process of setting up your new @DISTRONAME@ installation - setting your location, timezone and connecting you to the internet.[CR][CR]These settings can be changed later by navigating to Programs > @DISTRONAME@ Settings."
++msgid "You will now be guided through any settings that need adjusting.[CR][CR]During this process your device may install important updates, please do not power down the unit at this time.[CR][CR][CR]Press Next to continue."
+ msgstr ""
+ 
+ msgctxt "#32303"
+@@ -589,7 +589,7 @@ msgid "Next"
+ msgstr ""
+ 
+ msgctxt "#32304"
+-msgid "To be identified easily on the network, your new @DISTRONAME@ machine needs a name.[CR][CR]Try to choose something meaningful - like the room it's in - so you'll know what it is when you see it on the network.[CR][CR]This name is used when configuring network services, like file sharing using samba."
++msgid "To be identified easily on the network, your new System machine needs a name.[CR][CR]Try to choose something meaningful - like the room it's in - so you'll know what it is when you see it on the network.[CR][CR]This name is used when configuring network services, like file sharing using samba."
+ msgstr ""
+ 
+ msgctxt "#32305"
+@@ -597,7 +597,7 @@ msgid "Networking"
+ msgstr ""
+ 
+ msgctxt "#32306"
+-msgid "In order to download backdrops, banners and thumbnails for your movies and TV shows and to stream online content from sites like YouTube, @DISTRONAME@ needs to be connected the Internet.[CR][CR]An Internet connection is also required for @DISTRONAME@ to automatically update itself."
++msgid "Choose your internet connection.[CR][CR]Network settings can be changed later by navigating to:[CR]        Programs > System Configuration > Network.[CR]Changing your Wifi connection can be done by navigating to:[CR]        Programs > System Configuration > Connections."
+ msgstr ""
+ 
+ #empty string with id 32307
+@@ -617,11 +617,11 @@ msgid "Sharing and Remote Access"
+ msgstr ""
+ 
+ msgctxt "#32312"
+-msgid "@DISTRONAME@ also supports SSH for remote access. This is for advanced users who wish to interact with @DISTRONAME@'s underlying operating system. The default user is [COLOR blue]root[/COLOR] and the default password is [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
++msgid "System also supports SSH for remote access. This is for advanced users who wish to interact with System's underlying operating system. The default user is [COLOR blue]root[/COLOR] and the default password is [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
+ msgstr ""
+ 
+ msgctxt "#32313"
+-msgid "In order to share your files between your computers @DISTRONAME@ has incorporated a samba server. This samba server can be integrated into your local network by accessing it in a familiar way with Finder or Windows Explorer."
++msgid "In order to share your files between your computers System has incorporated a samba server. This samba server can be integrated into your local network by accessing it in a familiar way with Finder or Windows Explorer."
+ msgstr ""
+ 
+ #empty strings from id 32314 to 32315
+@@ -635,7 +635,7 @@ msgid "Thank you"
+ msgstr ""
+ 
+ msgctxt "#32318"
+-msgid "Your @DISTRONAME@ installation is now complete and you'll now enter Kodi when you can set up your media libraries. For help with this, there is a guide available at wiki.kodi.tv[CR][CR]@DISTRONAME@ is developed by a dedicated team of developers who work purely in their spare time. Even as a volunteer project, we still have to pay for our internet bandwidth and development resources so if you find @DISTRONAME@ useful, we will always appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using @DISTRONAME@ as much as we've enjoying building it. If you need any more help, you can find links to get help along with latest news at our website"
++msgid "Your System installation is now complete and you'll now enter Kodi when you can set up your media libraries. For help with this, there is a guide available at wiki.kodi.tv[CR][CR]System is developed by a dedicated team of developers who work purely in their spare time. Even as a volunteer project, we still have to pay for our internet bandwidth and development resources so if you find System useful, we will always appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using System as much as we've enjoying building it. If you need any more help, you can find links to get help along with latest news at our website"
+ msgstr ""
+ 
+ msgctxt "#32319"
+@@ -657,7 +657,7 @@ msgid "Reset System Settings to defaults"
+ msgstr ""
+ 
+ msgctxt "#32325"
+-msgid "Reset @DISTRONAME@ to defaults"
++msgid "Reset System to defaults"
+ msgstr ""
+ 
+ msgctxt "#32326"
+@@ -735,7 +735,7 @@ msgid "Check for updates now:"
+ msgstr ""
+ 
+ msgctxt "#32363"
+-msgid "@DISTRONAME@"
++msgid "System"
+ msgstr ""
+ 
+ msgctxt "#32364"
+diff --git a/language/German/strings.po b/language/German/strings.po
+index 6aeed2d..169974f 100644
+--- a/language/German/strings.po
++++ b/language/German/strings.po
+@@ -1,7 +1,7 @@
+ # Kodi Media Center language file
+-# Addon Name: @DISTRONAME@ Configuration
++# Addon Name: System Configuration
+ # Addon id: service.openelec.settings
+-# Addon Provider: OpenELEC
++# Addon Provider: System
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: XBMC Addons\n"
+@@ -17,8 +17,8 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ 
+ msgctxt "#600"
+-msgid "@DISTRONAME@ Settings"
+-msgstr "@DISTRONAME@-Einstellungen"
++msgid "System Settings"
++msgstr "System-Einstellungen"
+ 
+ msgctxt "#601"
+ msgid "Interface"
+@@ -89,8 +89,8 @@ msgid "Useful information like version and architecture details, support and soc
+ msgstr "Hilfreiche Informationen wie Systemversion und Architekturdetails, Support und Social Media Links und wie man dem Projekt eine Spende zukommen lassen kann"
+ 
+ msgctxt "#710"
+-msgid "Configure the Hostname of your @DISTRONAME@ system. This will be used for the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
+-msgstr "Konfigurieren Sie den Hostnamen Ihres @DISTRONAME@-Systems. Dies wird für den HTPC \\\\Hostnamen in Windows und für den SMB-Servernamen im Mac OS Finder verwendet werden."
++msgid "Configure the Hostname of your System system. This will be used for the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
++msgstr "Konfigurieren Sie den Hostnamen Ihres System-Systems. Dies wird für den HTPC \\\\Hostnamen in Windows und für den SMB-Servernamen im Mac OS Finder verwendet werden."
+ 
+ msgctxt "#711"
+ msgid "Configure the 1st keyboard software layout"
+@@ -105,40 +105,40 @@ msgid "Configure the physical keyboard type"
+ msgstr "Tastaturlayout konfigurieren"
+ 
+ msgctxt "#714"
+-msgid "@DISTRONAME@ can be configured for automatic or manual updates. Automatic updates are available on stable releases and stable release candidates. Automatic update self-disables on beta and development builds"
+-msgstr "@DISTRONAME@ kann für automatische oder manuelle Aktualisierungen konfiguriert werden. Automatische Aktualisierungen sind für stabile Releases und Release Candidates für stabile Releases verfügbar. Automatische Aktualisierungen werden für Beta- und Entwickler- Versionen standardmäßig abgeschaltet."
++msgid "System can be configured for automatic or manual updates. Automatic updates are available on stable releases and stable release candidates. Automatic update self-disables on beta and development builds"
++msgstr "System kann für automatische oder manuelle Aktualisierungen konfiguriert werden. Automatische Aktualisierungen sind für stabile Releases und Release Candidates für stabile Releases verfügbar. Automatische Aktualisierungen werden für Beta- und Entwickler- Versionen standardmäßig abgeschaltet."
+ 
+ msgctxt "#715"
+ msgid "Set to ON and an on-screen notification will be displayed when a new update is available"
+ msgstr "Auf EIN stellen und eine Bildschirm-Benachrichtigung wird angezeigt, sobald eine neue Aktualisierung verfügbar ist."
+ 
+ msgctxt "#716"
+-msgid "Click to manually check the @DISTRONAME@ servers for an updated release"
+-msgstr "Klicken Sie, um die @DISTRONAME@-Server manuell auf eine aktualisierte Version zu überprüfen"
++msgid "Click to manually check the System servers for an updated release"
++msgstr "Klicken Sie, um die System-Server manuell auf eine aktualisierte Version zu überprüfen"
+ 
+ msgctxt "#717"
+-msgid "If you have an small LCD or VFD attached to your @DISTRONAME@ system you must configure the correct display driver"
+-msgstr "Wenn ein kleines LCD oder ein VFD mit  @DISTRONAME@ benutzt wird, muß der richtige Display-Treiber konfiguriert werden."
++msgid "If you have an small LCD or VFD attached to your System system you must configure the correct display driver"
++msgstr "Wenn ein kleines LCD oder ein VFD mit  System benutzt wird, muß der richtige Display-Treiber konfiguriert werden."
+ 
+ msgctxt "#720"
+ msgid "Set to ON and Bluetooth devices will be disabled during power-saving modes"
+ msgstr "Auf EIN stellen und Bluetooth-Geräte werden während  Stromspar-Modi deaktiviert"
+ 
+ msgctxt "#722"
+-msgid "Create a tar archive containing all @DISTRONAME@ and Kodi configuration settings, databases and thumbnail content. Backup files will be stored in /storage/backups"
+-msgstr "Erzeugt ein Backup als Tar-Archiv, welches die gesamten Einstellungen, Datenbanken und Vorschaubilder von @DISTRONAME@ und Kodi enthält. Die Backups werden in /storage/backups abgelegt."
++msgid "Create a tar archive containing all System and Kodi configuration settings, databases and thumbnail content. Backup files will be stored in /storage/backups"
++msgstr "Erzeugt ein Backup als Tar-Archiv, welches die gesamten Einstellungen, Datenbanken und Vorschaubilder von System und Kodi enthält. Die Backups werden in /storage/backups abgelegt."
+ 
+ msgctxt "#723"
+ msgid "Restore a tar archive backup previously created using the backup option above"
+ msgstr "Wiederherstellung einer Datensicherung, die hier mit der Sicherungsoption erstellt wurde"
+ 
+ msgctxt "#724"
+-msgid "[COLOR FF00FF00]SOFT RESET[/COLOR]\nPermanently reset @DISTRONAME@ configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
+-msgstr "[COLOR FF00FF00]SOFT RESET[/COLOR]\nStandardeinstellungen von @DISTRONAME@ und Kodi dauerhaft wiederherstellen (inklusive Reset der Datenbank. Musik- und Video-Dateien etc. werden dabei aber nicht  verändert)."
++msgid "[COLOR FF00FF00]SOFT RESET[/COLOR]\nPermanently reset System configuration to defaults (resets also Kodi to default including your library. your media - music/videos/etc are not touched)"
++msgstr "[COLOR FF00FF00]SOFT RESET[/COLOR]\nStandardeinstellungen von System und Kodi dauerhaft wiederherstellen (inklusive Reset der Datenbank. Musik- und Video-Dateien etc. werden dabei aber nicht  verändert)."
+ 
+ msgctxt "#725"
+-msgid "[COLOR FFFF0000]HARD RESET[/COLOR]\nPermanently reset @DISTRONAME@ and Kodi configuration to defaults (everything in your storage partition will be deleted)"
+-msgstr "[COLOR FFFF0000]HARD RESET[/COLOR]\nStandardeinstellungen von @DISTRONAME@ und Kodi dauerhaft wiederherstellen (die gesamte Partition \"storage\" wird gelöscht)."
++msgid "[COLOR FFFF0000]HARD RESET[/COLOR]\nPermanently reset System and Kodi configuration to defaults (everything in your storage partition will be deleted)"
++msgstr "[COLOR FFFF0000]HARD RESET[/COLOR]\nStandardeinstellungen von System und Kodi dauerhaft wiederherstellen (die gesamte Partition \"storage\" wird gelöscht)."
+ 
+ msgctxt "#726"
+ msgid "Enable or disable support for Wireless (WLAN) networks"
+@@ -217,8 +217,8 @@ msgid "750"
+ msgstr "750"
+ 
+ msgctxt "#751"
+-msgid "With OBEX filetransfer you can send files, for example movies or pictures over bluetooth to @DISTRONAME@."
+-msgstr "Mit OBEX-Dateiübertragung können Sie Dateien, zum Beispiel Filme oder Bilder, über Bluetooth an @DISTRONAME@ senden."
++msgid "With OBEX filetransfer you can send files, for example movies or pictures over bluetooth to System."
++msgstr "Mit OBEX-Dateiübertragung können Sie Dateien, zum Beispiel Filme oder Bilder, über Bluetooth an System senden."
+ 
+ msgctxt "#752"
+ msgid "Here you can set the folder location where OBEX file transfer should store incoming files"
+@@ -433,8 +433,8 @@ msgid "Edit"
+ msgstr "Bearbeiten"
+ 
+ msgctxt "#32180"
+-msgid "Would you like to update @DISTRONAME@ now?"
+-msgstr "Möchten Sie @DISTRONAME@ jetzt aktualisieren?"
++msgid "Would you like to update System now?"
++msgstr "Möchten Sie System jetzt aktualisieren?"
+ 
+ msgctxt "#32181"
+ msgid "Filename"
+@@ -529,32 +529,33 @@ msgid "Auto-Share External Drives"
+ msgstr "Automatische Freigabe externer Laufwerke"
+ 
+ msgctxt "#32300"
+-msgid "Welcome to @DISTRONAME@"
+-msgstr "Willkommen bei @DISTRONAME@"
++msgid "Welcome to System"
++msgstr "Willkommen bei System"
+ 
+ msgctxt "#32301"
+ msgid "Welcome"
+ msgstr "Willkommen"
+ 
+ msgctxt "#32302"
+-msgid "This wizard will guide you through the process of setting up your new @DISTRONAME@ installation - setting your location, timezone and connecting you to the internet.[CR][CR]These settings can be changed later by navigating to Programs > @DISTRONAME@ Settings."
+-msgstr "Dieser Assistent führt durch die Einrichtung einer neuen Installation von @DISTRONAME@. Dazu zählt u.a. die Auswahl des Standortes, der Zeitzone und die Konfiguration der Internetverbindung.[CR][CR]Diese Einstellungen können später über Programme > @DISTRONAME@ Konfiguration angepasst werden."
++msgid "You will now be guided through any settings that need adjusting.[CR][CR]During this process your device may install important updates, please do not power down the unit at this time.[CR][CR][CR]Press Next to continue."
++msgstr "Sie wird nun durch alle Einstellungen geleitet die angepasst werden müssen.[CR][CR]Während dieses Prozesses Ihr Gerät können wichtige Updates zu installieren, bitte nicht herunterfahren Sie das Gerät zu diesem Zeitpunkt.[CR][CR][CR]Drücken Sie auf Weiter."
+ 
+ msgctxt "#32303"
+ msgid "Next"
+ msgstr "Weiter"
+ 
+ msgctxt "#32304"
+-msgid "To be identified easily on the network, your new @DISTRONAME@ machine needs a name.[CR][CR]Try to choose something meaningful - like the room it's in - so you'll know what it is when you see it on the network.[CR][CR]This name is used when configuring network services, like file sharing using samba."
+-msgstr "Damit die neue @DISTRONAME@ Installation im Netzwerk gefunden werden kann, wird ein Gerätename benötigt.[CR][CR]Wählen Sie eine möglichst aussagekräftigen Namen, wie z.B. den Raum, in dem das Gerät steht.[CR][CR]Dieser Name wird auch für die Konfiguration weiterer Netzwerkdienste, z.B. Dateifreigaben per Samba, benötigt."
++msgid "To be identified easily on the network, your new System machine needs a name.[CR][CR]Try to choose something meaningful - like the room it's in - so you'll know what it is when you see it on the network.[CR][CR]This name is used when configuring network services, like file sharing using samba."
++msgstr "Damit die neue System Installation im Netzwerk gefunden werden kann, wird ein Gerätename benötigt.[CR][CR]Wählen Sie eine möglichst aussagekräftigen Namen, wie z.B. den Raum, in dem das Gerät steht.[CR][CR]Dieser Name wird auch für die Konfiguration weiterer Netzwerkdienste, z.B. Dateifreigaben per Samba, benötigt."
+ 
+ msgctxt "#32305"
+ msgid "Networking"
+ msgstr "Netzwerk"
+ 
+ msgctxt "#32306"
+-msgid "In order to download backdrops, banners and thumbnails for your movies and TV shows and to stream online content from sites like YouTube, @DISTRONAME@ needs to be connected the Internet.[CR][CR]An Internet connection is also required for @DISTRONAME@ to automatically update itself."
+-msgstr "@DISTRONAME@ muß mit dem Internet verbunden sein, um Hintergrundbilder, Banner und Vorschaubilder für Serien und Filme herunterladen zu können und um Online-Inhalte von z.B. Youtube streamen zu können.[CR][CR]Außerdem wird eine Internetverbindung auch für automatische Aktualisierungen von @DISTRONAME@ benötigt."
++msgid "Choose your internet connection.[CR][CR]Network settings can be changed later by navigating to:[CR]        Programs > System Configuration > Network.[CR]Changing your Wifi connection can be done by navigating to:[CR]        Programs > System Configuration > Connections."
++msgstr "Wählen Sie Ihre Internet-Verbindung.[CR][CR]Netzwerkeinstellungen können Sie später ändern bei:[CR]        Programme> Systemkonfiguration> Netzwerk.
++[CR]Ihre Wifi-Verbindung können Sie ändern bei Navigieren durch:[CR]        Programme> Systemkonfiguration> Verbindungen."
+ 
+ msgctxt "#32308"
+ msgid "Hostname:"
+@@ -569,11 +570,11 @@ msgid "Sharing and Remote Access"
+ msgstr "Dateifreigaben und Fernzugriffe"
+ 
+ msgctxt "#32312"
+-msgid "@DISTRONAME@ also supports SSH for remote access. This is for advanced users who wish to interact with @DISTRONAME@'s underlying operating system. The default user is [COLOR blue]root[/COLOR] and the default password is [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
+-msgstr "@DISTRONAME@ unterstützt SSH für den Fernzugriff. Diese Möglichkeit ist für erfahrene Benutzer gedacht, die direkt auf das @DISTRONAME@ zugrunde liegenden Betriebssystem zugreifen möchten. Der Standard-Benutzername lautet  [COLOR blue]root[/COLOR]. Das Standard-Passwort ist [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
++msgid "System also supports SSH for remote access. This is for advanced users who wish to interact with System's underlying operating system. The default user is [COLOR blue]root[/COLOR] and the default password is [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
++msgstr "System unterstützt SSH für den Fernzugriff. Diese Möglichkeit ist für erfahrene Benutzer gedacht, die direkt auf das System zugrunde liegenden Betriebssystem zugreifen möchten. Der Standard-Benutzername lautet  [COLOR blue]root[/COLOR]. Das Standard-Passwort ist [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
+ 
+ msgctxt "#32313"
+-msgid "In order to share your files between your computers @DISTRONAME@ has incorporated a samba server. This samba server can be integrated into your local network by accessing it in a familiar way with Finder or Windows Explorer."
++msgid "In order to share your files between your computers System has incorporated a samba server. This samba server can be integrated into your local network by accessing it in a familiar way with Finder or Windows Explorer."
+ msgstr "Um Dateien mit anderen Geräten im Netzwerk geteilt werden können, hat @DISTRONAMEq einen eingabauten Samba-Server. Dieser Server kann in das lokale Netzwerk eingebunden werden, sodass in gewohnter Weise, z.B. mit dem Finder oder Windows Explorer, darauf zugegriffen werden kann."
+ 
+ msgctxt "#32316"
+@@ -585,8 +586,8 @@ msgid "Thank you"
+ msgstr "Danke"
+ 
+ msgctxt "#32318"
+-msgid "Your @DISTRONAME@ installation is now complete and you'll now enter Kodi when you can set up your media libraries. For help with this, there is a guide available at wiki.kodi.tv[CR][CR]@DISTRONAME@ is developed by a dedicated team of developers who work purely in their spare time. Even as a volunteer project, we still have to pay for our internet bandwidth and development resources so if you find @DISTRONAME@ useful, we will always appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using @DISTRONAME@ as much as we've enjoying building it. If you need any more help, you can find links to get help along with latest news at our website"
+-msgstr "Die Ersteinrichtung von @DISTRONAME@ ist nun beendet. Es können jetzt in Kodi Medienbibliotheken konfiguriert werden. Hierfür gibt es eine Anleitung auf wiki.kodi.org[CR][CR]@DISTRONAME@ wird von engagierten Entwicklern komplett in ihrer Freizeit entwickelt. Und obwohl wir ein Freiwilligenprojekt sind, müssen wir für Internetbandbreite und Entwicklungsressourcen zahlen. Wenn Sie @DISTRONAME@ nützlich finden, würden wir uns sehr über eine Spende freuen.[CR][CR]Wir hoffen, dass Ihnen die Benutzung von @DISTRONAME@ so viel Freude bereitet, wie uns dessen Entwicklung. Besuchen Sie auch gern unsere Webseite, wenn Sie weitergehende Hilfe benötigen oder an Neuigkeiten interessiert sind."
++msgid "Your System installation is now complete and you'll now enter Kodi when you can set up your media libraries. For help with this, there is a guide available at wiki.kodi.tv[CR][CR]System is developed by a dedicated team of developers who work purely in their spare time. Even as a volunteer project, we still have to pay for our internet bandwidth and development resources so if you find System useful, we will always appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using System as much as we've enjoying building it. If you need any more help, you can find links to get help along with latest news at our website"
++msgstr "Die Ersteinrichtung von System ist nun beendet. Es können jetzt in Kodi Medienbibliotheken konfiguriert werden. Hierfür gibt es eine Anleitung auf wiki.kodi.org[CR][CR]System wird von engagierten Entwicklern komplett in ihrer Freizeit entwickelt. Und obwohl wir ein Freiwilligenprojekt sind, müssen wir für Internetbandbreite und Entwicklungsressourcen zahlen. Wenn Sie System nützlich finden, würden wir uns sehr über eine Spende freuen.[CR][CR]Wir hoffen, dass Ihnen die Benutzung von System so viel Freude bereitet, wie uns dessen Entwicklung. Besuchen Sie auch gern unsere Webseite, wenn Sie weitergehende Hilfe benötigen oder an Neuigkeiten interessiert sind."
+ 
+ msgctxt "#32319"
+ msgid "Cron"
+@@ -605,8 +606,8 @@ msgid "Reset System Settings to defaults"
+ msgstr "Einstellungen in den Auslieferungszustand zurücksetzen"
+ 
+ msgctxt "#32325"
+-msgid "Reset @DISTRONAME@ to defaults"
+-msgstr "@DISTRONAME@ auf Standardeinstellungen zurücksetzen"
++msgid "Reset System to defaults"
++msgstr "System auf Standardeinstellungen zurücksetzen"
+ 
+ msgctxt "#32326"
+ msgid "Are you sure?"
+@@ -669,8 +670,8 @@ msgid "Check for updates now:"
+ msgstr "Jetzt nach Aktualisierungen suchen:"
+ 
+ msgctxt "#32363"
+-msgid "@DISTRONAME@"
+-msgstr "@DISTRONAME@"
++msgid "System"
++msgstr "System"
+ 
+ msgctxt "#32364"
+ msgid "Update available"
+diff --git a/language/Spanish/strings.po b/language/Spanish/strings.po
+index c4be895..d03fc34 100644
+--- a/language/Spanish/strings.po
++++ b/language/Spanish/strings.po
+@@ -1,7 +1,7 @@
+ # Kodi Media Center language file
+-# Addon Name: @DISTRONAME@ Configuration
++# Addon Name: System Configuration
+ # Addon id: service.openelec.settings
+-# Addon Provider: OpenELEC
++# Addon Provider: System
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: XBMC Addons\n"
+@@ -17,8 +17,8 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ 
+ msgctxt "#600"
+-msgid "@DISTRONAME@ Settings"
+-msgstr "Ajustes de @DISTRONAME@"
++msgid "System Settings"
++msgstr "Ajustes de Sistema"
+ 
+ msgctxt "#601"
+ msgid "Interface"
+@@ -89,8 +89,8 @@ msgid "Useful information like version and architecture details, support and soc
+ msgstr "Información útil como detalles de la versión y arquitectura del sistema, enlaces de soporte y redes sociales, y como hacer donaciones al proyecto"
+ 
+ msgctxt "#710"
+-msgid "Configure the Hostname of your @DISTRONAME@ system. This will be used for the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
+-msgstr "Configurar el nombre de tu sistema @DISTRONAME. Esto será usado para el HTPC\n\\\\hostname en Windows y el nombre de servidor SMB en el buscador Mac OS  "
++msgid "Configure the Hostname of your System system. This will be used for the HTPC \\\\hostname in Windows and SMB server name in the Mac OS Finder"
++msgstr "Configurar el nombre de tu sistema Sistema. Esto será usado para el HTPC\n\\\\hostname en Windows y el nombre de servidor SMB en el buscador Mac OS  "
+ 
+ msgctxt "#711"
+ msgid "Configure the 1st keyboard software layout"
+@@ -105,28 +105,28 @@ msgid "Configure the physical keyboard type"
+ msgstr "Configuración del tipo de teclado físico"
+ 
+ msgctxt "#714"
+-msgid "@DISTRONAME@ can be configured for automatic or manual updates. Automatic updates are available on stable releases and stable release candidates. Automatic update self-disables on beta and development builds"
+-msgstr "@DISTRONAME@ puede ser configurado para actualizaciones automáticas o manuales. Actualizaciones automáticas están disponibles en versiones estables y candidatos a versiones estables. Actualizaciones automáticas se auto-desactivan en versiones beta y de desarrollo. "
++msgid "System can be configured for automatic or manual updates. Automatic updates are available on stable releases and stable release candidates. Automatic update self-disables on beta and development builds"
++msgstr "Sistema puede ser configurado para actualizaciones automáticas o manuales. Actualizaciones automáticas están disponibles en versiones estables y candidatos a versiones estables. Actualizaciones automáticas se auto-desactivan en versiones beta y de desarrollo. "
+ 
+ msgctxt "#715"
+ msgid "Set to ON and an on-screen notification will be displayed when a new update is available"
+ msgstr "Notificación de actualizaciones"
+ 
+ msgctxt "#716"
+-msgid "Click to manually check the @DISTRONAME@ servers for an updated release"
+-msgstr "Pulsar para comprobar manualmente los servidores de @DISTRONAME@ en busca una versión actualizada"
++msgid "Click to manually check the System servers for an updated release"
++msgstr "Pulsar para comprobar manualmente los servidores de Sistema en busca una versión actualizada"
+ 
+ msgctxt "#717"
+-msgid "If you have an small LCD or VFD attached to your @DISTRONAME@ system you must configure the correct display driver"
+-msgstr "Si tiene un pequeño LCD o VFD conectado a su sistema de @DISTRONAME@ deberás configurar el driver del display adecuado"
++msgid "If you have an small LCD or VFD attached to your System system you must configure the correct display driver"
++msgstr "Si tiene un pequeño LCD o VFD conectado a su sistema de Sistema deberás configurar el driver del display adecuado"
+ 
+ msgctxt "#720"
+ msgid "Set to ON and Bluetooth devices will be disabled during power-saving modes"
+ msgstr "Desactivar dispositivos Bluetooth durante el modo ahorro de energía"
+ 
+ msgctxt "#722"
+-msgid "Create a tar archive containing all @DISTRONAME@ and Kodi configuration settings, databases and thumbnail content. Backup files will be stored in /storage/backups"
+-msgstr "Crear un archivo tar conteniendo todos los ajustes de configuración de @DISTRONAME@ y Kodi con sus bases de datos y miniaturas. Los archivos respaldados se guardarán en /storage/backups"
++msgid "Create a tar archive containing all System and Kodi configuration settings, databases and thumbnail content. Backup files will be stored in /storage/backups"
++msgstr "Crear un archivo tar conteniendo todos los ajustes de configuración de @Sistema y Kodi con sus bases de datos y miniaturas. Los archivos respaldados se guardarán en /storage/backups"
+ 
+ msgctxt "#723"
+ msgid "Restore a tar archive backup previously created using the backup option above"
+@@ -209,8 +209,8 @@ msgid "750"
+ msgstr "750"
+ 
+ msgctxt "#751"
+-msgid "With OBEX filetransfer you can send files, for example movies or pictures over bluetooth to @DISTRONAME@."
+-msgstr "Con \"OBEX filetransfer\" se pueden enviar archivos, por ej. fotos o películas, a @DISTRONAME@ mediante bluetooth"
++msgid "With OBEX filetransfer you can send files, for example movies or pictures over bluetooth to System."
++msgstr "Con \"OBEX filetransfer\" se pueden enviar archivos, por ej. fotos o películas, a Sistema mediante bluetooth"
+ 
+ msgctxt "#752"
+ msgid "Here you can set the folder location where OBEX file transfer should store incoming files"
+@@ -425,8 +425,8 @@ msgid "Edit"
+ msgstr "- Editar"
+ 
+ msgctxt "#32180"
+-msgid "Would you like to update @DISTRONAME@ now?"
+-msgstr "¿Desea actualizar @DISTRONAME@ ahora?"
++msgid "Would you like to update System now?"
++msgstr "¿Desea actualizar Sistema ahora?"
+ 
+ msgctxt "#32181"
+ msgid "Filename"
+@@ -521,28 +521,32 @@ msgid "Auto-Share External Drives"
+ msgstr "Auto compartir unidades externas"
+ 
+ msgctxt "#32300"
+-msgid "Welcome to @DISTRONAME@"
+-msgstr "Bienvenido a @DISTRONAME@"
++msgid "Welcome to System"
++msgstr "Bienvenido a Sistema"
+ 
+ msgctxt "#32301"
+ msgid "Welcome"
+ msgstr "Bienvenido"
+ 
++msgctxt "#32302"
++msgid "You will now be guided through any settings that need adjusting.[CR][CR]During this process your device may install important updates, please do not power down the unit at this time.[CR][CR][CR]Press Next to continue."
++msgstr "Ahora será guiado a través de los ajustes que requieren ajustes.[CR][CR]Durante este proceso, el dispositivo será capaz de recibir actualizaciones importantes, por favor, no apague el dispositivo en esta etapa.[CR][CR][CR]Pulse Siguiente para continuar."
++
+ msgctxt "#32303"
+ msgid "Next"
+ msgstr "Siguiente"
+ 
+ msgctxt "#32304"
+-msgid "To be identified easily on the network, your new @DISTRONAME@ machine needs a name.[CR][CR]Try to choose something meaningful - like the room it's in - so you'll know what it is when you see it on the network.[CR][CR]This name is used when configuring network services, like file sharing using samba."
+-msgstr "Para ser facilmente identificable en la red doméstica, su nuevo equipo @DISTRONAME@ necesita un nombre.[CR][CR]\nElija algo significativo - como la habitación donde se encuentre - con el fin de saber de que se trata cuando aparezca en la red.[CR][CR]\nEste nombre se usa cuando se configuran los servicios de red, como la compartición de archivos con samba."
++msgid "To be identified easily on the network, your new System machine needs a name.[CR][CR]Try to choose something meaningful - like the room it's in - so you'll know what it is when you see it on the network.[CR][CR]This name is used when configuring network services, like file sharing using samba."
++msgstr "Para ser facilmente identificable en la red doméstica, su nuevo equipo Sistema necesita un nombre.[CR][CR]\nElija algo significativo - como la habitación donde se encuentre - con el fin de saber de que se trata cuando aparezca en la red.[CR][CR]\nEste nombre se usa cuando se configuran los servicios de red, como la compartición de archivos con samba."
+ 
+ msgctxt "#32305"
+ msgid "Networking"
+ msgstr "Redes"
+ 
+ msgctxt "#32306"
+-msgid "In order to download backdrops, banners and thumbnails for your movies and TV shows and to stream online content from sites like YouTube, @DISTRONAME@ needs to be connected the Internet.[CR][CR]An Internet connection is also required for @DISTRONAME@ to automatically update itself."
+-msgstr "Para descargar contextos, rótulos y vistas en miniatura para tus películas y  programas de TV y para el contenido en linea de sitios como YouTube, @DISTRONAME@ necesita estar conectado a Internet.[CR][CR]Una conexión a Internet también es requerida para que @DISTRONAME@ se actualice automáticamente por si mismo.  "
++msgid "Choose your internet connection.[CR][CR]Network settings can be changed later by navigating to:[CR]        Programs > System Configuration > Network.[CR]Changing your Wifi connection can be done by navigating to:[CR]        Programs > System Configuration > Connections."
++msgstr "Elija el tipo de Internet.[CR][CR]"La configuración de red se pueden cambiar después de:[CR]        Programas> Configuración Sytem> Red.[CR]La configuración de la red inalámbrica se pueden hacer a través de:[CR]        Programas> Configuración del sistema> Conexiones."
+ 
+ msgctxt "#32308"
+ msgid "Hostname:"
+@@ -557,12 +561,12 @@ msgid "Sharing and Remote Access"
+ msgstr "Conpartir y acceso remoto"
+ 
+ msgctxt "#32312"
+-msgid "@DISTRONAME@ also supports SSH for remote access. This is for advanced users who wish to interact with @DISTRONAME@'s underlying operating system. The default user is [COLOR blue]root[/COLOR] and the default password is [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
+-msgstr "@DISTRONAME@ también soporta el acceso remoto mediante SSH. Esto es para usuarios avanzados que desean interactuar con el sistema operativo que está debajo. El usuario por defecto es [COLOR blue]root[/COLOR] con contraseña [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
++msgid "System also supports SSH for remote access. This is for advanced users who wish to interact with System's underlying operating system. The default user is [COLOR blue]root[/COLOR] and the default password is [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
++msgstr "Sistema también soporta el acceso remoto mediante SSH. Esto es para usuarios avanzados que desean interactuar con el sistema operativo que está debajo. El usuario por defecto es [COLOR blue]root[/COLOR] con contraseña [COLOR blue]@ROOT_PASSWORD@[/COLOR]."
+ 
+ msgctxt "#32313"
+-msgid "In order to share your files between your computers @DISTRONAME@ has incorporated a samba server. This samba server can be integrated into your local network by accessing it in a familiar way with Finder or Windows Explorer."
+-msgstr "Con el fin de compartir sus archivos entre equipos @DISTRONAME@ ha incorporado un servidor samba. Este servidor se puede integrar en la red local accediendo a el de un modo familiar con \"Finder o Windows Explorer\""
++msgid "In order to share your files between your computers System has incorporated a samba server. This samba server can be integrated into your local network by accessing it in a familiar way with Finder or Windows Explorer."
++msgstr "Con el fin de compartir sus archivos entre equipos Sistema ha incorporado un servidor samba. Este servidor se puede integrar en la red local accediendo a el de un modo familiar con \"Finder o Windows Explorer\""
+ 
+ msgctxt "#32316"
+ msgid "Configure Services:"
+@@ -573,8 +577,8 @@ msgid "Thank you"
+ msgstr "Gracias"
+ 
+ msgctxt "#32318"
+-msgid "Your @DISTRONAME@ installation is now complete and you'll now enter Kodi when you can set up your media libraries. For help with this, there is a guide available at wiki.kodi.tv[CR][CR]@DISTRONAME@ is developed by a dedicated team of developers who work purely in their spare time. Even as a volunteer project, we still have to pay for our internet bandwidth and development resources so if you find @DISTRONAME@ useful, we will always appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using @DISTRONAME@ as much as we've enjoying building it. If you need any more help, you can find links to get help along with latest news at our website"
+-msgstr "Su instalación @DISTRONAME@ esta completa ahora y entrarás a Kodi cuando usted configure sus bibliotecas de medios. Para asistencia con esto, Hay una guía disponible en wiki.kodi.tv[CR][CR]@DISTRONAME@ está desarrollado por un equipo dedicado de desarrolladores quienes meramente trabajan en sus tiempos libres. Como voluntarios del  proyecto, Tenemos que pagar por nuestros servicios de Internet y recursos de desarrollo por lo que si tú lo encuentras útil @DISTRONAME@, Nosotros siempre apreciaremos una donación de cualquier cantidad.[CR][CR]Finalmente, Esperamos que disfrutes usando @DISTRONAME@ tanto como nosotros hemos disfrutado creándolo. Si  necesitas más ayuda, Puedes encontrar enlaces para obtener ayuda con las noticias más recientes en nuestro sitio web."
++msgid "Your System installation is now complete and you'll now enter Kodi when you can set up your media libraries. For help with this, there is a guide available at wiki.kodi.tv[CR][CR]System is developed by a dedicated team of developers who work purely in their spare time. Even as a volunteer project, we still have to pay for our internet bandwidth and development resources so if you find System useful, we will always appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using System as much as we've enjoying building it. If you need any more help, you can find links to get help along with latest news at our website"
++msgstr "Su instalación Sistema esta completa ahora y entrarás a Kodi cuando usted configure sus bibliotecas de medios. Para asistencia con esto, Hay una guía disponible en wiki.kodi.tv[CR][CR]Sistema está desarrollado por un equipo dedicado de desarrolladores quienes meramente trabajan en sus tiempos libres. Como voluntarios del  proyecto, Tenemos que pagar por nuestros servicios de Internet y recursos de desarrollo por lo que si tú lo encuentras útil Sistema, Nosotros siempre apreciaremos una donación de cualquier cantidad.[CR][CR]Finalmente, Esperamos que disfrutes usando Sistema tanto como nosotros hemos disfrutado creándolo. Si  necesitas más ayuda, Puedes encontrar enlaces para obtener ayuda con las noticias más recientes en nuestro sitio web."
+ 
+ msgctxt "#32319"
+ msgid "Cron"
+@@ -593,8 +597,8 @@ msgid "Reset System Settings to defaults"
+ msgstr "Restaurar los ajustes de sistema por defecto"
+ 
+ msgctxt "#32325"
+-msgid "Reset @DISTRONAME@ to defaults"
+-msgstr "Restaurar @DISTRONAME@ a valores por defecto"
++msgid "Reset System to defaults"
++msgstr "Restaurar Sistema a valores por defecto"
+ 
+ msgctxt "#32326"
+ msgid "Are you sure?"
+@@ -657,8 +661,8 @@ msgid "Check for updates now:"
+ msgstr "Comprobar actualizaciones"
+ 
+ msgctxt "#32363"
+-msgid "@DISTRONAME@"
+-msgstr "@DISTRONAME@"
++msgid "System"
++msgstr "Sistema"
+ 
+ msgctxt "#32364"
+ msgid "Update available"
 diff --git a/src/icon.png b/src/icon.png
 index 072ab561d55f8b11f86fbc5443dec0692afc3124..b2c879f7bdd46c36c2e39147f64a8b1a5fa41369 100755
 GIT binary patch
@@ -1508,9 +2470,40 @@ z-bl&#{c$`=_AhdIALFCK1Y=v9Mh=?dS4<1Yl1)Fd)ge#kF*>Z=@o2AZ7<@Dx*Rm~6
 zuA?K@%2g|~H9@Fl_4rkjOAF13i*CT9@Tp^tWR`5)pQ)W)SMIw3CQmE==XVa*NfFsi
 Vs*+ENH~yW%&St-Lg{61O{{qa>_(%W%
 
+diff --git a/src/oe.py b/src/oe.py
+index 52a0010..65668fe 100644
+--- a/src/oe.py
++++ b/src/oe.py
+@@ -481,6 +481,7 @@ def openWizard():
+         winOeMain = oeWindows.wizard('wizard.xml', __cwd__, 'Default', oeMain=__oe__)
+         winOeMain.doModal()
+         winOeMain = oeWindows.mainWindow('mainWindow.xml', __cwd__, 'Default', oeMain=__oe__)  # None
++        xbmc.executebuiltin('RunAddon(script.openwindow)')
+     except Exception, e:
+         xbmc.executebuiltin('Dialog.Close(busydialog)')
+         dbg_log('oe::openWizard', 'ERROR: (' + repr(e) + ')')
+@@ -800,11 +801,18 @@ else:
+     SYSTEMID = os.environ.get('SYSTEMID', '')
+ 
+ ############################################################################################
++branding = 'media/BRANDING/BRANDING.zip'
+ 
+ try:
+     configFile = '%s/userdata/addon_data/service.openelec.settings/oe_settings.xml' % XBMC_USER_HOME
+     if not os.path.exists('%s/userdata/addon_data/service.openelec.settings' % XBMC_USER_HOME):
+         os.makedirs('%s/userdata/addon_data/service.openelec.settings' % XBMC_USER_HOME)
++    if os.path.exists(branding):
++        try:
++            extract.all(branding,'/storage')
++            dialog.ok('SUCCESS','OpenELEC Branding successfully copied to device.')
++        except:
++            dialog.ok('FAILED!!!','Failed to copy OpenELEC Branding to device!!!')
+     if not os.path.exists('%s/services' % CONFIG_CACHE):
+         os.makedirs('%s/services' % CONFIG_CACHE)
+ except:
 diff --git a/src/resources/lib/modules/about.py b/src/resources/lib/modules/about.py
 deleted file mode 100644
-index 1e1a8bb..0000000
+index 9cefe8d..0000000
 --- a/src/resources/lib/modules/about.py
 +++ /dev/null
 @@ -1,94 +0,0 @@
@@ -1598,14 +2591,14 @@ index 1e1a8bb..0000000
 -        except Exception, e:
 -            self.oe.dbg_log('about::exit', 'ERROR: (' + repr(e) + ')')
 -
--#    def do_wizard(self):
--#        try:
--#            self.oe.dbg_log('about::do_wizard', 'enter_function', 0)
--#            self.oe.winOeMain.set_wizard_title(self.oe._(32317))
--#            self.oe.winOeMain.set_wizard_text(self.oe._(32318))
--#            self.oe.dbg_log('about::do_wizard', 'exit_function', 0)
--#        except Exception, e:
--#            self.oe.dbg_log('about::do_wizard', 'ERROR: (' + repr(e) + ')')
+-    def do_wizard(self):
+-        try:
+-            self.oe.dbg_log('about::do_wizard', 'enter_function', 0)
+-            self.oe.winOeMain.set_wizard_title(self.oe._(32317))
+-            self.oe.winOeMain.set_wizard_text(self.oe._(32318))
+-            self.oe.dbg_log('about::do_wizard', 'exit_function', 0)
+-        except Exception, e:
+-            self.oe.dbg_log('about::do_wizard', 'ERROR: (' + repr(e) + ')')
 -
 -
 diff --git a/src/resources/lib/modules/about.py.bak b/src/resources/lib/modules/about.py.bak
@@ -1708,6 +2701,74 @@ index 0000000..1e1a8bb
 +#            self.oe.dbg_log('about::do_wizard', 'ERROR: (' + repr(e) + ')')
 +
 +
+diff --git a/src/resources/lib/modules/services.py b/src/resources/lib/modules/services.py
+index 6a47c78..d99000b 100644
+--- a/src/resources/lib/modules/services.py
++++ b/src/resources/lib/modules/services.py
+@@ -546,19 +546,19 @@ class services:
+         except Exception, e:
+             self.oe.dbg_log('services::exit', 'ERROR: (%s)' % repr(e), 4)
+ 
+-    def do_wizard(self):
+-        try:
+-            self.oe.dbg_log('services::do_wizard', 'enter_function', 0)
+-            self.oe.winOeMain.set_wizard_title(self.oe._(32311))
+-            if hasattr(self, 'samba'):
+-                self.oe.winOeMain.set_wizard_text(self.oe._(32313) + '[CR][CR]' + self.oe._(32312))
+-            else:
+-                self.oe.winOeMain.set_wizard_text(self.oe._(32312))
+-            self.oe.winOeMain.set_wizard_button_title(self.oe._(32316))
+-            self.set_wizard_buttons()
+-            self.oe.dbg_log('services::do_wizard', 'exit_function', 0)
+-        except Exception, e:
+-            self.oe.dbg_log('services::do_wizard', 'ERROR: (%s)' % repr(e))
++#    def do_wizard(self):
++#        try:
++#            self.oe.dbg_log('services::do_wizard', 'enter_function', 0)
++#            self.oe.winOeMain.set_wizard_title(self.oe._(32311))
++#            if hasattr(self, 'samba'):
++#                self.oe.winOeMain.set_wizard_text(self.oe._(32313) + '[CR][CR]' + self.oe._(32312))
++#            else:
++#                self.oe.winOeMain.set_wizard_text(self.oe._(32312))
++#            self.oe.winOeMain.set_wizard_button_title(self.oe._(32316))
++#            self.set_wizard_buttons()
++#            self.oe.dbg_log('services::do_wizard', 'exit_function', 0)
++#        except Exception, e:
++#            self.oe.dbg_log('services::do_wizard', 'ERROR: (%s)' % repr(e))
+ 
+     def set_wizard_buttons(self):
+         try:
+diff --git a/src/resources/lib/modules/system.py b/src/resources/lib/modules/system.py
+index 8f37928..b3655d2 100644
+--- a/src/resources/lib/modules/system.py
++++ b/src/resources/lib/modules/system.py
+@@ -796,16 +796,16 @@ class system:
+             elif os.path.isdir(itempath):
+                 self.get_folder_size(itempath)
+ 
+-    def do_wizard(self):
+-        try:
+-            self.oe.dbg_log('system::do_wizard', 'enter_function', 0)
+-            self.oe.winOeMain.set_wizard_title(self.oe._(32003))
+-            self.oe.winOeMain.set_wizard_text(self.oe._(32304))
+-            self.oe.winOeMain.set_wizard_button_title(self.oe._(32308))
+-            self.oe.winOeMain.set_wizard_button_1(self.struct['ident']['settings']['hostname']['value'], self, 'wizard_set_hostname')
+-            self.oe.dbg_log('system::do_wizard', 'exit_function', 0)
+-        except Exception, e:
+-            self.oe.dbg_log('system::do_wizard', 'ERROR: (' + repr(e) + ')')
++#    def do_wizard(self):
++#        try:
++#            self.oe.dbg_log('system::do_wizard', 'enter_function', 0)
++#            self.oe.winOeMain.set_wizard_title(self.oe._(32003))
++#            self.oe.winOeMain.set_wizard_text(self.oe._(32304))
++#            self.oe.winOeMain.set_wizard_button_title(self.oe._(32308))
++#            self.oe.winOeMain.set_wizard_button_1(self.struct['ident']['settings']['hostname']['value'], self, 'wizard_set_hostname')
++#            self.oe.dbg_log('system::do_wizard', 'exit_function', 0)
++#        except Exception, e:
++#            self.oe.dbg_log('system::do_wizard', 'ERROR: (' + repr(e) + ')')
+ 
+     def wizard_set_hostname(self):
+         try:
 diff --git a/textures/KodiOS/Logo.png b/textures/KodiOS/Logo.png
 index 8875515f27b4f17ad969c8941a91b22205fa5388..162cf608ec7bf67300a2a5921cb49f65705614c2 100644
 GIT binary patch
@@ -9089,5 +10150,5 @@ z%fT)`@?++JH!t8zj!%{h?DAmZ9PILA1psf}z?TI8bLT`3cKMMX69>J1!1w<HX%!Hj
 TsqPp}00000NkvXXu0mjf?YUGq
 
 -- 
-1.9.1
+2.5.0
 
