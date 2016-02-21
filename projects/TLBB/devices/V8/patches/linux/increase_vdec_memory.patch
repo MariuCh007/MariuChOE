@@ -1,0 +1,15 @@
+diff --git a/arch/arm/boot/dts/amlogic/meson8m2_n200C_2G.dtd b/arch/arm/boot/dts/amlogic/meson8m2_n200C_2G.dtd
+index 3f102ac..552e772 100644
+--- a/arch/arm/boot/dts/amlogic/meson8m2_n200C_2G.dtd
++++ b/arch/arm/boot/dts/amlogic/meson8m2_n200C_2G.dtd
+@@ -175,8 +175,8 @@ void root_func(){
+                 compatible = "amlogic,vdec";
+                 dev_name = "vdec.0";
+                 status = "okay";
+-								reserve-memory = <0x04000000>; // 64M
+-//		reserve-iomap = "true";
++		reserve-memory = <0x10000000>; // 256M
++		reserve-iomap = "true";
+         };
+ ///	-	picture decoder
+ //$$ MODULE="picture decoder"
