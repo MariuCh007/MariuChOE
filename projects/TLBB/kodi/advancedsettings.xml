@@ -18,4 +18,6 @@
     <minvideocachelevel>5</minvideocachelevel>
     <minaudiocachelevel>20</minaudiocachelevel>
   </pvr>
+  
+  <remotedelay>5</remotedelay>
 </advancedsettings>
