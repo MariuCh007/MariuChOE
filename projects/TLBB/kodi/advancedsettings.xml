@@ -19,5 +19,5 @@
     <minaudiocachelevel>20</minaudiocachelevel>
   </pvr>
   
-  <remotedelay>5</remotedelay>
+  <remotedelay>15</remotedelay>
 </advancedsettings>
